@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Storage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab-parser</a> &gt; <a href="index.source.html" class="el_package">parser</a> &gt; <span class="el_source">Storage.java</span></div><h1>Storage.java</h1><pre class="source lang-java linenums">package parser;
+
+/**
+ * The &quot;memory&quot; to use during program execution.
+ * In our little language, the memory consists
+ * of a table of variables and 
+ * an operand stack to hold intermediate values.
+ */
+public class Storage {
+    
+    private final OperandStack stack;
+    private final VariableTable variables;
+    
+    /**
+     * Create a Storage.
+     * @param stack The OperandStack
+     * @param variables The VariableTable
+     */
+<span class="fc" id="L19">    public Storage(final OperandStack stack, final VariableTable variables) {</span>
+<span class="fc" id="L20">        this.stack = stack;</span>
+<span class="fc" id="L21">        this.variables = variables;</span>
+<span class="fc" id="L22">    }</span>
+    
+    /**
+     * Get the OperandStack.
+     * @return The OperandStack
+     */
+    public OperandStack getOperandStack() {
+<span class="fc" id="L29">        return stack;</span>
+    }
+    
+    /**
+     * Get the VariableTable.
+     * @return The VariableTable
+     */
+    public VariableTable getVariableTable() {
+<span class="fc" id="L37">        return variables;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

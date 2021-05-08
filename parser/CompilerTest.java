@@ -97,4 +97,15 @@ public class CompilerTest {
         assertTrue(p.get(2) instanceof DIV);
     }
     
+    @Test
+    public void testSin() {
+        Compiler c = new Compiler();
+        Node n = new Sin(new Literal(Math.PI/2));
+        Program p = c.compile(n);
+        assertEquals(2, p.getLength());
+        assertTrue(p.get(0) instanceof BIPUSH);
+        assertEquals(new BIPUSH(Math.PI/2).toString(), p.get(0).toString());
+        assertTrue(p.get(1) instanceof SIN);
+    }
+    
 }

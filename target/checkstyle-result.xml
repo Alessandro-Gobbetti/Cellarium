@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.18">
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/MUL.java">
+<error line="7" severity="warning" message="Abbreviation in name &apos;MUL&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/LOAD.java">
+<error line="6" severity="warning" message="Abbreviation in name &apos;LOAD&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/SIN.java">
+<error line="7" severity="warning" message="Abbreviation in name &apos;SIN&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/SUB.java">
+<error line="8" severity="warning" message="Abbreviation in name &apos;SUB&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/ADD.java">
+<error line="7" severity="warning" message="Abbreviation in name &apos;ADD&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/DIV.java">
+<error line="7" severity="warning" message="Abbreviation in name &apos;DIV&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+<file name="/home/io/USI/BAC_1/02_PROGRAMMING-FUNDAMENTALS/Lab/project-cellarium/parser/NEG.java">
+<error line="7" severity="warning" message="Abbreviation in name &apos;NEG&apos; must contain no more than &apos;1&apos; capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+</file>
+</checkstyle>

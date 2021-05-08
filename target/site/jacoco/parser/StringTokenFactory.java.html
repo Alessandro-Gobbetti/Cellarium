@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StringTokenFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab-parser</a> &gt; <a href="index.source.html" class="el_package">parser</a> &gt; <span class="el_source">StringTokenFactory.java</span></div><h1>StringTokenFactory.java</h1><pre class="source lang-java linenums">package parser;
+
+/**
+ * A special kind of TokenFactory
+ * that looks for tokens that exactly match a given string.
+ */
+public class StringTokenFactory extends TokenFactory {
+
+    private final String tokenText;
+    private String text;
+    private int startFrom;
+
+    
+    /**
+     * Create a factory that looks for the given tokenText.
+     * @param tokenText the exact text of the kind of token we can produce
+     */
+    public StringTokenFactory(final String tokenText) {
+<span class="fc" id="L19">        super();</span>
+<span class="fc" id="L20">        this.tokenText = tokenText;</span>
+<span class="fc" id="L21">    }</span>
+
+    /**
+     * Get the text of the tokens we can produce.
+     * @return The exact text of the kind of token we can produce
+     */
+    public String getTokenText() {
+<span class="fc" id="L28">        return tokenText;</span>
+    }
+
+    @Override
+    public void setText(final String text) {
+<span class="fc" id="L33">        this.text = text;</span>
+<span class="fc" id="L34">    }</span>
+    
+    @Override
+    public int getTokenLength() { 
+<span class="fc" id="L38">        return tokenText.length();</span>
+    }
+
+    @Override
+    public boolean find(final int startFrom) {
+<span class="fc" id="L43">        this.startFrom = startFrom;</span>
+<span class="fc" id="L44">        final boolean found = text.regionMatches(startFrom, tokenText, 0, tokenText.length());</span>
+<span class="fc" id="L45">        return found;</span>
+    }
+
+    /**
+     * Get the position at which we last tried to find a token.
+     * @return The start position of the last call to find(...)
+     */
+    protected int getTokenStartPosition() {
+<span class="fc" id="L53">        return startFrom;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

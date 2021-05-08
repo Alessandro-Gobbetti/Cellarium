@@ -10,14 +10,14 @@ import java.util.Map;
  */
 public class VariableTable {
     
-    private final Map<String,Number> Variables;
+    private final Map<String,Number> variables;
     
     
     /**
      * Create a new empty variable table.
      */
     public VariableTable() {
-        Variables = new HashMap<String,Number>();
+        variables = new HashMap<String,Number>();
     }
     
     /**
@@ -26,7 +26,7 @@ public class VariableTable {
      * @return The value of the variable with the given name.
      */
     public Number get(final String name) {
-        return Variables.get(name);
+        return variables.get(name);
     }
     
     /**
@@ -35,6 +35,6 @@ public class VariableTable {
      * @param value The new value of the variable.
      */
     public void set(final String name, final Number value) {
-        Variables.put(name, value);
+        variables.put(name, value);
     }    
 }

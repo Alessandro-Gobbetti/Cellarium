@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArithParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab-parser</a> &gt; <a href="index.source.html" class="el_package">parser</a> &gt; <span class="el_source">ArithParser.java</span></div><h1>ArithParser.java</h1><pre class="source lang-java linenums">package parser;
+
+/**
+ * A Parser for our Arith language
+ * (a simple language of arithmetic expressions).
+ * 
+ * &lt;code&gt;
+ * EXPRESSION   ::= [ &quot;+&quot; | &quot;-&quot; ] TERM { ( &quot;+&quot; | &quot;-&quot; ) TERM }
+ * TERM         ::= FACTOR { ( &quot;*&quot; | &quot;/&quot; ) FACTOR }
+ * FACTOR       ::= Literal | 
+ *                  Identifier| 
+ *                  &quot;(&quot; EXPRESSION &quot;)&quot;
+ * &lt;/code&gt;
+ */
+<span class="fc" id="L15">public final class ArithParser implements Parser {</span>
+    
+    private LexicalAnalyzer lexer;
+
+    
+    /**
+     * Parse a program in the Arith language.
+     * @param sourceCode The source code of the program in the Arith language
+     * @return an AST of the program
+     */
+    public Node parse(final String sourceCode) {
+<span class="fc" id="L26">        this.lexer = new LexicalAnalyzer(sourceCode);</span>
+        // fetch first token
+<span class="fc" id="L28">        lexer.fetchNextToken();</span>
+        // now parse the EXPRESSION
+<span class="fc" id="L30">        final Node result = parseExpression();</span>
+<span class="fc bfc" id="L31" title="All 4 branches covered.">        if (result != null &amp;&amp; lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {</span>
+<span class="fc" id="L32">            System.out.println(&quot;Found a garbage after the EXPRESSION, got &quot; </span>
+<span class="fc" id="L33">                                + lexer.getCurrentToken().getType());</span>
+<span class="fc" id="L34">            return null;</span>
+        }
+<span class="fc" id="L36">        return result;</span>
+    }
+    
+    /**
+     * Parse an expression.
+     * This assumes the lexer already points to the first token of this expression.
+     * 
+     * &lt;p&gt;EBNF:
+     * &lt;code&gt;
+     * EXPRESSION ::= [ &quot;+&quot; | &quot;-&quot; ] TERM { ( &quot;+&quot; | &quot;-&quot; ) TERM }
+     * &lt;/code&gt;
+     * 
+     * @return a Node representing the expression
+     */
+    private Node parseExpression() {
+        // parse [ &quot;+&quot; | &quot;-&quot; ]
+<span class="fc" id="L52">        boolean shouldNegate = false;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (lexer.getCurrentToken().getType() == TokenType.PLUS) {</span>
+<span class="fc" id="L54">            lexer.fetchNextToken();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        } else if (lexer.getCurrentToken().getType() == TokenType.MINUS) {</span>
+<span class="fc" id="L56">            shouldNegate = true;</span>
+<span class="fc" id="L57">            lexer.fetchNextToken();</span>
+        }
+               
+        // parse TERM
+<span class="fc" id="L61">        Node term = parseTerm();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (term == null) {</span>
+            // term is malformed and parseTerm() has already printed an error message
+<span class="fc" id="L64">            return null;</span>
+        }
+        
+        // apply negation
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (shouldNegate) {</span>
+<span class="fc" id="L69">            term = new Negation(term);</span>
+        }
+        
+        // next token fetched in parseTerm()
+        
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        while (lexer.getCurrentToken().getType() == TokenType.PLUS</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">               || lexer.getCurrentToken().getType() == TokenType.MINUS) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            final boolean shouldAdd = lexer.getCurrentToken().getType() == TokenType.PLUS;</span>
+<span class="fc" id="L77">            lexer.fetchNextToken();</span>
+<span class="fc" id="L78">            final Node currentTerm = parseTerm();</span>
+            //next token already fetched in parseTerm()
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (currentTerm == null) {</span>
+                // currentTerm is malformed and parseTerm() has already printed an error message
+<span class="fc" id="L82">                return null;</span>
+            }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (shouldAdd) {</span>
+<span class="fc" id="L85">                term = new Addition(term, currentTerm);</span>
+            } else {
+<span class="fc" id="L87">                term = new Subtraction(term, currentTerm);</span>
+            }
+<span class="fc" id="L89">        }</span>
+<span class="fc" id="L90">        return term;</span>
+    }
+    
+    /**
+     * Parse a term.
+     * This assumes the lexer already points to the first token of this term.
+     * 
+     * &lt;p&gt;EBNF:
+     * &lt;code&gt;
+     * TERM ::= FACTOR { ( &quot;*&quot; | &quot;/&quot; ) FACTOR }
+     * &lt;/code&gt;
+     * 
+     * @return a Node representing the term
+     */
+    private Node parseTerm() {
+<span class="fc" id="L105">        Node factor = parseFactor();</span>
+        // next already token fetched in parseFactor()
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (factor == null) {</span>
+            // factor is malformed and parseFactor() has already printed an error message
+<span class="fc" id="L109">            return null;</span>
+        }
+        
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        while (lexer.getCurrentToken().getType() == TokenType.STAR </span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">               || lexer.getCurrentToken().getType() == TokenType.SLASH) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            final boolean shouldMul = lexer.getCurrentToken().getType() == TokenType.STAR;</span>
+<span class="fc" id="L115">            lexer.fetchNextToken();</span>
+<span class="fc" id="L116">            final Node currentFactor = parseFactor();</span>
+            //next token already fetched in parseFactor()
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            if (currentFactor == null) {</span>
+                // currentFactor is malformed and parseFactor() has already printed an error message
+<span class="fc" id="L120">                return null;</span>
+            }
+<span class="fc bfc" id="L122" title="All 2 branches covered.">            if (shouldMul) {</span>
+<span class="fc" id="L123">                factor = new Multiplication(factor, currentFactor);</span>
+            } else {
+<span class="fc" id="L125">                factor = new Division(factor, currentFactor);</span>
+            }
+            
+<span class="fc" id="L128">        }</span>
+<span class="fc" id="L129">        return factor;   </span>
+    }
+    
+    /**
+     * Parse a factor.
+     * This assumes the lexer already points to the first token of this factor.
+     * 
+     * &lt;p&gt;EBNF:
+     * &lt;code&gt;
+     * FACTOR ::=  
+     *          Literal | 
+     *          Identifier | 
+     *          &quot;(&quot; EXPRESSION &quot;)&quot;
+     * &lt;/code&gt;
+     * 
+     * @return a Node representing the factor
+     */
+    private Node parseFactor() {
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {</span>
+<span class="fc" id="L148">            final Node factor = new Literal(Integer.parseInt(lexer.getCurrentToken().getText()));</span>
+<span class="fc" id="L149">            lexer.fetchNextToken();</span>
+            // produce Node
+<span class="fc" id="L151">            return factor;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        } else if (lexer.getCurrentToken().getType() == TokenType.IDENTIFIER) {</span>
+<span class="fc" id="L153">            final Node factor = new Variable(lexer.getCurrentToken().getText());</span>
+<span class="fc" id="L154">            lexer.fetchNextToken();</span>
+            // produce Node
+<span class="fc" id="L156">            return factor;</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        } else if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {</span>
+            // skip the parenthesis
+<span class="fc" id="L159">            lexer.fetchNextToken();</span>
+            // parse the EXPRESSION
+<span class="fc" id="L161">            final Node factor = parseExpression();</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            if (factor == null) {</span>
+                // factor is malformed and parseExpression() has already printed an error message
+<span class="fc" id="L164">                return null;</span>
+            }
+            // skip the closed parenthesis
+<span class="fc bfc" id="L167" title="All 2 branches covered.">            if (lexer.getCurrentToken().getType() == TokenType.CLOSED_PAREN) {</span>
+<span class="fc" id="L168">                lexer.fetchNextToken();</span>
+<span class="fc" id="L169">                return factor;</span>
+            } else {
+                // print error message
+<span class="fc" id="L172">                System.out.println(&quot;Expected a ')', got &quot; + lexer.getCurrentToken().getType());</span>
+<span class="fc" id="L173">                return null;</span>
+            }
+        } else {
+            // print error message
+<span class="fc" id="L177">            System.out.println(&quot;Expected a FACTOR, got &quot; + lexer.getCurrentToken().getType());</span>
+<span class="fc" id="L178">            return null;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

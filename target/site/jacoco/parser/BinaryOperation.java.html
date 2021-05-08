@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BinaryOperation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab-parser</a> &gt; <a href="index.source.html" class="el_package">parser</a> &gt; <span class="el_source">BinaryOperation.java</span></div><h1>BinaryOperation.java</h1><pre class="source lang-java linenums">package parser;
+
+/**
+ * A Binary Operation.
+ */
+public class BinaryOperation extends Node {
+    
+    private final Node leftChild;
+    private final Node rightChild;
+
+    
+    /**
+     * Create a new BinaryOperations node.
+     * @param leftChild the left operand
+     * @param rightChild the right operand
+     */
+    public BinaryOperation(final Node leftChild, final Node rightChild) {
+<span class="fc" id="L18">        super();</span>
+<span class="fc" id="L19">        this.leftChild = leftChild;</span>
+<span class="fc" id="L20">        this.rightChild = rightChild;</span>
+<span class="fc" id="L21">    }</span>
+
+    @Override
+    public boolean isConstant() {
+<span class="fc bfc" id="L25" title="All 4 branches covered.">        return leftChild.isConstant() &amp;&amp; rightChild.isConstant();</span>
+    }
+    
+    @Override
+    public Type getType() {
+<span class="fc" id="L30">        return Type.DOUBLE;</span>
+    }
+    
+    /**
+     * Get the string representation of the operator.
+     * @return the string representation of the operator
+     */
+    public String getOp() {
+        // implemented in subclasses
+<span class="nc" id="L39">        return &quot;?&quot;;</span>
+    }
+    
+    /**
+     * Get the instruction implementing the operator.
+     * @return the instruction implementing the operator.
+     */
+    public Instruction getInstruction() {
+        // implemented in subclasses
+<span class="nc" id="L48">        return null;</span>
+    }
+    
+    @Override
+    public void compile(final Program p) {
+<span class="fc" id="L53">        leftChild.compile(p);</span>
+<span class="fc" id="L54">        rightChild.compile(p);</span>
+<span class="fc" id="L55">        p.append(getInstruction());</span>
+<span class="fc" id="L56">    }</span>
+    
+    @Override
+    public String toString() {
+<span class="fc" id="L60">        return &quot;(&quot; + leftChild.toString() + getOp() + rightChild.toString() + &quot;)&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,23 +1,21 @@
 package parser;
 
 /**
- * An integer negation (e.g., -5, or -x).
+ * A sin operation.
  */
 public class Sin extends UnaryOperation {
     
-    
     /**
-     * Create a new IntNegation node.
-     * @param child the operand we will negate
+     * Create a new Sin node.
+     * @param child the operand we will compute the sin
      */
     public Sin(final Node child) {
         super(child);
     }
     
     @Override
-    public void compile(final Program p) {
-        super.compile(p);
-        p.append(new SIN());
+    public Instruction getInstruction() {
+        return new SIN();
     }
 
     @Override

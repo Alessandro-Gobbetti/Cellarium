@@ -9,7 +9,7 @@ package parser;
 public class OperandStack {
     
 
-    private final double[] Stack;
+    private final double[] stack;
     private int sp;
     
     /**
@@ -17,7 +17,7 @@ public class OperandStack {
      * with space for at most 10 elements.
      */
     public OperandStack() {
-        Stack = new double[10];
+        stack = new double[10];
         sp = -1;
     }
     
@@ -27,7 +27,7 @@ public class OperandStack {
      */
     public void push(final double value) {
         ++sp;
-        Stack[sp] = value;
+        stack[sp] = value;
     }
 
     
@@ -36,7 +36,7 @@ public class OperandStack {
      * @return the top-most value
      */
     public double pop() {
-        final double result = Stack[sp];
+        final double result = stack[sp];
         sp--;
         return result;
     }

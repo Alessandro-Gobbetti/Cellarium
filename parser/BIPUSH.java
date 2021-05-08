@@ -5,13 +5,13 @@ package parser;
  */
 public class BIPUSH extends Instruction {
     
-    private final int value;
+    private final double value;
     
     /**
      * Constractor for BIPUSH.
      * @param value the value to push on the stack
      */
-    public BIPUSH(final int value) {
+    public BIPUSH(final double value) {
         super();
         this.value = value;
     }

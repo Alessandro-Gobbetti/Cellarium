@@ -1,9 +1,8 @@
 package parser;
 
-import java.lang.Math;
 /**
- * SIN negates the top value from the OperandStack
- * and pushes the result back to the OperandStack.
+ * SIN takes the top value from the OperandStack
+ * and pushes the sin result back to the OperandStack.
  */
 public class SIN extends Instruction {
     
@@ -17,5 +16,4 @@ public class SIN extends Instruction {
     public String toString() {
         return "SIN";
     }
-
 }

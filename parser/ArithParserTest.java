@@ -158,5 +158,6 @@ public class ArithParserTest {
         assertEquals(null, parser.parse("1*(1+1"));
         assertEquals(null, parser.parse("1+2)*2"));
         assertEquals(null, parser.parse("1/*2"));
+        assertEquals(null, parser.parse("1+(*2)"));
     }
 }

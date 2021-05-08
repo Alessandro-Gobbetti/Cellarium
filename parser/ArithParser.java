@@ -27,9 +27,10 @@ public final class ArithParser implements Parser {
         // fetch first token
         lexer.fetchNextToken();
         // now parse the EXPRESSION
-        Node result = parseExpression();
+        final Node result = parseExpression();
         if (result != null && lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-            System.out.println("Found a garbage after the EXPRESSION, got " + lexer.getCurrentToken().getType());
+            System.out.println("Found a garbage after the EXPRESSION, got " 
+                                + lexer.getCurrentToken().getType());
             return null;
         }
         return result;

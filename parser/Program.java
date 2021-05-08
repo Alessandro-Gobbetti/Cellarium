@@ -58,9 +58,8 @@ public class Program {
      * Execute this program, returning the result.
      * The result is the top element of the operand stack,
      * after executing all instructions.
-     * The program always return double, converting integer reslut if needed.
      * @param variables The variables with their values 
-     *        (accessed by ILOAD instructions)
+     *        (accessed by LOAD instructions)
      * @return The result of the execution.
      */
     public Number execute(final VariableTable variables) {

@@ -1,7 +1,7 @@
 package parser;
 
 /**
- * An integer negation (e.g., -5, or -x).
+ * A negation (e.g., -5, or -x).
  */
 public class Negation extends UnaryOperation {
         
@@ -15,9 +15,8 @@ public class Negation extends UnaryOperation {
 
     
     @Override
-    public void compile(final Program p) {
-        super.compile(p);
-        p.append(new NEG());
+    public Instruction getInstruction() {
+        return new NEG();
     }
 
     @Override

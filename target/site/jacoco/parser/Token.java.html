@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Token.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab-parser</a> &gt; <a href="index.source.html" class="el_package">parser</a> &gt; <span class="el_source">Token.java</span></div><h1>Token.java</h1><pre class="source lang-java linenums">package parser;
+
+/**
+ * A token is a contiguous sequence of characters in a text,
+ * such as an identifier, an operator, or a literal.
+ */
+public final class Token {
+
+    private final TokenType type;
+    private final String text;
+    private final int startPosition;
+
+    
+    /**
+     * Create a new Token.
+     * @param type the kind of token
+     * @param text the contents (characters) making up the token
+     * @param startPosition the position in the text where the token starts
+     */
+<span class="fc" id="L20">    public Token(final TokenType type, final String text, final int startPosition) {</span>
+<span class="fc" id="L21">        this.type = type;</span>
+<span class="fc" id="L22">        this.text = text;</span>
+<span class="fc" id="L23">        this.startPosition = startPosition;</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Get the type of this token.
+     * @return the kind of token this is
+     */
+    public TokenType getType() {
+<span class="fc" id="L31">        return type;</span>
+    }
+
+    /**
+     * Get the text making up this token.
+     * @return the contents of this token
+     */
+    public String getText() {
+<span class="fc" id="L39">        return text;</span>
+    }
+
+    /**
+     * Get the start position of this token in the text.
+     * @return the position of the first character of this token
+     */
+    public int getStartPosition() {
+<span class="fc" id="L47">        return startPosition;</span>
+    }
+
+    /**
+     * Get the end position of this token in the text.
+     * @return the position just after the last character of this token
+     */
+    public int getEndPosition() {
+<span class="fc" id="L55">        return startPosition + text.length();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

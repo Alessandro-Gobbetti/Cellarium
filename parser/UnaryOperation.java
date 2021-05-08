@@ -1,7 +1,7 @@
 package parser;
 
 /**
- * An integer negation (e.g., -5, or -x).
+ * A Unary Operation.
  */
 public class UnaryOperation extends Node {
     
@@ -9,8 +9,8 @@ public class UnaryOperation extends Node {
     
     
     /**
-     * Create a new IntNegation node.
-     * @param child the operand we will negate
+     * Create a new UnaryOperation node.
+     * @param child the operand
      */
     public UnaryOperation(final Node child) {
         super();
@@ -19,7 +19,7 @@ public class UnaryOperation extends Node {
     
     
     /**
-     * to get the child node
+     * To get the child node.
      * @return the child node
      * 
      */
@@ -37,10 +37,19 @@ public class UnaryOperation extends Node {
         return Type.DOUBLE;
     }
     
+    /**
+     * Get the instruction implementing the operator.
+     * @return the instruction implementing the operator.
+     */
+    public Instruction getInstruction() {
+        // implemented in subclasses
+        return null;
+    }
+    
     @Override
     public void compile(final Program p) {
         child.compile(p);
-        // implemented in subclasses
+        p.append(getInstruction());
     }
 
     @Override
