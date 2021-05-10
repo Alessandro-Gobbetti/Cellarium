@@ -24,4 +24,7 @@ public class Subtraction extends BinaryOperation {
         return "-";
     }
     
+    public double eval() {
+        return 0;
+    }
 }

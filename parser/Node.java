@@ -3,33 +3,25 @@ package parser;
 /**
  * An abstract syntax tree (AST) node.
  */
-public class Node {
+public abstract interface Node {
     
     /**
      * Get the type of values produced by this node.
      * @return the type of this node
      */
-    public Type getType() {
-        // implemented in subclasses
-        return Type.INVALID;
-    }
+    public Type getType();
     
     /**
      * Get whether this node always evaluates to the exact same value.
      * @return whether this node produces a constant value
      */
-    public boolean isConstant() {
-        // implemented in subclasses
-        return true;
-    }
+    public boolean isConstant();
     
     /**
      * Compile this node into the given Program.
      * @param p The program to append this node to
      */
-    public void compile(final Program p) {
-        // implemented in subclasses
-    }
+    public void compile(final Program p);
 
     /**
      * Decompile this node into a string.
@@ -37,9 +29,11 @@ public class Node {
      * extra parentheses.
      * @return a String representation of this AST
      */
-    public String toString() {
-        // implemented in subclasses
-        return "?";
-    }
+    public abstract String toString();
     
+    /**
+     * Evaluates a certain computation of a Node.
+     * @return a double, the result of the computation
+     */
+    public abstract double eval();
 }

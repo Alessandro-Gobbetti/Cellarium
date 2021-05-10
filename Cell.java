@@ -37,12 +37,12 @@ public class Cell {
     public void setFormula(Formula newFormula) {
         removeDependencies();
         formula = newFormula;
-        addDependencies();
+        //addDependencies();
         markValueOutOfDate();
     }
     
     public void removeDependencies() {
-        ArrayList<Cell> fomulaDeps = formula.dependencies();
+        //ArrayList<Cell> fomulaDeps = formula.dependencies();
         // loop...
     }
     

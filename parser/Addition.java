@@ -11,7 +11,7 @@ public class Addition extends BinaryOperation {
      * @param rightChild the right operand
      */
     public Addition(final Node leftChild, final Node rightChild) {
-        super(leftChild, rightChild);
+        super(leftChild,rightChild);
     }
     
     @Override
@@ -22,5 +22,13 @@ public class Addition extends BinaryOperation {
     @Override
     public String getOp() {
         return "+";
+    }
+    
+    public double eval() {
+        return 0;
+    }
+    
+    public double compute (Node leftChild,Node rightChild) {
+        return leftChild.eval() + rightChild.eval();
     }
 }

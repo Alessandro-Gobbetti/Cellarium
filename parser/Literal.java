@@ -5,7 +5,7 @@ package parser;
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Literal extends Node {
+public class Literal implements Node {
     
     private final double value;
     
@@ -39,4 +39,7 @@ public class Literal extends Node {
         return "" + value;
     }
     
+    public double eval() {
+        return value;
+    }
 }
