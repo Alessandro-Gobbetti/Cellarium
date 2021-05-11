@@ -39,6 +39,7 @@ public class Literal implements Node {
         return "" + value;
     }
     
+    @Override
     public double eval() {
         return value;
     }

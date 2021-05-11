@@ -24,7 +24,9 @@ public class Multiplication extends BinaryOperation {
         return "*";
     }
     
-    public double eval() {
-        return 0;
+    @Override
+    public double evalBinary (Node leftChild,Node rightChild) {
+        return leftChild.eval() * rightChild.eval();
     }
 }
+

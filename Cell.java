@@ -37,7 +37,7 @@ public class Cell {
     public void setFormula(Formula newFormula) {
         removeDependencies();
         formula = newFormula;
-        addDependencies();
+        //addDependencies();
         markValueOutOfDate();
     }
     
@@ -48,9 +48,14 @@ public class Cell {
         }
     }
     public void removeDependencies() {
+<<<<<<< HEAD
         for (Cell cell : formula.dependencies(owner)) {
             cell.removeCellDependingOnThis(this);
         }
+=======
+        //ArrayList<Cell> fomulaDeps = formula.dependencies();
+        // loop...
+>>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
     }
     
     

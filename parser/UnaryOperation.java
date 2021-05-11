@@ -17,7 +17,6 @@ public abstract class UnaryOperation implements Node {
         this.child = child;
     }
     
-    
     /**
      * To get the child node.
      * @return the child node
@@ -41,10 +40,7 @@ public abstract class UnaryOperation implements Node {
      * Get the instruction implementing the operator.
      * @return the instruction implementing the operator.
      */
-    public Instruction getInstruction() {
-        // implemented in subclasses
-        return null;
-    }
+    public abstract Instruction getInstruction();
     
     @Override
     public void compile(final Program p) {
@@ -57,4 +53,14 @@ public abstract class UnaryOperation implements Node {
         return "(" + child.toString() + ")";
     }
     
+    public String childToString() {
+        return child.toString();
+    }
+    
+    public abstract double evalUnary(Node child);
+    
+    @Override
+    public double eval() {
+        return evalUnary(child);
+    }
 }

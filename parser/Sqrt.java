@@ -15,17 +15,23 @@ public class Sqrt extends UnaryOperation {
     }
     
     @Override
+
     public void compile(final Program p) {
         super.compile(p);
         p.append(new SQRT());
     }
 
+    public Instruction getInstruction() {
+        return new SIN();
+    }
+
     @Override
     public String toString() {
-        return "(sqrt(" + super.getChild().toString() + "))";
+        return "sqrt(" + childToString() + ")";
     }
     
-    public double eval() {
-        return 0;
+    @Override
+    public double evalUnary(Node child) {
+        return Math.sqrt(child.eval());
     }
 }

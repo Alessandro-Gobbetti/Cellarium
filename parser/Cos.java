@@ -16,17 +16,24 @@ public class Cos extends UnaryOperation {
     }
     
     @Override
+
     public void compile(final Program p) {
         super.compile(p);
         p.append(new COS());
     }
 
-    @Override
-    public String toString() {
-        return "(cos(" + super.getChild().toString() + "))";
+
+    public Instruction getInstruction() {
+        return new COS();
     }
     
-    public double eval() {
-        return 0;
+    @Override
+    public String toString() {
+        return "cos(" + childToString() + ")";
+    }
+    
+    @Override
+    public double evalUnary(Node child) {
+        return Math.cos(child.eval());
     }
 }

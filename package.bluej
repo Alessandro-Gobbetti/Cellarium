@@ -20,27 +20,44 @@ dependency14.type=UsesDependency
 dependency2.from=Cell
 dependency2.to=CellValue
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 dependency3.from=Cell
 dependency3.to=Formula
 dependency3.type=UsesDependency
 dependency4.from=Cell
 dependency4.to=Style
+=======
+dependency3.from=ScalingFormula
+dependency3.to=CellValue
+dependency3.type=UsesDependency
+dependency4.from=ScalingFormula
+dependency4.to=Spreadsheet
+>>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
 dependency4.type=UsesDependency
-dependency5.from=ScalingFormula
-dependency5.to=CellValue
+dependency5.from=Spreadsheet
+dependency5.to=Cell
 dependency5.type=UsesDependency
-dependency6.from=ScalingFormula
-dependency6.to=Spreadsheet
+dependency6.from=Spreadsheet
+dependency6.to=CellValue
 dependency6.type=UsesDependency
+<<<<<<< HEAD
 dependency7.from=ScalingFormula
 dependency7.to=Cell
 dependency7.type=UsesDependency
 dependency8.from=Formula
 dependency8.to=CellValue
+=======
+dependency7.from=Formula
+dependency7.to=CellValue
+dependency7.type=UsesDependency
+dependency8.from=Formula
+dependency8.to=Spreadsheet
+>>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
 dependency8.type=UsesDependency
 dependency9.from=Formula
 dependency9.to=Spreadsheet
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=737
 editor.fx.0.width=800
 editor.fx.0.x=892
@@ -56,6 +73,23 @@ package.editor.y=27
 package.frame.height=1053
 package.frame.width=1920
 package.numDependencies=14
+=======
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
+objectbench.height=94
+objectbench.width=1033
+package.divider.horizontal=0.5473684210526316
+package.divider.vertical=0.886908077994429
+package.editor.height=789
+package.editor.width=1790
+package.editor.x=0
+package.editor.y=27
+package.frame.height=999
+package.frame.width=1920
+package.numDependencies=12
+>>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
 package.numTargets=8
 package.showExtends=true
 package.showUses=true
@@ -83,29 +117,34 @@ target3.height=82
 target3.name=parser
 target3.type=PackageTarget
 target3.width=120
-target3.x=20
-target3.y=100
+target3.x=130
+target3.y=170
 target4.height=70
 target4.name=ConstFormula
 target4.showInterface=false
 target4.type=ClassTarget
 target4.width=130
-target4.x=160
-target4.y=610
+target4.x=170
+target4.y=670
 target5.height=70
 target5.name=ScalingFormula
 target5.showInterface=false
 target5.type=ClassTarget
 target5.width=140
-target5.x=330
-target5.y=610
+target5.x=410
+target5.y=620
 target6.height=70
 target6.name=Style
 target6.showInterface=false
 target6.type=ClassTarget
 target6.width=120
+<<<<<<< HEAD
 target6.x=640
 target6.y=500
+=======
+target6.x=750
+target6.y=510
+>>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
 target7.height=70
 target7.name=CellValue
 target7.showInterface=false

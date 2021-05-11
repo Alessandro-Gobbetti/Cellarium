@@ -20,10 +20,11 @@ public class Sin extends UnaryOperation {
 
     @Override
     public String toString() {
-        return "(sin(" + super.getChild().toString() + "))";
+        return "sin(" + childToString() + ")";
     }
     
-    public double eval() {
-        return 0;
+    @Override
+    public double evalUnary(Node child) {
+        return Math.sin(child.eval());
     }
 }
