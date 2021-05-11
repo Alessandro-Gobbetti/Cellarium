@@ -15,9 +15,8 @@ public class Sqrt extends UnaryOperation {
     }
     
     @Override
-    public void compile(final Program p) {
-        super.compile(p);
-        p.append(new SQRT());
+    public Instruction getInstruction() {
+        return new SIN();
     }
 
     @Override
@@ -25,7 +24,7 @@ public class Sqrt extends UnaryOperation {
         return "(sqrt(" + super.getChild().toString() + "))";
     }
     
-    public double eval() {
-        return 0;
+    public double compute(Node child) {
+        return Math.sqrt(child.eval());
     }
 }

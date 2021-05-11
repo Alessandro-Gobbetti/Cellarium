@@ -24,10 +24,6 @@ public class Addition extends BinaryOperation {
         return "+";
     }
     
-    public double eval() {
-        return 0;
-    }
-    
     public double compute (Node leftChild,Node rightChild) {
         return leftChild.eval() + rightChild.eval();
     }

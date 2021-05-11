@@ -23,7 +23,7 @@ public class Sin extends UnaryOperation {
         return "(sin(" + super.getChild().toString() + "))";
     }
     
-    public double eval() {
-        return 0;
+    public double compute(Node child) {
+        return Math.sin(child.eval());
     }
 }

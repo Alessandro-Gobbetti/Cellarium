@@ -13,7 +13,6 @@ public class Negation extends UnaryOperation {
         super(child);
     }
 
-    
     @Override
     public Instruction getInstruction() {
         return new NEG();
@@ -24,7 +23,7 @@ public class Negation extends UnaryOperation {
         return "(-" + super.getChild().toString() + ")";
     }
     
-    public double eval() {
-        return 0;
-    }
+    public double compute(Node child) {
+        return -(child.eval());
+    } 
 }

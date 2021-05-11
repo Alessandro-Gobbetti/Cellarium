@@ -34,19 +34,13 @@ public abstract class BinaryOperation implements Node {
      * Get the string representation of the operator.
      * @return the string representation of the operator
      */
-    public String getOp() {
-        // implemented in subclasses
-        return "?";
-    }
+    public abstract String getOp();
     
     /**
      * Get the instruction implementing the operator.
      * @return the instruction implementing the operator.
      */
-    public Instruction getInstruction() {
-        // implemented in subclasses
-        return null;
-    }
+    public abstract Instruction getInstruction();
     
     @Override
     public void compile(final Program p) {
@@ -58,5 +52,12 @@ public abstract class BinaryOperation implements Node {
     @Override
     public String toString() {
         return "(" + leftChild.toString() + getOp() + rightChild.toString() + ")";
+    }
+    
+    public abstract double compute(Node leftChild,Node rightChild);
+    
+    @Override
+    public double eval() {
+        return compute(leftChild, rightChild);
     }
 }
