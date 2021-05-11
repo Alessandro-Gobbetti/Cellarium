@@ -13,9 +13,13 @@ public class Formula {
         return new CellValue();
     }
 
-    
+    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
+               
+    }
     public ArrayList<Cell> dependencies(Spreadsheet spreadsheet) {
         ArrayList<Cell> result = new ArrayList<Cell>();
+        addDependencies(spreadsheet, result);
         return result;
     }
+
 }

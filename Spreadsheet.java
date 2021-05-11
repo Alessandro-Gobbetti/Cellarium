@@ -58,11 +58,19 @@ public class Spreadsheet {
     }
     
     public Cell get(int row, int col) {
+        assert(row >= 0);
+        assert(col >= 0);
+        assert(row < maxDim);
+        assert(col < maxDim);
         int cellIndex = indexFromRowCol(row, col);
         return cellMap.get(cellIndex);
     }
     
     public Cell getOrCreate(int row, int col) {
+        assert(row >= 0);
+        assert(col >= 0);
+        assert(row < maxDim);
+        assert(col < maxDim);
         Cell result = get(row, col);
         if (result == null) {
             int cellIndex = indexFromRowCol(row, col);
@@ -77,12 +85,7 @@ public class Spreadsheet {
     
     public CellValue getValue(int row, int col) {
         Cell c = getOrCreate(row, col);
-        return c.getValue();
-        // if (c == null) {
-            // return EmptyCellValue;
-        // } else {
-            // return c.getValue();
-        // }
+        return c.eval();
     }
     
     public void copyPaste(int srcRow, int srcCol, int dstRow, int dstCol) {

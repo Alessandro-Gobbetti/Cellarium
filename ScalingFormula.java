@@ -21,7 +21,7 @@ public class ScalingFormula extends Formula {
     @Override
     public CellValue eval(Spreadsheet spreadsheet) {
         CellValue vRowCol = spreadsheet.getValue(row, col);
-        if (vRowCol.type() == CellValue.type()) {
+        if (vRowCol.isConvertibleToNumber()) {
             return CellValue.newNumberCellValue(vRowCol.asNumber()*s);
         } else {
             return CellValue.newErrorCellValue("#VALUE");
@@ -29,10 +29,11 @@ public class ScalingFormula extends Formula {
     }
     
     @Override
-    public ArrayList<Cell> dependencies(Spreadsheet spreadsheet) {
-        ArrayList<Cell> result = new ArrayList<Cell>();
+    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
         Cell cell = spreadsheet.getOrCreate(row,col);
-        result.add(cell);
-        return result;
+        if(!list.contains(cell)) {
+            list.add(cell);
+        }
     }
+    
 }

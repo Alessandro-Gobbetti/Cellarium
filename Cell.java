@@ -17,7 +17,7 @@ public class Cell {
     private boolean isValueUpToDate;
     private Formula formula;
     private Style style;
-    private ArrayList<Cell> CellDependingOnThis; //set
+    private ArrayList<Cell> CellDependingOnThis;
     
     
     /**
@@ -37,25 +37,25 @@ public class Cell {
     public void setFormula(Formula newFormula) {
         removeDependencies();
         formula = newFormula;
-        //addDependencies();
+        addDependencies();
         markValueOutOfDate();
     }
     
     
     public void addDependencies() {
-        for (Cell cell: formula.dependencies(owner)) {
-            cell.addCellDependingOnThis(this);
+        if (formula != null) {
+            for (Cell cell: formula.dependencies(owner)) {
+                cell.addCellDependingOnThis(this);
+            }
         }
     }
+    
     public void removeDependencies() {
-<<<<<<< HEAD
-        for (Cell cell : formula.dependencies(owner)) {
-            cell.removeCellDependingOnThis(this);
+        if (formula != null) {
+            for (Cell cell: formula.dependencies(owner)) {
+                cell.removeCellDependingOnThis(this);
+            }
         }
-=======
-        //ArrayList<Cell> fomulaDeps = formula.dependencies();
-        // loop...
->>>>>>> b6d0659b8eeaa52cd0bfdf8525746c4431b1795a
     }
     
     
@@ -79,21 +79,23 @@ public class Cell {
     }
     
     
-    public void eval() {
+    public CellValue eval() {
         if (isEvaluating) {
             // Loop detected!
             value = CellValue.newErrorCellValue("LOOP");
         } else {
             isEvaluating = true;
             if (!isValueUpToDate) {
-                value = formula.eval(owner);
+                if (formula == null) {
+                    value = CellValue.newEmptyCellValue();
+                } else {
+                    value = formula.eval(owner);
+                }
                 isValueUpToDate = true;
             }
             isEvaluating = false;
         }
-    }
-    
-    public CellValue getValue() {
         return value;
     }
+    
 }
