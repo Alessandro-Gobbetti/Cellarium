@@ -24,4 +24,7 @@ public class Negation extends UnaryOperation {
         return "(-" + super.getChild().toString() + ")";
     }
     
+    public double eval() {
+        return 0;
+    }
 }

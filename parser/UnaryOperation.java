@@ -3,7 +3,7 @@ package parser;
 /**
  * A Unary Operation.
  */
-public class UnaryOperation extends Node {
+public abstract class UnaryOperation implements Node {
     
     private final Node child;
     

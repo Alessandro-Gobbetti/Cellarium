@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    int maxDim = 65535;
+    int maxDim = 16384;
     
     public Spreadsheet() {
         cellMap = new HashMap<Integer,Cell>();
@@ -22,6 +22,14 @@ public class Spreadsheet {
         
     public int indexFromRowCol(int row, int col) {
         return row * maxDim + col;
+    }
+    
+    public int ColFromIndex(int index) {
+        return index % maxDim;
+    }
+    
+    public int RowFromIndex(int index) {
+        return index - ColFromIndex(index);
     }
     
     public void remove(int row, int col) {

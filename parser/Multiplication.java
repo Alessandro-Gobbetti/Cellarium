@@ -24,5 +24,7 @@ public class Multiplication extends BinaryOperation {
         return "*";
     }
     
-    
+    public double eval() {
+        return 0;
+    }
 }

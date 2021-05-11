@@ -5,7 +5,7 @@ package parser;
  * corresponds to a literal integer value
  * (a number in the source code).
  */
-public class Variable extends Node  {
+public class Variable implements Node  {
     
     private final String name;
 
@@ -36,5 +36,10 @@ public class Variable extends Node  {
     @Override
     public String toString() {
         return name;
+    }
+    
+    @Override
+    public double eval() {
+        return 0;
     }
 }

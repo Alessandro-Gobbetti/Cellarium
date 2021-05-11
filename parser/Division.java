@@ -23,4 +23,8 @@ public class Division extends BinaryOperation {
     public String getOp() {
         return "/";
     }
+    
+    public double eval() {
+        return 0;
+    }
 }

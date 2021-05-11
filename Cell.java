@@ -41,16 +41,27 @@ public class Cell {
         markValueOutOfDate();
     }
     
+    
+    public void addDependencies() {
+        for (Cell cell: formula.dependencies(owner)) {
+            cell.addCellDependingOnThis(this);
+        }
+    }
     public void removeDependencies() {
-        ArrayList<Cell> fomulaDeps = formula.dependencies();
-        // loop...
+        for (Cell cell : formula.dependencies(owner)) {
+            cell.removeCellDependingOnThis(this);
+        }
     }
     
     
-    public void addCellDependingOnThis() {
+    public void addCellDependingOnThis(Cell cell) {
+        if (!CellDependingOnThis.contains(cell)) {
+            CellDependingOnThis.add(cell);
+        }
     }
     
-    public void removeCellDependingOnThis() {
+    public void removeCellDependingOnThis(Cell cell) {
+        CellDependingOnThis.remove(cell);
     }
     
     public void markValueOutOfDate() {

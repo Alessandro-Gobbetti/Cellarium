@@ -3,7 +3,7 @@ package parser;
 /**
  * A Binary Operation.
  */
-public class BinaryOperation extends Node {
+public abstract class BinaryOperation implements Node {
     
     private final Node leftChild;
     private final Node rightChild;

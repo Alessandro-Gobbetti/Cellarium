@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Write a description of class Formula here.
@@ -12,4 +13,9 @@ public class Formula {
         return new CellValue();
     }
 
+    
+    public ArrayList<Cell> dependencies(Spreadsheet spreadsheet) {
+        ArrayList<Cell> result = new ArrayList<Cell>();
+        return result;
+    }
 }
