@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    int maxDim = 16384;
+    private final static int maxDim = 16384;
     
     public Spreadsheet() {
         cellMap = new HashMap<Integer,Cell>();
@@ -36,19 +36,40 @@ public class Spreadsheet {
         int cellIndex = indexFromRowCol(row, col);
         cellMap.remove(cellIndex);
         // Update max indices FIXME
-        if (row == maxUsedCellRow || col == maxUsedCellCol) {
-            for (int r = maxUsedCellRow; r>0; r--) {                                                                  
-                for (int c = maxUsedCellCol; c>0; c--) {
+        if (row == maxUsedCellRow) {
+            boolean maxUsedRowUpToDate = false;
+            int resultRow = 0;
+            for (int r = maxUsedCellRow; r>=0; --r) {                                                                  
+                for (int c = maxUsedCellCol; c>=0; --c) {
                     if (!isEmpty(r,c)) {
-                        c = maxUsedCellCol;
+                        resultRow = r;
+                        maxUsedRowUpToDate = true;
                         break;
                     }
                 }
-                if (!isEmpty(r,maxUsedCellCol)) {
-                    r = maxUsedCellRow;
+                if (maxUsedRowUpToDate) {
                     break;
                 }
             }
+            maxUsedCellRow = resultRow;
+        }
+            
+        if (col == maxUsedCellCol) {
+            boolean maxUsedColUpToDate = false;
+            int resultCol = 0;
+            for (int r = maxUsedCellRow; r>=0; --r) {                                                                  
+                for (int c = maxUsedCellCol; c>=0; --c) {
+                    if (!isEmpty(r,c)) {
+                        resultCol = c;
+                        maxUsedColUpToDate = true;
+                        break;
+                    }
+                }
+                if (maxUsedColUpToDate) {
+                    break;
+                }
+            }
+            maxUsedCellCol = resultCol;
         }
     }
     
