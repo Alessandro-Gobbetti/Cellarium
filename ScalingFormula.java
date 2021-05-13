@@ -22,9 +22,9 @@ public class ScalingFormula extends Formula {
     public CellValue eval(Spreadsheet spreadsheet) {
         CellValue vRowCol = spreadsheet.getValue(row, col);
         if (vRowCol.isConvertibleToNumber()) {
-            return CellValue.newNumberCellValue(vRowCol.asNumber()*s);
+            return new NumberCellValue(vRowCol.asNumber()*s);
         } else {
-            return CellValue.newErrorCellValue("#VALUE");
+            return new ErrorCellValue("#VALUE");
         }
     }
     

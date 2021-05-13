@@ -82,12 +82,12 @@ public class Cell {
     public CellValue eval() {
         if (isEvaluating) {
             // Loop detected!
-            value = CellValue.newErrorCellValue("LOOP");
+            value = new ErrorCellValue("LOOP");
         } else {
             isEvaluating = true;
             if (!isValueUpToDate) {
                 if (formula == null) {
-                    value = CellValue.newEmptyCellValue();
+                    value = new EmptyCellValue();
                 } else {
                     value = formula.eval(owner);
                 }

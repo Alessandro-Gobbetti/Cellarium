@@ -6,16 +6,12 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Formula {
+public abstract class Formula {
     
-    CellValue eval(Spreadsheet spreadsheet) {
-        // implemented in subclasses
-        return new CellValue();
-    }
+    public abstract CellValue eval(Spreadsheet spreadsheet);
 
-    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
-               
-    }
+    public abstract void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list);
+    
     public ArrayList<Cell> dependencies(Spreadsheet spreadsheet) {
         ArrayList<Cell> result = new ArrayList<Cell>();
         addDependencies(spreadsheet, result);

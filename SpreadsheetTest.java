@@ -19,8 +19,8 @@ public class SpreadsheetTest {
         c11.setFormula(new ConstFormula(10.0));
         c12.setFormula(new ScalingFormula(2.0, 1, 1));
         c13.setFormula(new ScalingFormula(3.0, 1, 2));
-        assertEquals(60.0, s.getValue(1,3).asNumber());
+        assertEquals(60.0, s.getValue(1,3).asNumber(), 0.0);
         c11.setFormula(new ConstFormula(20.0));
-        assertEquals(120.0, s.getValue(1,3).asNumber());
+        assertEquals(120.0, s.getValue(1,3).asNumber(), 0.0);
     }
 }

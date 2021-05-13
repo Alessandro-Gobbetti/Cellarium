@@ -15,8 +15,8 @@ public class ConstFormula extends Formula {
     }
     
     @Override
-    CellValue eval(Spreadsheet spreadsheet) {
-        return CellValue.newNumberCellValue(c);
+    public CellValue eval(Spreadsheet spreadsheet) {
+        return new NumberCellValue(c);
     }
     
     @Override
