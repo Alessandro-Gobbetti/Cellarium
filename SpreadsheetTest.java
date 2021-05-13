@@ -23,4 +23,29 @@ public class SpreadsheetTest {
         c11.setFormula(new ConstFormula(20.0));
         assertEquals(120.0, s.getValue(1,3).asNumber(), 0.0);
     }
+    
+    @Test
+    public void TestRemove() {
+        Spreadsheet s = new Spreadsheet();
+        Cell c11 = s.getOrCreate(1,1);
+        Cell c21 = s.getOrCreate(2,1);
+        assertTrue(s.exists(1,1));
+        assertTrue(s.exists(2,1));
+        s.remove(1,1);
+        s.remove(2,1);
+        s.remove(1,2);
+        assertFalse(s.exists(1,1));
+        assertFalse(s.exists(2,1));
+    }
+    
+    @Test
+    public void TestRowAndColFromIndex() {
+        Spreadsheet s = new Spreadsheet();
+        Cell c11 = s.getOrCreate(3,5);
+        int index = s.indexFromRowCol(3,5);
+        assertEquals(5, s.ColFromIndex(index));
+        assertEquals(3, s.RowFromIndex(index));
+    }
+    
+    
 }

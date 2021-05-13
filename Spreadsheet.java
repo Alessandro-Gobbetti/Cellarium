@@ -29,7 +29,7 @@ public class Spreadsheet {
     }
     
     public int RowFromIndex(int index) {
-        return index - ColFromIndex(index);
+        return (index - ColFromIndex(index)) / maxDim;
     }
     
     public void remove(int row, int col) {
@@ -41,7 +41,7 @@ public class Spreadsheet {
             int resultRow = 0;
             for (int r = maxUsedCellRow; r>=0; --r) {                                                                  
                 for (int c = maxUsedCellCol; c>=0; --c) {
-                    if (!isEmpty(r,c)) {
+                    if (exists(r,c)) {
                         resultRow = r;
                         maxUsedRowUpToDate = true;
                         break;
@@ -59,7 +59,7 @@ public class Spreadsheet {
             int resultCol = 0;
             for (int r = maxUsedCellRow; r>=0; --r) {                                                                  
                 for (int c = maxUsedCellCol; c>=0; --c) {
-                    if (!isEmpty(r,c)) {
+                    if (exists(r,c)) {
                         resultCol = c;
                         maxUsedColUpToDate = true;
                         break;
@@ -73,9 +73,11 @@ public class Spreadsheet {
         }
     }
     
-    public boolean isEmpty(int row, int col) {
+    
+    
+    public boolean exists(int row, int col) {
         int cellIndex = indexFromRowCol(row, col);
-        return !cellMap.containsKey(cellIndex);
+        return cellMap.containsKey(cellIndex);
     }
     
     public Cell get(int row, int col) {
@@ -110,7 +112,7 @@ public class Spreadsheet {
     }
     
     public void copyPaste(int srcRow, int srcCol, int dstRow, int dstCol) {
-        if (isEmpty(srcRow, srcCol)) {
+        if (!exists(srcRow, srcCol)) {
             remove(dstRow, dstCol);
         } else {
             // FIXME
