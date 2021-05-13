@@ -12,4 +12,6 @@ public interface CellValue {
     public boolean isConvertibleToNumber();
     
     public double asNumber();
+    
+    public String asString();
 }

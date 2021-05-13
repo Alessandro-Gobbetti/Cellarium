@@ -27,8 +27,9 @@ public class Cell {
         this.owner = owner;
         this.row = row;
         this.col = col;
-        isEvaluating = false;
-        isValueUpToDate = true;
+        this.value = new EmptyCellValue();
+        this.isEvaluating = false;
+        this.isValueUpToDate = true;
         this.style = new Style();
         this.CellDependingOnThis = new ArrayList<Cell>();
     }

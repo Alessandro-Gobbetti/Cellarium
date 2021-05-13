@@ -21,11 +21,15 @@ public class EmptyCellValue implements CellValue{
     
     @Override
     public boolean isConvertibleToNumber() {
-        return false;
+        return true;
     }
     
 
     public double asNumber() {
         return 0.0;
+    }
+    
+    public String asString() {
+        return "";
     }
 }

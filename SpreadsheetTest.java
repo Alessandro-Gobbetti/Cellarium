@@ -47,5 +47,14 @@ public class SpreadsheetTest {
         assertEquals(3, s.RowFromIndex(index));
     }
     
-    
+    @Test
+    public void TestLoop() {
+        Spreadsheet s = new Spreadsheet();
+        Cell c11 = s.getOrCreate(1,1);
+        Cell c12 =  s.getOrCreate(1,2);
+        c11.setFormula(new ScalingFormula(2.0, 1, 2));
+        c12.setFormula(new ScalingFormula(2.0, 1, 1));
+        assertEquals("#VALUE", s.getValue(1,2).asString());
+        assertEquals("#VALUE", s.getValue(1,1).asString());
+    }
 }

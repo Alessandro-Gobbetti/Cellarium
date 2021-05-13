@@ -32,5 +32,7 @@ public class NumberCellValue implements CellValue{
         return numberValue;
     }
     
-    
+    public String asString() {
+        return Double.toString(numberValue);
+    }
 }

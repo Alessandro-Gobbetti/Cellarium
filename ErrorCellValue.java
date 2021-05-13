@@ -32,4 +32,9 @@ public class ErrorCellValue implements CellValue{
         //FIXME
         return Double.NaN;
     }
+    
+    
+    public String asString() {
+        return errorValue;
+    }
 }

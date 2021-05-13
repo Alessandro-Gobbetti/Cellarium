@@ -124,4 +124,24 @@ public class Spreadsheet {
         copyPaste(srcRow, srcCol, dstRow, dstCol);
         remove(srcRow, srcCol);
     }
+    
+    
+    public void print() {
+        for (int row = 0; row <= maxUsedCellRow; row++) {
+            for (int col = 0; col <= maxUsedCellCol; col++) {
+                System.out.print(exists(row, col) ? getValue(row,col).asString() : ", ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public void test() {
+        Cell c11 =  getOrCreate(1,1);
+        Cell c21 =  getOrCreate(2,1);
+        Cell c1030 =  getOrCreate(10,30);
+        c11.setFormula(new ConstFormula(10));
+        c21.setFormula(new ScalingFormula(2, 1, 1));
+        c1030.setFormula(new ScalingFormula(3, 2, 1));
+    }
+    
 }
