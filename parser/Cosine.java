@@ -1,16 +1,17 @@
 package parser;
 
+
 /**
- * An sqare root computation, (ex. sqrt(9) = 3).
+ * An integer negation (e.g., -5, or -x).
  */
-public class Sqrt extends UnaryOperation {
+public class Cosine extends UnaryOperation {
     
     
     /**
-     * Create a new IntNegation node.
+     * Create a new Cos node.
      * @param child the operand we will negate
      */
-    public Sqrt(final Node child) {
+    public Cosine(final Node child) {
         super(child);
     }
     
@@ -18,20 +19,21 @@ public class Sqrt extends UnaryOperation {
 
     public void compile(final Program p) {
         super.compile(p);
-        p.append(new SQRT());
+        p.append(new COS());
     }
+
 
     public Instruction getInstruction() {
-        return new SIN();
+        return new COS();
     }
-
+    
     @Override
     public String toString() {
-        return "sqrt(" + childToString() + ")";
+        return "cos(" + childToString() + ")";
     }
     
     @Override
     public double evalUnary(Node child) {
-        return Math.sqrt(child.eval());
+        return Math.cos(child.eval());
     }
 }

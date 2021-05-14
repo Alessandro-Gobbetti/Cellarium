@@ -3,13 +3,13 @@ package parser;
 /**
  * A sin operation.
  */
-public class Sin extends UnaryOperation {
+public class Sine extends UnaryOperation {
     
     /**
      * Create a new Sin node.
      * @param child the operand we will compute the sin
      */
-    public Sin(final Node child) {
+    public Sine(final Node child) {
         super(child);
     }
     

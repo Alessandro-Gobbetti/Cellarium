@@ -100,7 +100,7 @@ public class CompilerTest {
     @Test
     public void testSin() {
         Compiler c = new Compiler();
-        Node n = new Sin(new Literal(Math.PI/2));
+        Node n = new Sine(new Literal(Math.PI/2));
         Program p = c.compile(n);
         assertEquals(2, p.getLength());
         assertTrue(p.get(0) instanceof BIPUSH);

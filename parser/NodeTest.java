@@ -85,8 +85,8 @@ public class NodeTest {
     
     @Test
     public void testSin() {
-        Node e = new Sin(new Literal(90.0));
-        Node a = new Sin(new Variable("x"));
+        Node e = new Sine(new Literal(90.0));
+        Node a = new Sine(new Variable("x"));
         assertTrue(e.isConstant());
         assertFalse(a.isConstant());
         assertEquals("sin(90.0)", e.toString());
@@ -135,10 +135,10 @@ public class NodeTest {
     
     @Test
     public void testSinEval() {
-        Node e = new Sin(new Literal(90.0));
-        Node a = new Sin(new Literal(180.0));
-        Node i = new Sin(new Literal(0.0));
-        Node j = new Sin(new Negation(new Literal(180.0)));
+        Node e = new Sine(new Literal(90.0));
+        Node a = new Sine(new Literal(180.0));
+        Node i = new Sine(new Literal(0.0));
+        Node j = new Sine(new Negation(new Literal(180.0)));
         assertEquals(0.893996663600558, e.eval(), 0.0000000001);
         assertEquals(-0.80115263573383, a.eval(), 0.0000000001);
         assertEquals(0.0, i.eval(), 0.0);
@@ -147,10 +147,10 @@ public class NodeTest {
     
     @Test
     public void testCosEval() {
-        Node e = new Cos(new Literal(90.0));
-        Node a = new Cos(new Literal(180.0));
-        Node i = new Cos(new Literal(0.0));
-        Node j = new Cos(new Negation(new Literal(180.0)));
+        Node e = new Cosine(new Literal(90.0));
+        Node a = new Cosine(new Literal(180.0));
+        Node i = new Cosine(new Literal(0.0));
+        Node j = new Cosine(new Negation(new Literal(180.0)));
         assertEquals(-0.44807361612917, e.eval(), 0.0000000001);
         assertEquals(-0.598460069057858, a.eval(), 0.0000000001);
         assertEquals(1.0, i.eval(), 0.0);
@@ -169,9 +169,9 @@ public class NodeTest {
     
     @Test
     public void testSqrtEval() {
-        Node e = new Sqrt(new Literal(9.0));
-        Node a = new Sqrt(new Literal(5.0));
-        Node i = new Sqrt(new Literal(0.0));
+        Node e = new SquareRoot(new Literal(9.0));
+        Node a = new SquareRoot(new Literal(5.0));
+        Node i = new SquareRoot(new Literal(0.0));
         assertEquals(3.0, e.eval(), 0.0);
         assertEquals(2.23606797749979, a.eval(), 0.000000000001);
         assertEquals(0.0, i.eval(), 0.0);
