@@ -11,7 +11,7 @@ public class ErrorCellValue implements CellValue{
     /**
      * Constructor for objects of class EmptyCellValue
      */
-    public ErrorCellValue(String errorValue) {
+    public ErrorCellValue(final String errorValue) {
         super();
         //type = CellType.NUMBER;
         this.errorValue= errorValue;

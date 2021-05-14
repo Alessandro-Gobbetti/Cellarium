@@ -17,13 +17,13 @@ public class Cell {
     private boolean isValueUpToDate;
     private Formula formula;
     private Style style;
-    private ArrayList<Cell> CellDependingOnThis;
+    private ArrayList<Cell> cellDependingOnThis;
     
     
     /**
      * Constructor for objects of class Cell
      */
-    public Cell(Spreadsheet owner, int row, int col) {
+    public Cell(final Spreadsheet owner,final int row,final int col) {
         this.owner = owner;
         this.row = row;
         this.col = col;
@@ -31,11 +31,11 @@ public class Cell {
         this.isEvaluating = false;
         this.isValueUpToDate = true;
         this.style = new Style();
-        this.CellDependingOnThis = new ArrayList<Cell>();
+        this.cellDependingOnThis = new ArrayList<Cell>();
     }
 
     
-    public void setFormula(Formula newFormula) {
+    public void setFormula(final Formula newFormula) {
         removeDependencies();
         formula = newFormula;
         addDependencies();
@@ -45,7 +45,7 @@ public class Cell {
     
     public void addDependencies() {
         if (formula != null) {
-            for (Cell cell: formula.dependencies(owner)) {
+            for (final Cell cell: formula.dependencies(owner)) {
                 cell.addCellDependingOnThis(this);
             }
         }
@@ -53,27 +53,27 @@ public class Cell {
     
     public void removeDependencies() {
         if (formula != null) {
-            for (Cell cell: formula.dependencies(owner)) {
+            for (final Cell cell: formula.dependencies(owner)) {
                 cell.removeCellDependingOnThis(this);
             }
         }
     }
     
     
-    public void addCellDependingOnThis(Cell cell) {
-        if (!CellDependingOnThis.contains(cell)) {
-            CellDependingOnThis.add(cell);
+    public void addCellDependingOnThis(final Cell cell) {
+        if (!cellDependingOnThis.contains(cell)) {
+            cellDependingOnThis.add(cell);
         }
     }
     
-    public void removeCellDependingOnThis(Cell cell) {
-        CellDependingOnThis.remove(cell);
+    public void removeCellDependingOnThis(final Cell cell) {
+        cellDependingOnThis.remove(cell);
     }
     
     public void markValueOutOfDate() {
         if (isValueUpToDate) {
             isValueUpToDate = false;
-            for (Cell c : CellDependingOnThis) {
+            for (final Cell c : cellDependingOnThis) {
                 c.markValueOutOfDate();
             }
         }

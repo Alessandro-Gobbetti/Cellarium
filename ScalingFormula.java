@@ -12,15 +12,16 @@ public class ScalingFormula extends Formula {
     private int row;
     private int col;
     
-    public ScalingFormula(double s, int row, int col) {
+    public ScalingFormula(final double s, final int row, final int col) {
+        super();
         this.s = s;
         this.row = row;
         this.col = col;
     }
     
     @Override
-    public CellValue eval(Spreadsheet spreadsheet) {
-        CellValue vRowCol = spreadsheet.getValue(row, col);
+    public CellValue eval(final Spreadsheet spreadsheet) {
+        final CellValue vRowCol = spreadsheet.getValue(row, col);
         if (vRowCol.isConvertibleToNumber()) {
             return new NumberCellValue(vRowCol.asNumber()*s);
         } else {
@@ -29,8 +30,8 @@ public class ScalingFormula extends Formula {
     }
     
     @Override
-    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
-        Cell cell = spreadsheet.getOrCreate(row,col);
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        final Cell cell = spreadsheet.getOrCreate(row,col);
         if(!list.contains(cell)) {
             list.add(cell);
         }

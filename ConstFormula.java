@@ -8,18 +8,20 @@ import java.util.ArrayList;
  */
 public class ConstFormula extends Formula {
 
-    double c;
+    private double c;
     
-    public ConstFormula(double c) {
+    public ConstFormula(final double c) {
+        super();
         this.c = c;
     }
     
     @Override
-    public CellValue eval(Spreadsheet spreadsheet) {
+    public CellValue eval(final Spreadsheet spreadsheet) {
         return new NumberCellValue(c);
     }
     
     @Override
-    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        //FIXME
     }
 }

@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    private final static int maxDim = 32768;
+    private final static int MaxDim = 32768;
     
     public Spreadsheet() {
         cellMap = new HashMap<Integer,Cell>();
@@ -20,20 +20,20 @@ public class Spreadsheet {
         maxUsedCellCol = 0;
     }
         
-    public int indexFromRowCol(int row, int col) {
-        return row * maxDim + col;
+    public int indexFromRowCol(final int row, final int col) {
+        return row * MaxDim + col;
     }
     
-    public int ColFromIndex(int index) {
-        return index % maxDim;
+    public int colFromIndex(final int index) {
+        return index % MaxDim;
     }
     
-    public int RowFromIndex(int index) {
-        return (index - ColFromIndex(index)) / maxDim;
+    public int rowFromIndex(final int index) {
+        return (index - colFromIndex(index)) / MaxDim;
     }
     
-    public void remove(int row, int col) {
-        int cellIndex = indexFromRowCol(row, col);
+    public void remove(final int row, final int col) {
+        final int cellIndex = indexFromRowCol(row, col);
         cellMap.remove(cellIndex);
         // Update max indices FIXME
         if (row == maxUsedCellRow) {
@@ -75,28 +75,28 @@ public class Spreadsheet {
     
     
     
-    public boolean exists(int row, int col) {
-        int cellIndex = indexFromRowCol(row, col);
+    public boolean exists(final int row,final int col) {
+        final int cellIndex = indexFromRowCol(row, col);
         return cellMap.containsKey(cellIndex);
     }
     
-    public Cell get(int row, int col) {
-        assert(row >= 0);
-        assert(col >= 0);
-        assert(row < maxDim);
-        assert(col < maxDim);
-        int cellIndex = indexFromRowCol(row, col);
+    public Cell get(final int row, final int col) {
+        assert row >= 0;
+        assert col >= 0;
+        assert row < MaxDim;
+        assert col < MaxDim;
+        final int cellIndex = indexFromRowCol(row, col);
         return cellMap.get(cellIndex);
     }
     
-    public Cell getOrCreate(int row, int col) {
-        assert(row >= 0);
-        assert(col >= 0);
-        assert(row < maxDim);
-        assert(col < maxDim);
+    public Cell getOrCreate(final int row, final int col) {
+        assert row >= 0;
+        assert col >= 0;
+        assert row < MaxDim;
+        assert col < MaxDim;
         Cell result = get(row, col);
         if (result == null) {
-            int cellIndex = indexFromRowCol(row, col);
+            final int cellIndex = indexFromRowCol(row, col);
             result = new Cell(this, row, col);
             cellMap.put(cellIndex, result);
             // Update max indices
@@ -106,12 +106,12 @@ public class Spreadsheet {
         return result;
     }
     
-    public CellValue getValue(int row, int col) {
-        Cell c = getOrCreate(row, col);
+    public CellValue getValue(final int row, final int col) {
+        final Cell c = getOrCreate(row, col);
         return c.eval();
     }
     
-    public void copyPaste(int srcRow, int srcCol, int dstRow, int dstCol) {
+    public void copyPaste(final int srcRow, final int srcCol, final int dstRow, final int dstCol) {
         if (!exists(srcRow, srcCol)) {
             remove(dstRow, dstCol);
         } else {
@@ -119,7 +119,7 @@ public class Spreadsheet {
         }
     }
     
-    public void cutPaste(int srcRow, int srcCol, int dstRow, int dstCol) {
+    public void cutPaste(final int srcRow, final int srcCol, final int dstRow, final int dstCol) {
         // FIXME
         copyPaste(srcRow, srcCol, dstRow, dstCol);
         remove(srcRow, srcCol);
@@ -136,9 +136,9 @@ public class Spreadsheet {
     }
     
     public void test() {
-        Cell c11 =  getOrCreate(1,1);
-        Cell c21 =  getOrCreate(2,1);
-        Cell c1030 =  getOrCreate(10,30);
+        final Cell c11 =  getOrCreate(1,1);
+        final Cell c21 =  getOrCreate(2,1);
+        final Cell c1030 =  getOrCreate(10,30);
         c11.setFormula(new ConstFormula(10));
         c21.setFormula(new ScalingFormula(2, 1, 1));
         c1030.setFormula(new ScalingFormula(3, 2, 1));

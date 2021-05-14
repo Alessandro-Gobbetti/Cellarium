@@ -43,8 +43,8 @@ public class SpreadsheetTest {
         Spreadsheet s = new Spreadsheet();
         Cell c11 = s.getOrCreate(3,5);
         int index = s.indexFromRowCol(3,5);
-        assertEquals(5, s.ColFromIndex(index));
-        assertEquals(3, s.RowFromIndex(index));
+        assertEquals(5, s.colFromIndex(index));
+        assertEquals(3, s.rowFromIndex(index));
     }
     
     @Test

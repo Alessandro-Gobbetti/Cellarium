@@ -12,8 +12,8 @@ public abstract class Formula {
 
     public abstract void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list);
     
-    public ArrayList<Cell> dependencies(Spreadsheet spreadsheet) {
-        ArrayList<Cell> result = new ArrayList<Cell>();
+    public ArrayList<Cell> dependencies(final Spreadsheet spreadsheet) {
+        final ArrayList<Cell> result = new ArrayList<Cell>();
         addDependencies(spreadsheet, result);
         return result;
     }
