@@ -15,17 +15,12 @@ public class Subtraction extends BinaryOperation {
     }
     
     @Override
-    public Instruction getInstruction() {
-        return new SUB();
-    }
-    
-    @Override
     public String getOp() {
         return "-";
     }
     
     @Override
-    public double evalBinary(Node leftChild,Node rightChild) {
-        return leftChild.eval() - rightChild.eval();
+    public double computeBinary(final double left, final double right) {
+        return left - right;
     }
 }

@@ -27,11 +27,6 @@ public class Variable implements Node  {
     public boolean isConstant() {
         return false;
     }
-
-    @Override
-    public void compile(final Program p) {
-        p.append(new LOAD(name));
-    }
     
     @Override
     public String toString() {
@@ -40,6 +35,6 @@ public class Variable implements Node  {
     
     @Override
     public double eval() {
-        return 0;
+        return Double.NaN;
     }
 }

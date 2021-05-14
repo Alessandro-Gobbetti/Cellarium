@@ -16,24 +16,12 @@ public class Cosine extends UnaryOperation {
     }
     
     @Override
-
-    public void compile(final Program p) {
-        super.compile(p);
-        p.append(new COS());
-    }
-
-
-    public Instruction getInstruction() {
-        return new COS();
-    }
-    
-    @Override
     public String toString() {
         return "cos(" + childToString() + ")";
     }
     
     @Override
-    public double evalUnary(Node child) {
-        return Math.cos(child.eval());
+    public double computeUnary(final double child) {
+        return Math.cos(child);
     }
 }

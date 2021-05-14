@@ -18,12 +18,6 @@ public abstract interface Node {
     public boolean isConstant();
     
     /**
-     * Compile this node into the given Program.
-     * @param p The program to append this node to
-     */
-    public void compile(final Program p);
-
-    /**
      * Decompile this node into a string.
      * Note that the resulting string may have
      * extra parentheses.

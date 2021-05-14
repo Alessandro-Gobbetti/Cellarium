@@ -14,17 +14,12 @@ public class Negation extends UnaryOperation {
     }
 
     @Override
-    public Instruction getInstruction() {
-        return new NEG();
-    }
-
-    @Override
     public String toString() {
         return "(-" + childToString() + ")";
     }
     
     @Override
-    public double evalUnary(Node child) {
-        return -(child.eval());
+    public double computeUnary(final double child) {
+        return -child;
     } 
 }

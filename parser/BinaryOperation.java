@@ -36,28 +36,21 @@ public abstract class BinaryOperation implements Node {
      */
     public abstract String getOp();
     
-    /**
-     * Get the instruction implementing the operator.
-     * @return the instruction implementing the operator.
-     */
-    public abstract Instruction getInstruction();
-    
-    @Override
-    public void compile(final Program p) {
-        leftChild.compile(p);
-        rightChild.compile(p);
-        p.append(getInstruction());
-    }
-    
     @Override
     public String toString() {
         return "(" + leftChild.toString() + getOp() + rightChild.toString() + ")";
     }
     
-    public abstract double evalBinary(Node leftChild,Node rightChild);
+    /**
+     * To compute the result of a binary operation.
+     * @param left  the left operand
+     * @param right  the right operand
+     * @return the result of a binary operation
+     */
+    public abstract double computeBinary(final double left, final double right);
     
     @Override
     public double eval() {
-        return evalBinary(leftChild, rightChild);
+        return computeBinary(leftChild.eval(), rightChild.eval());
     }
 }

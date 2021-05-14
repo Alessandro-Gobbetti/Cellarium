@@ -28,11 +28,6 @@ public class Literal implements Node {
     public Type getType() {
         return Type.DOUBLE;
     }
-    
-    @Override
-    public void compile(final Program p) {
-        p.append(new BIPUSH(value));
-    }
 
     @Override
     public String toString() {

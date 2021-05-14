@@ -12,11 +12,6 @@ public class Sine extends UnaryOperation {
     public Sine(final Node child) {
         super(child);
     }
-    
-    @Override
-    public Instruction getInstruction() {
-        return new SIN();
-    }
 
     @Override
     public String toString() {
@@ -24,7 +19,7 @@ public class Sine extends UnaryOperation {
     }
     
     @Override
-    public double evalUnary(Node child) {
-        return Math.sin(child.eval());
+    public double computeUnary(final double child) {
+        return Math.sin(child);
     }
 }

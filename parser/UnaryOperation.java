@@ -20,7 +20,6 @@ public abstract class UnaryOperation implements Node {
     /**
      * To get the child node.
      * @return the child node
-     * 
      */
     protected Node getChild() {
         return child;
@@ -35,32 +34,29 @@ public abstract class UnaryOperation implements Node {
     public Type getType() {
         return Type.DOUBLE;
     }
-    
-    /**
-     * Get the instruction implementing the operator.
-     * @return the instruction implementing the operator.
-     */
-    public abstract Instruction getInstruction();
-    
-    @Override
-    public void compile(final Program p) {
-        child.compile(p);
-        p.append(getInstruction());
-    }
 
     @Override
     public String toString() {
         return "(" + child.toString() + ")";
     }
     
+    /**
+     * Returns the child as a String.
+     * @return the child as a String 
+     */
     public String childToString() {
         return child.toString();
     }
     
-    public abstract double evalUnary(Node child);
+    /**
+     * To compute the result of a unary operation.
+     * @param child  the operand
+     * @return the result of a unary operation
+     */
+    public abstract double computeUnary(final double child);
     
     @Override
     public double eval() {
-        return evalUnary(child);
+        return computeUnary(child.eval());
     }
 }
