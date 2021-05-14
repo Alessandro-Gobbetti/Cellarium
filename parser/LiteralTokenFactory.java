@@ -11,7 +11,7 @@ public class LiteralTokenFactory extends RegExTokenFactory {
      */
     public LiteralTokenFactory() {
         // regular expression for an integer literal
-        super("[0-9]+");
+        super("[0-9]+"); //"[0-9]*.[0-9]+"
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    private final static int maxDim = 16384;
+    private final static int maxDim = 32768;
     
     public Spreadsheet() {
         cellMap = new HashMap<Integer,Cell>();
