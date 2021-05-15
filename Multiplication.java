@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * An integer multiplication.
  */
@@ -20,8 +18,8 @@ public class Multiplication extends BinaryOperation {
     }
     
     @Override
-    public double computeBinary(final double left, final double right) {
-        return left * right;
+    public double computeBinary(final CellValue left, final CellValue right) {
+        return left.asNumber() * right.asNumber();
     }
 }
 

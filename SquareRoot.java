@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * An sqare root computation, (ex. sqrt(9) = 3).
  */
@@ -20,7 +18,7 @@ public class SquareRoot extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final double child) {
-        return Math.sqrt(child);
+    public double computeUnary(final CellValue child) {
+        return Math.sqrt(child.asNumber());
     }
 }

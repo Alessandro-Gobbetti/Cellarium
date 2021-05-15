@@ -1,4 +1,4 @@
-package parser;
+import parser.*;
 
 import static org.junit.Assert.*;
 import org.junit.After;

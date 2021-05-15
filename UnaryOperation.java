@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * A Unary Operation.
  */
@@ -31,6 +29,11 @@ public abstract class UnaryOperation implements Node {
     }
     
     @Override
+    public boolean isError() {
+        return false;
+    }
+    
+    @Override
     public Type getType() {
         return Type.DOUBLE;
     }
@@ -53,10 +56,10 @@ public abstract class UnaryOperation implements Node {
      * @param child  the operand
      * @return the result of a unary operation
      */
-    public abstract double computeUnary(final double child);
+    public abstract double computeUnary(final CellValue child);
     
     @Override
-    public double eval() {
-        return computeUnary(child.eval());
+    public CellValue eval() {
+        return new NumberCellValue(computeUnary(child.eval()));
     }
 }

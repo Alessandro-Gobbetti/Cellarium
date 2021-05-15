@@ -1,18 +1,22 @@
-package parser;
+import parser.*;
 
 /**
  * A Parser for our Arith language
  * (a simple language of arithmetic expressions).
  * 
  * <code>
+ * CELL         ::= Literal | 
+ *                  Text |
+ *                  [ "=" ] EXPRESSION
  * EXPRESSION   ::= [ "+" | "-" ] TERM { ( "+" | "-" ) TERM }
  * TERM         ::= FACTOR { ( "*" | "/" ) FACTOR }
- * FACTOR       ::= Literal | 
- *                  Identifier| 
+ * FACTOR       ::= Literal |
+ *                  Identifier | 
+ *                  Cell reference |
  *                  "(" EXPRESSION ")"
  * </code>
  */
-public final class ArithParser implements Parser {
+public final class CellariumParser implements Parser {
     
     private LexicalAnalyzer lexer;
 
@@ -26,15 +30,44 @@ public final class ArithParser implements Parser {
         this.lexer = new LexicalAnalyzer(sourceCode);
         // fetch first token
         lexer.fetchNextToken();
-        // now parse the EXPRESSION
-        final Node result = parseExpression();
-        if (result != null && lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-            System.out.println("Found a garbage after the EXPRESSION, got " 
-                                + lexer.getCurrentToken().getType());
-            return null;
-        }
-        return result;
+        // now parse the CELL
+        return parseCell();
     }
+    
+    
+    /**
+     * Parse a Cell
+     * This assumes the lexer already points to the first token of this expression.
+     * 
+     * <p>EBNF:
+     * <code>
+     * CELL ::= Literal |
+     *          Text |
+     *          [ "=" ] EXPRESSION
+     * </code>
+     * 
+     */
+    private Node parseCell() {
+        if (lexer.getCurrentToken().getType() == TokenType.EQUAL) {
+            lexer.fetchNextToken();
+            final Node expression = parseExpression();
+            if (!expression.isError() && lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
+                return new Error("Err:EOF");
+            }
+            return expression;
+        } else if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
+            final Node literal = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
+            lexer.fetchNextToken();
+            if (lexer.getCurrentToken().getType() == TokenType.END_OF_FILE) {
+                return literal;
+            } else {
+                return new Text(lexer.getText());
+            }
+        } else {
+            return new Text(lexer.getText());
+        }
+    }
+    
     
     /**
      * Parse an expression.
@@ -145,11 +178,16 @@ public final class ArithParser implements Parser {
      */
     private Node parseFactor() {
         if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
-            final Node factor = new Literal(Integer.parseInt(lexer.getCurrentToken().getText()));
+            final Node factor = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
             // produce Node
             return factor;
-        } else if (lexer.getCurrentToken().getType() == TokenType.IDENTIFIER) {
+        } else if (lexer.getCurrentToken().getType() == TokenType.FUNCTION) {
+            final Node factor = new Variable(lexer.getCurrentToken().getText());
+            lexer.fetchNextToken();
+            // produce Node
+            return factor;
+        } else if (lexer.getCurrentToken().getType() == TokenType.CELLREFERENCE) {
             final Node factor = new Variable(lexer.getCurrentToken().getText());
             lexer.fetchNextToken();
             // produce Node

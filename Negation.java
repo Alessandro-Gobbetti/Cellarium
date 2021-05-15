@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * A negation (e.g., -5, or -x).
  */
@@ -19,7 +17,7 @@ public class Negation extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final double child) {
-        return -child;
+    public double computeUnary(final CellValue child) {
+        return -child.asNumber();
     } 
 }

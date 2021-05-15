@@ -1,22 +1,20 @@
-package parser;
-
 /**
- * A Literal is an AST node that 
+ * A Text is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Literal implements Node {
+public class Text implements Node {
     
-    private final double value;
+    private final String text;
     
     
     /**
      * Create a new IntLiteral node.
      * @param value the integer value this node evaluates to
      */
-    public Literal(final double value) {
+    public Text(final String text) {
         super();
-        this.value = value;
+        this.text = text;
     }
 
     @Override
@@ -25,17 +23,22 @@ public class Literal implements Node {
     }
     
     @Override
+    public boolean isError() {
+        return false;
+    }
+    
+    @Override
     public Type getType() {
-        return Type.DOUBLE;
+        return Type.STRING;
     }
 
     @Override
     public String toString() {
-        return "" + value;
+        return text;
     }
     
     @Override
-    public double eval() {
-        return value;
+    public CellValue eval() {
+        return new StringCellValue(text);
     }
 }

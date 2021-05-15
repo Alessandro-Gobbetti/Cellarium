@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * An abstract syntax tree (AST) node.
  */
@@ -9,13 +7,19 @@ public abstract interface Node {
      * Get the type of values produced by this node.
      * @return the type of this node
      */
-    public Type getType();
+    public abstract Type getType();
     
     /**
      * Get whether this node always evaluates to the exact same value.
      * @return whether this node produces a constant value
      */
-    public boolean isConstant();
+    public abstract boolean isConstant();
+    
+    /**
+     * True if the Node is an error.
+     * @return true if the Node is an error
+     */
+    public abstract boolean isError();
     
     /**
      * Decompile this node into a string.
@@ -29,5 +33,5 @@ public abstract interface Node {
      * Evaluates a certain computation of a Node.
      * @return a double, the result of the computation
      */
-    public abstract double eval();
+    public abstract CellValue eval();
 }

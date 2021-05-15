@@ -35,7 +35,8 @@ public final class LexicalAnalyzer {
      */
     public LexicalAnalyzer(final String expression) {
         this(expression, new TokenFactory[] {
-            new IdentifierTokenFactory(),
+            new CellReferenceTokenFactory(),
+            new FunctionTokenFactory(),
             new LiteralTokenFactory(),
             new OperatorTokenFactory("=", TokenType.EQUAL),
             new OperatorTokenFactory("+", TokenType.PLUS),
@@ -105,6 +106,14 @@ public final class LexicalAnalyzer {
      */
     public Token getCurrentToken() {
         return token;
+    }
+    
+    /**
+     * Get all the input text.
+     * @return all the input text.
+     */
+    public String getText() {
+        return text;
     }
 
 }

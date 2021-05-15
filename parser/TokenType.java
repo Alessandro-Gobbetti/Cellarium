@@ -7,7 +7,9 @@ package parser;
  */
 public enum TokenType {
 
-    IDENTIFIER("identifier"), 
+    FUNCTION("function"),
+    
+    CELLREFERENCE("cell reference"),
 
     LITERAL("literal"), 
     

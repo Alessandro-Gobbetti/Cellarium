@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * A sin operation.
  */
@@ -19,7 +17,7 @@ public class Sine extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final double child) {
-        return Math.sin(child);
+    public double computeUnary(final CellValue child) {
+        return Math.sin(child.asNumber());
     }
 }

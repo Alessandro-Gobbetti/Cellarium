@@ -10,7 +10,7 @@ public class CellReferenceTokenFactory extends RegExTokenFactory {
      * Create an CellReferenceTokenFactory.
      */
     public CellReferenceTokenFactory() {
-        super("[$_][A-Z+][$_][0-9]+");
+            super("[$]?[A-Z]+[$]?[0-9]+");
     }
 
     /**
@@ -18,7 +18,7 @@ public class CellReferenceTokenFactory extends RegExTokenFactory {
      * @return the currently found token
      */
     public Token getToken() {
-        return new Token(TokenType.IDENTIFIER, getTokenText(), getTokenStartPosition());
+        return new Token(TokenType.CELLREFERENCE, getTokenText(), getTokenStartPosition());
     }
     
 }

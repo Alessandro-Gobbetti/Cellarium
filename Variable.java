@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * A Variable is an AST node that 
  * corresponds to a literal integer value
@@ -29,12 +27,17 @@ public class Variable implements Node  {
     }
     
     @Override
+    public boolean isError() {
+        return false;
+    }
+    
+    @Override
     public String toString() {
         return name;
     }
     
     @Override
-    public double eval() {
-        return Double.NaN;
+    public CellValue eval() {
+        return new EmptyCellValue();
     }
 }

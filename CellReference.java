@@ -1,4 +1,4 @@
-package parser;
+import java.util.ArrayList;
 
 /**
  * A Cell Reference
@@ -44,5 +44,20 @@ public class CellReference {
         return colIsConstant ? col : baseCol + col;
     }
     
-    //parse cell reference
+    public CellValue eval(final Spreadsheet spreadsheet) {
+        final CellValue vRowCol = spreadsheet.getValue(row, col);
+        if (vRowCol.isConvertibleToNumber()) {
+            return new NumberCellValue(vRowCol.asNumber());
+        } else {
+            return new ErrorCellValue("#VALUE");
+        }
+    }
+    
+    //@Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        final Cell cell = spreadsheet.getOrCreate(row,col);
+        if (!list.contains(cell)) {
+            list.add(cell);
+        }
+    }
 }

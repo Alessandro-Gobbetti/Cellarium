@@ -19,8 +19,8 @@ public class TokenTest {
     
     @Test
     public void testLength2() {
-        Token t = new Token(TokenType.IDENTIFIER, "id", 3);
-        assertEquals(TokenType.IDENTIFIER, t.getType());
+        Token t = new Token(TokenType.FUNCTION, "id", 3);
+        assertEquals(TokenType.FUNCTION, t.getType());
         assertEquals("id", t.getText());
         assertEquals(3, t.getStartPosition());
         assertEquals(5, t.getEndPosition());

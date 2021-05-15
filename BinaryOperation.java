@@ -1,5 +1,3 @@
-package parser;
-
 /**
  * A Binary Operation.
  */
@@ -26,6 +24,11 @@ public abstract class BinaryOperation implements Node {
     }
     
     @Override
+    public boolean isError() {
+        return false;
+    }
+    
+    @Override
     public Type getType() {
         return Type.DOUBLE;
     }
@@ -47,10 +50,10 @@ public abstract class BinaryOperation implements Node {
      * @param right  the right operand
      * @return the result of a binary operation
      */
-    public abstract double computeBinary(final double left, final double right);
+    public abstract double computeBinary(final CellValue left, final CellValue right);
     
     @Override
-    public double eval() {
-        return computeBinary(leftChild.eval(), rightChild.eval());
+    public CellValue eval() {
+        return new NumberCellValue(computeBinary(leftChild.eval(), rightChild.eval()));
     }
 }

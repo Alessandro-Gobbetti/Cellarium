@@ -1,6 +1,3 @@
-package parser;
-
-
 /**
  * An integer negation (e.g., -5, or -x).
  */
@@ -21,7 +18,7 @@ public class Cosine extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final double child) {
-        return Math.cos(child);
+    public double computeUnary(final CellValue child) {
+        return Math.cos(child.asNumber());
     }
 }

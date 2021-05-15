@@ -1,4 +1,4 @@
-package parser;
+import parser.*;
 
 /**
  * A Parser can convert source code into an AST
