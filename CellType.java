@@ -2,8 +2,8 @@
 /**
  * To describe the different type of a CellValue
  *
- * @author Alessandro Gobbetti
- * @version (version number or date here)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
 public enum CellType {
     EMPTY, 

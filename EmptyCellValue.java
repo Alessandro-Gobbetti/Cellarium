@@ -1,14 +1,13 @@
 /**
  * Write a description of class EmptyCellValue here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
-public class EmptyCellValue implements CellValue{
-    
+public class EmptyCellValue implements CellValue {
     
     /**
-     * Constructor for objects of class EmptyCellValue
+     * Constructor for objects of class EmptyCellValue.
      */
     public EmptyCellValue() {
         super();
@@ -24,11 +23,18 @@ public class EmptyCellValue implements CellValue{
         return true;
     }
     
-
+    /**
+     * Returns zero for an empty Cell.
+     * @return the Cell as Number (double).
+     */
     public double asNumber() {
         return 0.0;
     }
     
+    /**
+     * Returns an empty String for an empty Cell.
+     * @return the Cell as String.
+     */
     public String asString() {
         return "";
     }

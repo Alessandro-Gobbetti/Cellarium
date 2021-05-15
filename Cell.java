@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class Cell here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
 public class Cell {
     
@@ -21,9 +21,13 @@ public class Cell {
     
     
     /**
-     * Constructor for objects of class Cell
+     * Constructor for objects of class Cell.
+     * Sets all fields.
+     * @param owner  the owner of the Cell.
+     * @param row    the row of the Cell.
+     * @param col    the column of the Cell.
      */
-    public Cell(final Spreadsheet owner,final int row,final int col) {
+    public Cell(final Spreadsheet owner, final int row, final int col) {
         this.owner = owner;
         this.row = row;
         this.col = col;
@@ -34,7 +38,10 @@ public class Cell {
         this.cellDependingOnThis = new ArrayList<Cell>();
     }
 
-    
+    /**
+     * Sets the formula of the Cell.
+     * @param newFormula  the new formula of the Cell.
+     */
     public void setFormula(final Formula newFormula) {
         removeDependencies();
         formula = newFormula;
@@ -42,7 +49,9 @@ public class Cell {
         markValueOutOfDate();
     }
     
-    
+    /**
+     * Adds the new Dependencies to the Cell.
+     */
     public void addDependencies() {
         if (formula != null) {
             for (final Cell cell: formula.dependencies(owner)) {
@@ -51,6 +60,9 @@ public class Cell {
         }
     }
     
+    /**
+     * Removes the Dependencies of the Cell.
+     */
     public void removeDependencies() {
         if (formula != null) {
             for (final Cell cell: formula.dependencies(owner)) {
@@ -59,17 +71,27 @@ public class Cell {
         }
     }
     
-    
+    /**
+     * Adds to this Cell Dependencies the given Cell. 
+     * @param cell  a certain Cell.
+     */
     public void addCellDependingOnThis(final Cell cell) {
         if (!cellDependingOnThis.contains(cell)) {
             cellDependingOnThis.add(cell);
         }
     }
     
+    /**
+     * Removes a certiain Cell form the Dependencies of this Cell.
+     * @param cell  a certain Cell.
+     */
     public void removeCellDependingOnThis(final Cell cell) {
         cellDependingOnThis.remove(cell);
     }
     
+    /**
+     * Marks that the Cell and his Dependencies are not Updated.
+     */
     public void markValueOutOfDate() {
         if (isValueUpToDate) {
             isValueUpToDate = false;
@@ -79,7 +101,10 @@ public class Cell {
         }
     }
     
-    
+    /**
+     * Evaluates the CellValue of the Cell.
+     * @return CellValue  the value of the Cell.
+     */
     public CellValue eval() {
         if (isEvaluating) {
             // Loop detected!

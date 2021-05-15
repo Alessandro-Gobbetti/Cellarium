@@ -1,20 +1,22 @@
 /**
  * Write a description of class NumberCellValue here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
-public class NumberCellValue implements CellValue{
+public class NumberCellValue implements CellValue {
     
     private double numberValue;
 
     /**
-     * Constructor for objects of class NumberCellValue
+     * Constructor for objects of class NumberCellValue.
+     * 
+     * @param numberValue   value of the Cell
      */
     public NumberCellValue(double numberValue) {
         super();
         //type = CellType.NUMBER;
-        this.numberValue= numberValue;
+        this.numberValue = numberValue;
     }
 
     @Override
@@ -27,11 +29,18 @@ public class NumberCellValue implements CellValue{
         return true;
     }
     
-
+    /**
+     * Returns the value of the Cell as Number (double).
+     * @return numbervalue
+     */
     public double asNumber() {
         return numberValue;
     }
     
+    /**
+     * Returns the value of the Cell as String.
+     * @return numbervalue as String
+     */
     public String asString() {
         return Double.toString(numberValue);
     }

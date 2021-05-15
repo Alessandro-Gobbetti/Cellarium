@@ -6,8 +6,8 @@ import org.junit.Test;
 /**
  * The test class SpreadsheetTest.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
 public class SpreadsheetTest {
     @Test

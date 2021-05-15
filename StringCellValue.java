@@ -1,20 +1,21 @@
 /**
  * Write a description of class StringCellValue here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
-public class StringCellValue implements CellValue{
+public class StringCellValue implements CellValue {
     
     private String stringValue;
 
     /**
-     * Constructor for objects of class EmptyCellValue
+     * Constructor for objects of class EmptyCellValue.
+     * @param stringValue  the value of the String.
      */
     public StringCellValue(String stringValue) {
         super();
         //type = CellType.NUMBER;
-        this.stringValue= stringValue;
+        this.stringValue = stringValue;
     }
 
     @Override
@@ -33,6 +34,10 @@ public class StringCellValue implements CellValue{
         return Double.NaN;
     }
     
+    /**
+     * Returns the value of the Cell as a String.
+     * @return sringValue  the value of the Cell.
+     */
     public String asString() {
         return stringValue;
     }

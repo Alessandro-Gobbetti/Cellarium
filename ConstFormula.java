@@ -3,13 +3,17 @@ import java.util.ArrayList;
 /**
  * Write a description of class ConstFormula here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
 public class ConstFormula extends Formula {
 
     private double c;
     
+    /**
+     * Constructor of class ConstFormula. 
+     * @param c  the constant.
+     */
     public ConstFormula(final double c) {
         super();
         this.c = c;
