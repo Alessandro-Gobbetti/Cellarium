@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 /**
  * A Variable is an AST node that 
  * corresponds to a literal integer value
  * (a number in the source code).
  */
-public class Variable implements Node  {
+public class Variable extends Node  {
     
     private final String name;
 
@@ -15,19 +17,9 @@ public class Variable implements Node  {
         super();
         this.name = name;
     }
-    
-    @Override
-    public Type getType() {
-        return Type.INVALID;
-    }
 
     @Override
     public boolean isConstant() {
-        return false;
-    }
-    
-    @Override
-    public boolean isError() {
         return false;
     }
     
@@ -37,7 +29,12 @@ public class Variable implements Node  {
     }
     
     @Override
-    public CellValue eval() {
+    public CellValue eval(final Spreadsheet spreadsheet) {
         return new EmptyCellValue();
+    }
+    
+    @Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        //FIXME
     }
 }

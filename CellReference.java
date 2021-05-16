@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Alessandro Gobbetti
  * @version 2021.05.12
  */
-public class CellReference {
+public class CellReference extends Node{
     private boolean rowIsConstant;
     private int row;
     private boolean colIsConstant;
@@ -24,6 +24,68 @@ public class CellReference {
         this.row = row;
         this.colIsConstant = colIsConstant;
         this.col = col;
+    }
+    
+    /**
+     * FIXME
+     */
+    public static int fromAlpha26(final String codeAlpha26) {
+    int result = 0;
+    final int codeLenght = codeAlpha26.length();
+    // looping the given string code from left to right
+    for (int k = 0; k < codeLenght; ++k) {
+        char c = codeAlpha26.charAt(k);
+            // Character.getNumericValue() returns the values
+            //  10-35 for the letter A-Z
+            int digit = Character.getNumericValue(c) - 9;
+            // digits are multiplied by 26^0, 26^1, ...
+            result = result * 26 + digit;
+    }
+    // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
+    return result - 1;
+    }
+    
+    /**
+     * FIXME
+     */
+    public static String toAlpha26(final int col) {
+        // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
+    int alpha26Col = col + 1;
+    String result = "";
+    // we extract a digit at a time until we have no remainder.
+    while(alpha26Col > 0) {
+        int currentDigit = alpha26Col % 26;
+        if(currentDigit == 0) {
+            currentDigit = 26;
+        }
+        alpha26Col = (alpha26Col - currentDigit) / 26;
+        // convert the digit to the letters A, B, C, ...
+        char colChar = (char)(currentDigit + (int)('A') - 1);
+        // add digit from right to left
+        result = colChar + result;
+    }
+    return result;
+    }
+    
+    @Override
+    public boolean isConstant() {
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+        String result = "";
+        if (colIsConstant) {
+            result = result + "$";
+        }
+        result = result + toAlpha26(col);
+        if (rowIsConstant) {
+            result = result + "$";
+        }
+        // ALPHA-26 count colum A as the 1st column, we want to have 0 index. We also count row 0 as the first column.
+        final int alpha26Row = row + 1;
+        result = result + alpha26Row;
+        return result;
     }
 
     /**
@@ -45,19 +107,15 @@ public class CellReference {
     }
     
     public CellValue eval(final Spreadsheet spreadsheet) {
-        final CellValue vRowCol = spreadsheet.getValue(row, col);
-        if (vRowCol.isConvertibleToNumber()) {
-            return new NumberCellValue(vRowCol.asNumber());
-        } else {
-            return new ErrorCellValue("#VALUE");
-        }
+        return spreadsheet.getValue(row, col);
     }
     
-    //@Override
+    @Override
     public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
         final Cell cell = spreadsheet.getOrCreate(row,col);
         if (!list.contains(cell)) {
             list.add(cell);
         }
     }
+
 }

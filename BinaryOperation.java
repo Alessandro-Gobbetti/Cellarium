@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 /**
  * A Binary Operation.
  */
-public abstract class BinaryOperation implements Node {
+public abstract class BinaryOperation extends Node {
     
     private final Node leftChild;
     private final Node rightChild;
@@ -21,16 +23,6 @@ public abstract class BinaryOperation implements Node {
     @Override
     public boolean isConstant() {
         return leftChild.isConstant() && rightChild.isConstant();
-    }
-    
-    @Override
-    public boolean isError() {
-        return false;
-    }
-    
-    @Override
-    public Type getType() {
-        return Type.DOUBLE;
     }
     
     /**
@@ -53,7 +45,13 @@ public abstract class BinaryOperation implements Node {
     public abstract double computeBinary(final CellValue left, final CellValue right);
     
     @Override
-    public CellValue eval() {
-        return new NumberCellValue(computeBinary(leftChild.eval(), rightChild.eval()));
+    public CellValue eval(final Spreadsheet spreadsheet) {
+        return new NumberCellValue(computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet)));
+    }
+    
+    @Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        leftChild.addDependencies(spreadsheet, list);
+        rightChild.addDependencies(spreadsheet, list);
     }
 }

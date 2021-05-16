@@ -8,24 +8,24 @@ import java.util.ArrayList;
  */
 public class ConstFormula extends Formula {
 
-    private double c;
+    // private double c;
     
-    /**
-     * Constructor of class ConstFormula. 
-     * @param c  the constant.
-     */
-    public ConstFormula(final double c) {
-        super();
-        this.c = c;
-    }
+    // /**
+     // * Constructor of class ConstFormula. 
+     // * @param c  the constant.
+     // */
+    // public ConstFormula(final double c) {
+        // super();
+        // this.c = c;
+    // }
     
-    @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        return new NumberCellValue(c);
-    }
+    // @Override
+    // public CellValue eval(final Spreadsheet spreadsheet) {
+        // return new NumberCellValue(c);
+    // }
     
-    @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        //FIXME
-    }
+    // @Override
+    // public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        // //FIXME
+    // }
 }

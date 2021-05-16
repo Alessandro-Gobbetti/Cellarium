@@ -74,6 +74,7 @@ public final class LexicalAnalyzer {
      * @return the next token
      */
     private Token scanToken() {
+        skipSpaces();
         if (position == text.length()) {
             return new Token(TokenType.END_OF_FILE, "", position);
         } else {
@@ -99,6 +100,12 @@ public final class LexicalAnalyzer {
             }
         }
     }
+    
+    public void skipSpaces(){
+        while (position < text.length() && Character.isSpace(text.charAt(position))) {
+            ++position;
+        }
+    }
 
     /**
      * Get the current token.
@@ -115,5 +122,36 @@ public final class LexicalAnalyzer {
     public String getText() {
         return text;
     }
-
+    
+    /**
+     * Returns true if the current token matches the given type.
+     * @param tokentype the type to match
+     * @return true if the current token matches the given type
+     */
+    public boolean currentTokenMatches(final TokenType tokentype) {
+        boolean result = false;
+        if (token != null) {
+            result = token.getType() == tokentype;
+        }
+        return result;
+    }
+    
+    /**
+     * Returns true if the current token is invalid.
+     * @return true if the current token is invalid
+     */
+    public boolean currentTokenIsInvalid() {
+        return token == null;
+    }
+    
+    /**
+     * 
+     */
+    public String currentTokenName() {
+        if (currentTokenIsInvalid()) {
+            return "invalid token.";
+        } else {
+            return token.getType().getName();
+        }
+    }
 }

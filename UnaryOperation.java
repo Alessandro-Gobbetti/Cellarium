@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 /**
  * A Unary Operation.
  */
-public abstract class UnaryOperation implements Node {
+public abstract class UnaryOperation extends Node {
     
     private final Node child;
     
@@ -27,16 +29,6 @@ public abstract class UnaryOperation implements Node {
     public boolean isConstant() {
         return child.isConstant();
     }
-    
-    @Override
-    public boolean isError() {
-        return false;
-    }
-    
-    @Override
-    public Type getType() {
-        return Type.DOUBLE;
-    }
 
     @Override
     public String toString() {
@@ -59,7 +51,12 @@ public abstract class UnaryOperation implements Node {
     public abstract double computeUnary(final CellValue child);
     
     @Override
-    public CellValue eval() {
-        return new NumberCellValue(computeUnary(child.eval()));
+    public CellValue eval(final Spreadsheet spreadsheet) {
+        return new NumberCellValue(computeUnary(child.eval(spreadsheet)));
+    }
+    
+    @Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        child.addDependencies(spreadsheet, list);
     }
 }

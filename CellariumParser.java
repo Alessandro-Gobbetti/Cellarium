@@ -48,17 +48,18 @@ public final class CellariumParser implements Parser {
      * 
      */
     private Node parseCell() {
-        if (lexer.getCurrentToken().getType() == TokenType.EQUAL) {
+        if (lexer.currentTokenMatches(TokenType.EQUAL)
+            || lexer.currentTokenMatches(TokenType.PLUS)) {
             lexer.fetchNextToken();
             final Node expression = parseExpression();
-            if (!expression.isError() && lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-                return new Error("Err:EOF");
+            if (!expression.isError() && !lexer.currentTokenMatches(TokenType.END_OF_FILE)) {
+                return new Error("Err:Syntax", "Syntax error: garbage after the expression");
             }
             return expression;
-        } else if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
+        } else if (lexer.currentTokenMatches(TokenType.LITERAL)) {
             final Node literal = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
-            if (lexer.getCurrentToken().getType() == TokenType.END_OF_FILE) {
+            if (lexer.currentTokenMatches(TokenType.END_OF_FILE)) {
                 return literal;
             } else {
                 return new Text(lexer.getText());
@@ -83,18 +84,18 @@ public final class CellariumParser implements Parser {
     private Node parseExpression() {
         // parse [ "+" | "-" ]
         boolean shouldNegate = false;
-        if (lexer.getCurrentToken().getType() == TokenType.PLUS) {
+        if (lexer.currentTokenMatches(TokenType.PLUS)) {
             lexer.fetchNextToken();
-        } else if (lexer.getCurrentToken().getType() == TokenType.MINUS) {
+        } else if (lexer.currentTokenMatches(TokenType.MINUS)) {
             shouldNegate = true;
             lexer.fetchNextToken();
         }
                
         // parse TERM
         Node term = parseTerm();
-        if (term == null) {
-            // term is malformed and parseTerm() has already printed an error message
-            return null;
+        if (term.isError()) {
+            // term is malformed and parseTerm() has already returned an error message
+            return term;
         }
         
         // apply negation
@@ -104,15 +105,15 @@ public final class CellariumParser implements Parser {
         
         // next token fetched in parseTerm()
         
-        while (lexer.getCurrentToken().getType() == TokenType.PLUS
-               || lexer.getCurrentToken().getType() == TokenType.MINUS) {
-            final boolean shouldAdd = lexer.getCurrentToken().getType() == TokenType.PLUS;
+        while (lexer.currentTokenMatches(TokenType.PLUS)
+               || lexer.currentTokenMatches(TokenType.MINUS)) {
+            final boolean shouldAdd = lexer.currentTokenMatches(TokenType.PLUS);
             lexer.fetchNextToken();
             final Node currentTerm = parseTerm();
             //next token already fetched in parseTerm()
-            if (currentTerm == null) {
-                // currentTerm is malformed and parseTerm() has already printed an error message
-                return null;
+            if (currentTerm.isError()) {
+                // currentTerm is malformed and parseTerm() has already returned an error message
+                return currentTerm;
             }
             if (shouldAdd) {
                 term = new Addition(term, currentTerm);
@@ -137,20 +138,20 @@ public final class CellariumParser implements Parser {
     private Node parseTerm() {
         Node factor = parseFactor();
         // next already token fetched in parseFactor()
-        if (factor == null) {
-            // factor is malformed and parseFactor() has already printed an error message
-            return null;
+        if (factor.isError()) {
+            // factor is malformed and parseFactor() has already returned an error message
+            return factor;
         }
         
-        while (lexer.getCurrentToken().getType() == TokenType.STAR 
-               || lexer.getCurrentToken().getType() == TokenType.SLASH) {
-            final boolean shouldMul = lexer.getCurrentToken().getType() == TokenType.STAR;
+        while (lexer.currentTokenMatches(TokenType.STAR)
+               || lexer.currentTokenMatches(TokenType.SLASH)) {
+            final boolean shouldMul = lexer.currentTokenMatches(TokenType.STAR);
             lexer.fetchNextToken();
             final Node currentFactor = parseFactor();
             //next token already fetched in parseFactor()
-            if (currentFactor == null) {
-                // currentFactor is malformed and parseFactor() has already printed an error message
-                return null;
+            if (currentFactor.isError()) {
+                // currentFactor is malformed and parseFactor() has already returned an error message
+                return currentFactor;
             }
             if (shouldMul) {
                 factor = new Multiplication(factor, currentFactor);
@@ -171,50 +172,109 @@ public final class CellariumParser implements Parser {
      * FACTOR ::=  
      *          Literal | 
      *          Identifier | 
+     *          Cell reference |
      *          "(" EXPRESSION ")"
      * </code>
      * 
      * @return a Node representing the factor
      */
     private Node parseFactor() {
-        if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
+        if (lexer.currentTokenMatches(TokenType.LITERAL)) {
             final Node factor = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
             // produce Node
             return factor;
-        } else if (lexer.getCurrentToken().getType() == TokenType.FUNCTION) {
+        } else if (lexer.currentTokenMatches(TokenType.FUNCTION)) {
             final Node factor = new Variable(lexer.getCurrentToken().getText());
             lexer.fetchNextToken();
             // produce Node
             return factor;
-        } else if (lexer.getCurrentToken().getType() == TokenType.CELLREFERENCE) {
-            final Node factor = new Variable(lexer.getCurrentToken().getText());
-            lexer.fetchNextToken();
-            // produce Node
-            return factor;
-        } else if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
+        } else if (lexer.currentTokenMatches(TokenType.CELLREFERENCE)) {
+            // parse the cell reference and produce Node
+            return parseCellReference();
+        } else if (lexer.currentTokenMatches(TokenType.OPEN_PAREN)) {
             // skip the parenthesis
             lexer.fetchNextToken();
             // parse the EXPRESSION
             final Node factor = parseExpression();
-            if (factor == null) {
-                // factor is malformed and parseExpression() has already printed an error message
-                return null;
+            if (factor.isError()) {
+                // factor is malformed and parseExpression() has already returned an error message
+                return factor;
             }
             // skip the closed parenthesis
-            if (lexer.getCurrentToken().getType() == TokenType.CLOSED_PAREN) {
+            if (lexer.currentTokenMatches(TokenType.CLOSED_PAREN)) {
                 lexer.fetchNextToken();
                 return factor;
             } else {
-                // print error message
-                System.out.println("Expected a ')', got " + lexer.getCurrentToken().getType());
-                return null;
+                // return error message
+                return new Error("Err:Syntax", "Syntax error: expected a ')', got " + lexer.currentTokenName());
             }
         } else {
             // print error message
-            System.out.println("Expected a FACTOR, got " + lexer.getCurrentToken().getType());
-            return null;
+            return new Error("Err:Syntax", "Syntax error: expected a FACTOR, got " + lexer.currentTokenName());
         }
+    }
+    
+    /**
+     * Parse a cell reference.
+     * This assumes the lexer already points to the first token of this factor.
+     * 
+     * <p>EBNF:
+     * <code>
+     * CELLREFERENCE ::= "[$]?[A-Z]+[$]?[0-9]+"
+     * </code>
+     * 
+     * @return a Node representing the factor
+     */
+    private Node parseCellReference() {
+        if (!lexer.currentTokenMatches(TokenType.CELLREFERENCE)) {
+            return new Error("Err:Syntax", "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
+        }
+        // Get the reference string before skipping it.
+        String reference = lexer.getCurrentToken().getText();
+        lexer.fetchNextToken();
+        
+        // Separate reference in row and column parts.
+        int startOfColIndex = 0;
+        int endOfColIndex = 0;
+        int startOfRowIndex = 0;
+        int endOfRowIndex = reference.length();
+        boolean rowIsConstant = false;
+        boolean colIsConstant = false;
+    // skip initial dollars
+    if (reference.charAt(startOfColIndex)=='$') {
+        colIsConstant = true;
+            startOfColIndex++;
+    }
+    // step over column name chars until first digit (or dollars) for row number.
+    boolean found = false;
+        for (int i = startOfColIndex; i < endOfRowIndex && !found; i++) {
+            char ch = reference.charAt(i);
+            if (ch == '$') {
+                rowIsConstant = true;
+                startOfRowIndex = i + 1;
+                endOfColIndex = i;
+                found = true;
+            } else if (Character.isDigit(ch)) {
+                startOfRowIndex = i;
+                endOfColIndex = i;
+        found = true;
+            }
+    }
+    if (!found) {
+        return new Error("Err:Syntax", "Malformed CELL REFERENCE, got " + reference);
+    }
+    String colString = reference.substring(startOfColIndex, endOfColIndex);
+    String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
+    // ALPHA-26 count colum A as the 1st column, we want to have 0 index. We also count row 0 as the first column.
+    int row = Integer.parseInt(rowString) - 1;
+    // ALPHA-26 number format
+    int col = CellReference.fromAlpha26(colString);
+    
+    if (row < 0 || col < 0) {
+        return new Error("Err:REF", "Cell out of range " + reference + " row: '" + rowString + "' -> " + row + " col: '" + colString + "' -> " + col);
+    }
+        return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 
 }

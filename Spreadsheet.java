@@ -60,42 +60,26 @@ public class Spreadsheet {
     public void remove(final int row, final int col) {
         final int cellIndex = indexFromRowCol(row, col);
         cellMap.remove(cellIndex);
-        // Update max indices FIXME
+        // Update max indices
         if (row == maxUsedCellRow) {
-            boolean maxUsedRowUpToDate = false;
             int resultRow = 0;
-            for (int r = maxUsedCellRow; r >= 0; --r)
-            {                                                                  
-                for (int c = maxUsedCellCol; c >= 0; --c)
-                {
+            for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) {                                                                  
+                for (int c = maxUsedCellCol; c >= 0 && resultRow == 0; --c) {
                     if (exists(r,c)) {
                         resultRow = r;
-                        maxUsedRowUpToDate = true;
-                        break;
                     }
-                }
-                if (maxUsedRowUpToDate) {
-                    break;
                 }
             }
             maxUsedCellRow = resultRow;
         }
-            
-        if (col == maxUsedCellCol) {
-            boolean maxUsedColUpToDate = false;
+        
+        if (row == maxUsedCellRow) {
             int resultCol = 0;
-            for (int r = maxUsedCellRow; r >= 0; --r)
-            {                                                                  
-                for (int c = maxUsedCellCol; c >= 0; --c)
-                {
+            for (int c = maxUsedCellCol; c >= 0 && resultCol == 0; --c) {
+                for (int r = maxUsedCellRow; r >= 0 && resultCol == 0; --r) {
                     if (exists(r,c)) {
                         resultCol = c;
-                        maxUsedColUpToDate = true;
-                        break;
                     }
-                }
-                if (maxUsedColUpToDate) {
-                    break;
                 }
             }
             maxUsedCellCol = resultCol;
@@ -197,22 +181,9 @@ public class Spreadsheet {
     public void print() {
         for (int row = 0; row <= maxUsedCellRow; row++) {
             for (int col = 0; col <= maxUsedCellCol; col++) {
-                System.out.print(exists(row, col) ? getValue(row,col).asString() : ", ");
+                System.out.print(exists(row, col) ? getValue(row,col).asString() + "," : " ,");
             }
             System.out.println();
         }
-    }
-    
-    /**
-     * Tests the print() method.
-     */
-    public void test() {
-        final Cell c11 =  getOrCreate(1,1);
-        final Cell c21 =  getOrCreate(2,1);
-        final Cell c1030 =  getOrCreate(10,30);
-        c11.setFormula(new ConstFormula(10));
-        c21.setFormula(new ScalingFormula(2, 1, 1));
-        c1030.setFormula(new ScalingFormula(3, 2, 1));
-    }
-    
+    }    
 }

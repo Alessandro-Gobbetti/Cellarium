@@ -6,16 +6,17 @@
  */
 public class ErrorCellValue implements CellValue {
     
-    private String errorValue;
+    private String code;
+    private String text;
 
     /**
      * Constructor for objects of class EmptyCellValue.
      * @param errorValue  the Error message.
      */
-    public ErrorCellValue(final String errorValue) {
+    public ErrorCellValue(final String code, final String text) {
         super();
-        //type = CellType.NUMBER;
-        this.errorValue = errorValue;
+        this.code = code;
+        this.text = text;
     }
 
     @Override
@@ -30,7 +31,6 @@ public class ErrorCellValue implements CellValue {
     
     @Override
     public double asNumber() {
-        //FIXME
         return Double.NaN;
     }
     
@@ -39,6 +39,6 @@ public class ErrorCellValue implements CellValue {
      * @return errorValue the Error message.
      */
     public String asString() {
-        return errorValue;
+        return code;
     }
 }

@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 /**
  * A Literal is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Literal implements Node {
+public class Literal extends Node {
     
     private final double value;
     
@@ -21,16 +23,6 @@ public class Literal implements Node {
     public boolean isConstant() {
         return true;
     }
-    
-    @Override
-    public Type getType() {
-        return Type.DOUBLE;
-    }
-    
-    @Override
-    public boolean isError() {
-        return false;
-    }
 
     @Override
     public String toString() {
@@ -38,7 +30,12 @@ public class Literal implements Node {
     }
     
     @Override
-    public CellValue eval() {
+    public CellValue eval(final Spreadsheet spreadsheet) {
         return new NumberCellValue(value);
+    }
+    
+    @Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        //FIXME
     }
 }

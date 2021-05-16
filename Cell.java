@@ -15,7 +15,7 @@ public class Cell {
     private CellValue value;
     private boolean isEvaluating;
     private boolean isValueUpToDate;
-    private Formula formula;
+    private Node formula;
     private Style style;
     private ArrayList<Cell> cellDependingOnThis;
     
@@ -42,7 +42,7 @@ public class Cell {
      * Sets the formula of the Cell.
      * @param newFormula  the new formula of the Cell.
      */
-    public void setFormula(final Formula newFormula) {
+    public void setFormula(final Node newFormula) {
         removeDependencies();
         formula = newFormula;
         addDependencies();
@@ -108,7 +108,7 @@ public class Cell {
     public CellValue eval() {
         if (isEvaluating) {
             // Loop detected!
-            value = new ErrorCellValue("LOOP");
+            value = new ErrorCellValue("Err:LOOP", "The formula calls a cell depending on this.");
         } else {
             isEvaluating = true;
             if (!isValueUpToDate) {

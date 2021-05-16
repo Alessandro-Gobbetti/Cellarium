@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 /**
  * A Text is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Text implements Node {
+public class Text extends Node {
     
     private final String text;
     
@@ -21,16 +23,6 @@ public class Text implements Node {
     public boolean isConstant() {
         return true;
     }
-    
-    @Override
-    public boolean isError() {
-        return false;
-    }
-    
-    @Override
-    public Type getType() {
-        return Type.STRING;
-    }
 
     @Override
     public String toString() {
@@ -38,7 +30,12 @@ public class Text implements Node {
     }
     
     @Override
-    public CellValue eval() {
+    public CellValue eval(final Spreadsheet spreadsheet) {
         return new StringCellValue(text);
+    }
+    
+    @Override
+    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+        //FIXME
     }
 }
