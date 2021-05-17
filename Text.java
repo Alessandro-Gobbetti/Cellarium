@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 /**
  * A Text is an AST node that 
- * corresponds to a literal value
- * (a number in the source code).
+ * corresponds to a text value
+ * (a String in the source code).
  */
 public class Text extends Node {
     
@@ -11,8 +11,8 @@ public class Text extends Node {
     
     
     /**
-     * Create a new IntLiteral node.
-     * @param value the integer value this node evaluates to
+     * Create a new Text node.
+     * @param text the text value this node evaluates to
      */
     public Text(final String text) {
         super();
