@@ -12,7 +12,7 @@ public class StringCellValue implements CellValue {
      * Constructor for objects of class EmptyCellValue.
      * @param stringValue  the value of the String.
      */
-    public StringCellValue(String stringValue) {
+    public StringCellValue(final String stringValue) {
         super();
         //type = CellType.NUMBER;
         this.stringValue = stringValue;

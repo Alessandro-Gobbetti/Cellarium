@@ -40,8 +40,7 @@ public abstract class Node {
      * @param  spreadsheet  the spreadsheet in which the cell is situated.
      * @param  list  the ArrayList with the current dependecies.
      */
-    public void addDependencies(Spreadsheet spreadsheet, ArrayList<Cell> list) {
-    }
+    public abstract void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list);
     
     /**
      * Returns type of the Cell.

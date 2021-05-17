@@ -13,7 +13,7 @@ public class NumberCellValue implements CellValue {
      * 
      * @param numberValue   value of the Cell
      */
-    public NumberCellValue(double numberValue) {
+    public NumberCellValue(final double numberValue) {
         super();
         //type = CellType.NUMBER;
         this.numberValue = numberValue;
