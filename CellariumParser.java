@@ -236,14 +236,14 @@ public final class CellariumParser implements Parser {
                              "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
         }
         // Get the reference string before skipping it.
-        String reference = lexer.getCurrentToken().getText();
+        final String reference = lexer.getCurrentToken().getText();
         lexer.fetchNextToken();
         
         // Separate reference in row and column parts.
         int startOfColIndex = 0;
         int endOfColIndex = 0;
         int startOfRowIndex = 0;
-        int endOfRowIndex = reference.length();
+        final int endOfRowIndex = reference.length();
         boolean rowIsConstant = false;
         boolean colIsConstant = false;
         // skip initial dollars
@@ -254,7 +254,7 @@ public final class CellariumParser implements Parser {
         // step over column name chars until first digit (or dollars) for row number.
         boolean found = false;
         for (int i = startOfColIndex; i < endOfRowIndex && !found; i++) {
-            char ch = reference.charAt(i);
+            final char ch = reference.charAt(i);
             if (ch == '$') {
                 rowIsConstant = true;
                 startOfRowIndex = i + 1;
@@ -269,13 +269,13 @@ public final class CellariumParser implements Parser {
         if (!found) {
             return new Error("Err:Syntax", "Malformed CELL REFERENCE, got " + reference);
         }
-        String colString = reference.substring(startOfColIndex, endOfColIndex);
-        String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
+        final String colString = reference.substring(startOfColIndex, endOfColIndex);
+        final String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
         // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
         // We also count row 0 as the first column.
-        int row = Integer.parseInt(rowString) - 1;
+        final int row = Integer.parseInt(rowString) - 1;
         // ALPHA-26 number format
-        int col = CellReference.fromAlpha26(colString);
+        final int col = CellReference.fromAlpha26(colString);
         
         if (row < 0 || col < 0) {
             return new Error("Err:REF",

@@ -30,6 +30,7 @@ public abstract class Node {
     
     /**
      * Evaluates a certain computation of a Node.
+     * @param spreadsheet  the spreadsheet.
      * @return a double, the result of the computation
      */
     public abstract CellValue eval(final Spreadsheet spreadsheet);

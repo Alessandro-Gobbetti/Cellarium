@@ -11,7 +11,8 @@ public class ErrorCellValue implements CellValue {
 
     /**
      * Constructor for objects of class EmptyCellValue.
-     * @param errorValue  the Error message.
+     * @param code        the code of the Error message.
+     * @param text        the text of the Error message.
      */
     public ErrorCellValue(final String code, final String text) {
         super();
