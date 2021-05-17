@@ -20,16 +20,20 @@ public final class CellariumParser implements Parser {
     
     private LexicalAnalyzer lexer;
 
+    public void initLexer(final String sourceCode) {
+        this.lexer = new LexicalAnalyzer(sourceCode);
+        // fetch first token
+        lexer.fetchNextToken();
+    }
     
     /**
-     * Parse a program in the Arith language.
+     * Parse a program in the Cellarium language.
      * @param sourceCode The source code of the program in the Arith language
      * @return an AST of the program
      */
     public Node parse(final String sourceCode) {
-        this.lexer = new LexicalAnalyzer(sourceCode);
-        // fetch first token
-        lexer.fetchNextToken();
+        // to init the Lexical Analyzer
+        initLexer(sourceCode);
         // now parse the CELL
         return parseCell();
     }
@@ -47,19 +51,19 @@ public final class CellariumParser implements Parser {
      * </code>
      * 
      */
-    private Node parseCell() {
-        if (lexer.currentTokenMatches(TokenType.EQUAL)
-            || lexer.currentTokenMatches(TokenType.PLUS)) {
+    public Node parseCell() {
+        if (currentTokenMatches(TokenType.EQUAL)
+            || currentTokenMatches(TokenType.PLUS)) {
             lexer.fetchNextToken();
             final Node expression = parseExpression();
-            if (!expression.isError() && !lexer.currentTokenMatches(TokenType.END_OF_FILE)) {
+            if (!expression.isError() && !currentTokenMatches(TokenType.END_OF_FILE)) {
                 return new Error("Err:Syntax", "Syntax error: garbage after the expression");
             }
             return expression;
-        } else if (lexer.currentTokenMatches(TokenType.LITERAL)) {
+        } else if (currentTokenMatches(TokenType.LITERAL)) {
             final Node literal = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
-            if (lexer.currentTokenMatches(TokenType.END_OF_FILE)) {
+            if (currentTokenMatches(TokenType.END_OF_FILE)) {
                 return literal;
             } else {
                 return new Text(lexer.getText());
@@ -84,9 +88,9 @@ public final class CellariumParser implements Parser {
     private Node parseExpression() {
         // parse [ "+" | "-" ]
         boolean shouldNegate = false;
-        if (lexer.currentTokenMatches(TokenType.PLUS)) {
+        if (currentTokenMatches(TokenType.PLUS)) {
             lexer.fetchNextToken();
-        } else if (lexer.currentTokenMatches(TokenType.MINUS)) {
+        } else if (currentTokenMatches(TokenType.MINUS)) {
             shouldNegate = true;
             lexer.fetchNextToken();
         }
@@ -105,9 +109,9 @@ public final class CellariumParser implements Parser {
         
         // next token fetched in parseTerm()
         
-        while (lexer.currentTokenMatches(TokenType.PLUS)
-               || lexer.currentTokenMatches(TokenType.MINUS)) {
-            final boolean shouldAdd = lexer.currentTokenMatches(TokenType.PLUS);
+        while (currentTokenMatches(TokenType.PLUS)
+               || currentTokenMatches(TokenType.MINUS)) {
+            final boolean shouldAdd = currentTokenMatches(TokenType.PLUS);
             lexer.fetchNextToken();
             final Node currentTerm = parseTerm();
             //next token already fetched in parseTerm()
@@ -143,9 +147,9 @@ public final class CellariumParser implements Parser {
             return factor;
         }
         
-        while (lexer.currentTokenMatches(TokenType.STAR)
-               || lexer.currentTokenMatches(TokenType.SLASH)) {
-            final boolean shouldMul = lexer.currentTokenMatches(TokenType.STAR);
+        while (currentTokenMatches(TokenType.STAR)
+               || currentTokenMatches(TokenType.SLASH)) {
+            final boolean shouldMul = currentTokenMatches(TokenType.STAR);
             lexer.fetchNextToken();
             final Node currentFactor = parseFactor();
             //next token already fetched in parseFactor()
@@ -180,20 +184,20 @@ public final class CellariumParser implements Parser {
      * @return a Node representing the factor
      */
     private Node parseFactor() {
-        if (lexer.currentTokenMatches(TokenType.LITERAL)) {
+        if (currentTokenMatches(TokenType.LITERAL)) {
             final Node factor = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
             // produce Node
             return factor;
-        } else if (lexer.currentTokenMatches(TokenType.FUNCTION)) {
+        } else if (currentTokenMatches(TokenType.FUNCTION)) {
             final Node factor = new Variable(lexer.getCurrentToken().getText());
             lexer.fetchNextToken();
             // produce Node
             return factor;
-        } else if (lexer.currentTokenMatches(TokenType.CELLREFERENCE)) {
+        } else if (currentTokenMatches(TokenType.CELLREFERENCE)) {
             // parse the cell reference and produce Node
             return parseCellReference();
-        } else if (lexer.currentTokenMatches(TokenType.OPEN_PAREN)) {
+        } else if (currentTokenMatches(TokenType.OPEN_PAREN)) {
             // skip the parenthesis
             lexer.fetchNextToken();
             // parse the EXPRESSION
@@ -204,7 +208,7 @@ public final class CellariumParser implements Parser {
                 return factor;
             }
             // skip the closed parenthesis
-            if (lexer.currentTokenMatches(TokenType.CLOSED_PAREN)) {
+            if (currentTokenMatches(TokenType.CLOSED_PAREN)) {
                 lexer.fetchNextToken();
                 return factor;
             } else {
@@ -230,8 +234,8 @@ public final class CellariumParser implements Parser {
      * 
      * @return a Node representing the factor
      */
-    private Node parseCellReference() {
-        if (!lexer.currentTokenMatches(TokenType.CELLREFERENCE)) {
+    public Node parseCellReference() {
+        if (!currentTokenMatches(TokenType.CELLREFERENCE)) {
             return new Error("Err:Syntax",
                              "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
         }
@@ -286,4 +290,7 @@ public final class CellariumParser implements Parser {
         return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 
+    public boolean currentTokenMatches(TokenType type) {
+        return lexer != null && lexer.currentTokenMatches(type);
+    }
 }
