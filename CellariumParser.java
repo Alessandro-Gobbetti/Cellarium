@@ -150,7 +150,8 @@ public final class CellariumParser implements Parser {
             final Node currentFactor = parseFactor();
             //next token already fetched in parseFactor()
             if (currentFactor.isError()) {
-                // currentFactor is malformed and parseFactor() has already returned an error message
+                // currentFactor is malformed and parseFactor()
+                // has already returned an error message
                 return currentFactor;
             }
             if (shouldMul) {
@@ -198,7 +199,8 @@ public final class CellariumParser implements Parser {
             // parse the EXPRESSION
             final Node factor = parseExpression();
             if (factor.isError()) {
-                // factor is malformed and parseExpression() has already returned an error message
+                // factor is malformed and parseExpression()
+                // has already returned an error message
                 return factor;
             }
             // skip the closed parenthesis
@@ -207,11 +209,13 @@ public final class CellariumParser implements Parser {
                 return factor;
             } else {
                 // return error message
-                return new Error("Err:Syntax", "Syntax error: expected a ')', got " + lexer.currentTokenName());
+                return new Error("Err:Syntax",
+                                 "Syntax error: expected a ')', got " + lexer.currentTokenName());
             }
         } else {
             // print error message
-            return new Error("Err:Syntax", "Syntax error: expected a FACTOR, got " + lexer.currentTokenName());
+            return new Error("Err:Syntax",
+                             "Syntax error: expected a FACTOR, got " + lexer.currentTokenName());
         }
     }
     
@@ -228,7 +232,8 @@ public final class CellariumParser implements Parser {
      */
     private Node parseCellReference() {
         if (!lexer.currentTokenMatches(TokenType.CELLREFERENCE)) {
-            return new Error("Err:Syntax", "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
+            return new Error("Err:Syntax",
+                             "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
         }
         // Get the reference string before skipping it.
         String reference = lexer.getCurrentToken().getText();
@@ -241,13 +246,13 @@ public final class CellariumParser implements Parser {
         int endOfRowIndex = reference.length();
         boolean rowIsConstant = false;
         boolean colIsConstant = false;
-    // skip initial dollars
-    if (reference.charAt(startOfColIndex)=='$') {
-        colIsConstant = true;
+        // skip initial dollars
+        if (reference.charAt(startOfColIndex) == '$') {
+            colIsConstant = true;
             startOfColIndex++;
-    }
-    // step over column name chars until first digit (or dollars) for row number.
-    boolean found = false;
+        }
+        // step over column name chars until first digit (or dollars) for row number.
+        boolean found = false;
         for (int i = startOfColIndex; i < endOfRowIndex && !found; i++) {
             char ch = reference.charAt(i);
             if (ch == '$') {
@@ -258,22 +263,26 @@ public final class CellariumParser implements Parser {
             } else if (Character.isDigit(ch)) {
                 startOfRowIndex = i;
                 endOfColIndex = i;
-        found = true;
+                found = true;
             }
-    }
-    if (!found) {
-        return new Error("Err:Syntax", "Malformed CELL REFERENCE, got " + reference);
-    }
-    String colString = reference.substring(startOfColIndex, endOfColIndex);
-    String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
-    // ALPHA-26 count colum A as the 1st column, we want to have 0 index. We also count row 0 as the first column.
-    int row = Integer.parseInt(rowString) - 1;
-    // ALPHA-26 number format
-    int col = CellReference.fromAlpha26(colString);
-    
-    if (row < 0 || col < 0) {
-        return new Error("Err:REF", "Cell out of range " + reference + " row: '" + rowString + "' -> " + row + " col: '" + colString + "' -> " + col);
-    }
+        }
+        if (!found) {
+            return new Error("Err:Syntax", "Malformed CELL REFERENCE, got " + reference);
+        }
+        String colString = reference.substring(startOfColIndex, endOfColIndex);
+        String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
+        // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
+        // We also count row 0 as the first column.
+        int row = Integer.parseInt(rowString) - 1;
+        // ALPHA-26 number format
+        int col = CellReference.fromAlpha26(colString);
+        
+        if (row < 0 || col < 0) {
+            return new Error("Err:REF",
+                             "Cell out of range " + reference
+                                         + " row: '" + rowString + "' -> " + row
+                                         + " col: '" + colString + "' -> " + col);
+        }
         return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 

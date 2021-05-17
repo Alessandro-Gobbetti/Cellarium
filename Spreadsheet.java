@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    private final static int MaxDim = 32768;
+    private static final int MaxDim = 32768;
     
     /**
      * Constructor of class Spreadsheet. 
