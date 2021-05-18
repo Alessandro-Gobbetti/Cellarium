@@ -7,33 +7,17 @@ import java.util.Scanner;
  * @version (a version number or a date)
  */
 public class CellariumTextUserInterface {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-    public static final String ANSI_BOLD ="\033[0;1m";
-    
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_BOLD ="\033[0;1m";
+    private static boolean terminated = false;
     public static void main(final String[] args) {
         System.out.println("Cellarium 1.0 (Jun 04 2021)");
         System.out.println("Type \"HELP\" for more information.");
-        Spreadsheet spreadsheet = new Spreadsheet();
+        final Spreadsheet spreadsheet = new Spreadsheet();
         SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
         // scan the input 
-        Scanner scanner = new Scanner(System.in);
-        boolean terminated = false;
+        final Scanner scanner = new Scanner(System.in);
         while(!terminated) {
             System.out.print(ANSI_BOLD + ANSI_RED + "Cellarium> " + ANSI_RESET);
             String command = scanner.nextLine();
@@ -42,5 +26,9 @@ public class CellariumTextUserInterface {
                 System.out.println("Please insert a valid command");
             }
         }
+    }
+    
+    public static void setTerminated(final boolean terminated) {
+        CellariumTextUserInterface.terminated = terminated;
     }
 }

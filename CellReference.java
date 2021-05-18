@@ -21,6 +21,7 @@ public class CellReference extends Node {
      */
     public CellReference(final boolean rowIsConstant, final int row,
                          final boolean colIsConstant, final int col) {
+        super();
         this.rowIsConstant = rowIsConstant;
         this.row = row;
         this.colIsConstant = colIsConstant;
@@ -37,10 +38,10 @@ public class CellReference extends Node {
         final int codeLenght = codeAlpha26.length();
         // looping the given string code from left to right
         for (int k = 0; k < codeLenght; ++k) {
-            char c = codeAlpha26.charAt(k);
+            final char c = codeAlpha26.charAt(k);
             // Character.getNumericValue() returns the values
             //  10-35 for the letter A-Z
-            int digit = Character.getNumericValue(c) - 9;
+            final int digit = Character.getNumericValue(c) - 9;
             // digits are multiplied by 26^0, 26^1, ...
             result = result * 26 + digit;
         }
@@ -65,7 +66,7 @@ public class CellReference extends Node {
             }
             alpha26Col = (alpha26Col - currentDigit) / 26;
             // convert the digit to the letters A, B, C, ...
-            char colChar = (char)(currentDigit + (int)('A') - 1);
+            final char colChar = (char)(currentDigit + (int)('A') - 1);
             // add digit from right to left
             result = colChar + result;
         }

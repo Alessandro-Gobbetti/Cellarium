@@ -290,7 +290,7 @@ public final class CellariumParser implements Parser {
         return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 
-    public boolean currentTokenMatches(TokenType type) {
+    public boolean currentTokenMatches(final TokenType type) {
         return lexer != null && lexer.currentTokenMatches(type);
     }
 }

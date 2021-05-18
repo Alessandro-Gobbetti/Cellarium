@@ -194,7 +194,7 @@ public class Spreadsheet {
      * Prints the current Spreadsheet.
      */
     public void print() {
-        //print border
+        //print top border
         System.out.print("┌───────┬");
         for (int col = 0; col < maxUsedCellCol; col++) {
             System.out.print("───────┬");
@@ -218,7 +218,7 @@ public class Spreadsheet {
             }
             System.out.println("│");
         }
-        //print border
+        //print botton border
         System.out.print("└───────┴");
         for (int col = 0; col < maxUsedCellCol; col++) {
             System.out.print("───────┴");
