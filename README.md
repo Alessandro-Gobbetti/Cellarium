@@ -18,6 +18,8 @@ java CellariumTextUserInterface
 | `SET NAMEOFTHECELL VALUE` | To set or change a cell |
 | `CLEAR NAMEOFTHECELL` | To clear a certain cell |
 | `CLEAR` | To clear the spreadsheet |
+| `HELP` | To open Help terminal with the commands |
+
 
 #### Examples
 
@@ -28,12 +30,12 @@ SET C2 7
 ```
 or
 ```bash
-SET C2 = A1 + B2
+SET A1 = C2 + G7
 ```
 
 To cancel one cell:
 ```bash
-CLEAR C1
+CLEAR C2
 ```
 
 
