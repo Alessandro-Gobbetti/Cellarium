@@ -33,6 +33,7 @@ public class SpreadsheetCommandHelp implements SpreadsheetCommand{
     }
     
     public String helpLong(final String commandName) {
-        return "FIXME ..examples...";
+        return commandName + ": print all the commands and a little descriction for each of them.\n"
+               + commandName + " command: print a detailed description of the command.";
     }
 }

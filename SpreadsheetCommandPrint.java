@@ -36,7 +36,7 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
     }
     
     public String helpLong(final String commandName) {
-        return (commandName + ": print the entire spreadsheet.\n " +
+        return (commandName + ": print the entire spreadsheet.\n" +
                 commandName + " reference: print the reference cell content.");
-        }
+    }
 }

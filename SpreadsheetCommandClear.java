@@ -26,8 +26,6 @@ public class SpreadsheetCommandClear implements SpreadsheetCommand{
                 return false;
             }
             spreadsheet.remove(cellReference.getRow(0), cellReference.getCol(0));
-            //Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), cellReference.getCol(0));
-            //System.out.println(cell.eval().asString());
         }
         return true;
     }
@@ -39,5 +37,5 @@ public class SpreadsheetCommandClear implements SpreadsheetCommand{
     public String helpLong(final String commandName) {
         return (commandName + ": clear the entire spreadsheet.\n" +
                 commandName + " reference: clear the reference cell content.");
-        }
+    }
 }

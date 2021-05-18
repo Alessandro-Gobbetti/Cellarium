@@ -45,11 +45,14 @@ public class SpreadsheetCommandInterpreter {
             System.out.println(command.helpLong(commandName));
         }
     }
-    
+    public static final String ANSI_BOLD ="\033[0;1m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     public void helpCommandList() {
+        System.out.println("Type \"HELP\" followed by a command for more information.");
         // iterate for all element in commandMap
         for (HashMap.Entry<String, SpreadsheetCommand> entry : commandMap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().helpShort());
+            System.out.println(ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " + entry.getValue().helpShort());
         }
     }
 }
