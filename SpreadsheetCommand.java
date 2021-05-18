@@ -5,7 +5,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class SpreadsheetCommand {
+public abstract interface SpreadsheetCommand {
 
     public abstract boolean parseAndExecute(String input, Spreadsheet spreadsheet);
     

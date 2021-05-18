@@ -27,6 +27,8 @@ public class CellariumTextUserInterface {
     public static final String ANSI_BOLD ="\033[0;1m";
     
     public static void main(final String[] args) {
+        System.out.println("Cellarium 1.0 (Jun 04 2021)");
+        System.out.println("Type \"HELP\" for more information.");
         Spreadsheet spreadsheet = new Spreadsheet();
         SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
         // scan the input 

@@ -17,6 +17,7 @@ public class SpreadsheetCommandInterpreter {
         commandMap = new HashMap<String, SpreadsheetCommand>() {{
             put("SET", new SpreadsheetCommandSet());
             put("PRINT", new SpreadsheetCommandPrint());
+            put("CLEAR", new SpreadsheetCommandClear());
             put("HELP", new SpreadsheetCommandHelp(SpreadsheetCommandInterpreter.this));
         }};
     }

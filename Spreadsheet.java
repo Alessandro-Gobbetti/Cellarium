@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.PrintWriter;
+import java.io.File;
 
 /**
  * Write a description of class Spreadsheet here.
@@ -73,7 +75,7 @@ public class Spreadsheet {
             maxUsedCellRow = resultRow;
         }
         
-        if (row == maxUsedCellRow) {
+        if (col == maxUsedCellCol) {
             int resultCol = 0;
             for (int c = maxUsedCellCol; c >= 0 && resultCol == 0; --c) {
                 for (int r = maxUsedCellRow; r >= 0 && resultCol == 0; --r) {
@@ -84,6 +86,15 @@ public class Spreadsheet {
             }
             maxUsedCellCol = resultCol;
         }
+    }
+    
+    /**
+     * Clear the spreadheet.
+     */
+    public void clear() {
+        cellMap.clear();
+        maxUsedCellRow = 0;
+        maxUsedCellCol = 0;
     }
     
     
@@ -174,16 +185,63 @@ public class Spreadsheet {
         copyPaste(srcRow, srcCol, dstRow, dstCol);
         remove(srcRow, srcCol);
     }
+
     
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     /**
      * Prints the current Spreadsheet.
      */
     public void print() {
-        for (int row = 0; row <= maxUsedCellRow; row++) {
-            for (int col = 0; col <= maxUsedCellCol; col++) {
-                System.out.print(exists(row, col) ? getValue(row,col).asString() + "," : " ,");
-            }
-            System.out.println();
+        //print border
+        System.out.print("┌───────┬");
+        for (int col = 0; col < maxUsedCellCol; col++) {
+            System.out.print("───────┬");
         }
-    }    
+        System.out.println("───────┐");
+        //print column names
+        System.out.print("│\t");
+        for (int col = 0; col <= maxUsedCellCol; col++) {
+            System.out.print("│   " + ANSI_RED + CellReference.toAlpha26(col) + "\t" + ANSI_RESET );
+        }
+        System.out.println("│");
+        //print content
+        for (int row = 0; row <= maxUsedCellRow; row++) {
+            System.out.print("│" + ANSI_RED + (row + 1) + "\t" + ANSI_RESET);
+            for (int col = 0; col <= maxUsedCellCol; col++) {
+                System.out.print("│");
+                if (exists(row, col)) {
+                    System.out.print(getValue(row,col).asString());    
+                }
+                System.out.print("\t");
+            }
+            System.out.println("│");
+        }
+        //print border
+        System.out.print("└───────┴");
+        for (int col = 0; col < maxUsedCellCol; col++) {
+            System.out.print("───────┴");
+        }
+        System.out.println("───────┘");
+    }
+    
+    // /**
+     // * to export the spreadsheet in csv format.
+     // */
+    // public void main(String[] args) {
+        // PrintWriter writer = new PrintWriter(new File("test.csv"));
+
+        // StringBuilder sb = new StringBuilder();
+        // for (int row = 0; row <= maxUsedCellRow; row++) {
+            // for (int col = 0; col <= maxUsedCellCol; col++) {
+                // sb.append(exists(row, col) ? getValue(row,col).asString() : ',');
+            // }
+            // sb.append('\n');
+        // }
+        // writer.write(sb.toString());
+    
+        // System.out.println("done!");
+
+    // }
 }

@@ -9,7 +9,7 @@ import parser.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SpreadsheetCommandHelp extends SpreadsheetCommand{
+public class SpreadsheetCommandHelp implements SpreadsheetCommand{
 
     SpreadsheetCommandInterpreter interpreter;
     
