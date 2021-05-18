@@ -4,14 +4,36 @@ Cellarium is a Spreadsheet created by Alessandro Gobbetti and Laurenz Ebi in the
 
 ## How to Run
 
-To run the programm you have to open your terminal and type:   java CellariumTextUserInterface
+To run the programm you have to open your terminal and type:   
 
-Now you can use the Spreadsheet with the following commands:
+```bash
+java CellariumTextUserInterface
+```
 
-To print the sheet:             PRINT
-To change a Cell:               SET NAMEOFCELL VALUE  e.g. SET C2 7 (sets the value of C2 to the value 7)
-To cancel a cell or the Sheet:  CLEAR  (to clear the entire Sheet)
-                                CLEAR NAMEOFCELL (to clear one cell)
+### Controll the spreadsheet
+
+To print the sheet
+```bash
+PRINT
+```
+To change a Cell:          
+
+```bash
+SET C2 7
+```
+or
+```bash
+SET C2 = A1 + B2
+```
+
+To cancel the enire sheet:  
+```bash
+CLEAR  
+```
+to cancel one cell:
+```bash
+CLEAR C1
+```
 
 
 ## More
