@@ -12,10 +12,15 @@ java CellariumTextUserInterface
 
 ### Controll the spreadsheet
 
-To print the sheet
-```bash
-PRINT
-```
+| Command | Description |
+| --- | --- |
+| `PRINT` | Prints the enire spreadsheet |
+| `SET NAMEOFTHECELL VALUE` | To set or change a cell |
+| `CLEAR NAMEOFTHECELL` | To clear a certain cell |
+| `CLEAR` | To clear the spreadsheet |
+
+#### Examples
+
 To change a Cell:          
 
 ```bash
@@ -26,11 +31,7 @@ or
 SET C2 = A1 + B2
 ```
 
-To cancel the enire sheet:  
-```bash
-CLEAR  
-```
-to cancel one cell:
+To cancel one cell:
 ```bash
 CLEAR C1
 ```
