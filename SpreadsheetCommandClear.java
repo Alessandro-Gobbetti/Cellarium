@@ -11,17 +11,17 @@ import parser.*;
  */
 public class SpreadsheetCommandClear implements SpreadsheetCommand{
 
-    public boolean parseAndExecute(String sourceCode, Spreadsheet spreadsheet) {
+    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             spreadsheet.clear();
         } else {
-            Node node = parser.parseCellReference();
+            final Node node = parser.parseCellReference();
             if (!(node instanceof CellReference)) {
                 return false;
             }
-            CellReference cellReference = (CellReference) node;
+            final CellReference cellReference = (CellReference) node;
             if (!parser.currentTokenMatches(TokenType.END_OF_FILE)) {
                 return false;
             }
@@ -35,7 +35,7 @@ public class SpreadsheetCommandClear implements SpreadsheetCommand{
     }
     
     public String helpLong(final String commandName) {
-        return (commandName + ": clear the entire spreadsheet.\n" +
-                commandName + " reference: clear the reference cell content.");
+        return commandName + ": clear the entire spreadsheet.\n" +
+                commandName + " reference: clear the reference cell content.";
     }
 }

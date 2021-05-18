@@ -11,15 +11,15 @@ import parser.*;
  */
 public class SpreadsheetCommandHelp implements SpreadsheetCommand{
 
-    SpreadsheetCommandInterpreter interpreter;
+    private SpreadsheetCommandInterpreter interpreter;
     
     public SpreadsheetCommandHelp(final SpreadsheetCommandInterpreter interpreter) {
         this.interpreter = interpreter;
     }
     
-    public boolean parseAndExecute(String sourceCode, Spreadsheet spreadsheet) {
+    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
-        String trimmedSourceCode = sourceCode.trim();
+        final String trimmedSourceCode = sourceCode.trim();
         if (trimmedSourceCode == "") {
             interpreter.helpCommandList();
         } else {

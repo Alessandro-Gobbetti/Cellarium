@@ -9,6 +9,8 @@ import java.util.HashMap;
 public class SpreadsheetCommandInterpreter {
     
     private HashMap<String, SpreadsheetCommand> commandMap;
+    public static final String ANSI_BOLD ="\033[0;1m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     /**
      * Constructor for objects of class SpreadsheetCommandInterpreter
@@ -24,12 +26,12 @@ public class SpreadsheetCommandInterpreter {
     
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
-        String trimmedSourceCode = sourceCode.trim();
+        final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
-        String arr[] = sourceCode.split(" ", 2);
-        String commandName = (arr.length > 0) ? arr[0] : "";   // command
-        String parameters = (arr.length > 1) ? arr[1] : "";    // command parameters
-        SpreadsheetCommand command = commandMap.get(commandName);
+        final String arr[] = sourceCode.split(" ", 2);
+        final String commandName = arr.length > 0 ? arr[0] : "";   // command
+        final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
+        final SpreadsheetCommand command = commandMap.get(commandName);
         if (command == null) {
             return false;
         }
@@ -37,7 +39,7 @@ public class SpreadsheetCommandInterpreter {
     }
     
     public void helpCommand(final String commandName) {
-        SpreadsheetCommand command = commandMap.get(commandName);
+        final SpreadsheetCommand command = commandMap.get(commandName);
         if (command == null) {
             System.out.println(commandName + ": invalid command.");
         } else {
@@ -45,13 +47,11 @@ public class SpreadsheetCommandInterpreter {
             System.out.println(command.helpLong(commandName));
         }
     }
-    public static final String ANSI_BOLD ="\033[0;1m";
-    public static final String ANSI_RESET = "\u001B[0m";
 
     public void helpCommandList() {
         System.out.println("Type \"HELP\" followed by a command for more information.");
         // iterate for all element in commandMap
-        for (HashMap.Entry<String, SpreadsheetCommand> entry : commandMap.entrySet()) {
+        for (final HashMap.Entry<String, SpreadsheetCommand> entry : commandMap.entrySet()) {
             System.out.println(ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " + entry.getValue().helpShort());
         }
     }

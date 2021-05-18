@@ -11,21 +11,21 @@ import parser.*;
  */
 public class SpreadsheetCommandPrint implements SpreadsheetCommand{
 
-    public boolean parseAndExecute(String sourceCode, Spreadsheet spreadsheet) {
+    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             spreadsheet.print();
         } else {
-            Node node = parser.parseCellReference();
+            final Node node = parser.parseCellReference();
             if (!(node instanceof CellReference)) {
                 return false;
             }
-            CellReference cellReference = (CellReference) node;
+            final CellReference cellReference = (CellReference) node;
             if (!parser.currentTokenMatches(TokenType.END_OF_FILE)) {
                 return false;
             }
-            Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), cellReference.getCol(0));
+            final Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), cellReference.getCol(0));
             System.out.println(cell.eval().asString());
         }
         return true;
@@ -36,7 +36,7 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
     }
     
     public String helpLong(final String commandName) {
-        return (commandName + ": print the entire spreadsheet.\n" +
-                commandName + " reference: print the reference cell content.");
+        return commandName + ": print the entire spreadsheet.\n" +
+                commandName + " reference: print the reference cell content.";
     }
 }
