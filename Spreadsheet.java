@@ -146,7 +146,7 @@ public class Spreadsheet {
         Cell result = get(row, col);
         if (result == null) {
             final int cellIndex = indexFromRowCol(row, col);
-            result = new Cell(this, row, col);
+            result = new Cell(this);
             cellMap.put(cellIndex, result);
             // Update max indices
             maxUsedCellRow = Math.max(maxUsedCellRow, row);
@@ -197,46 +197,6 @@ public class Spreadsheet {
         // FIXME
         copyPaste(srcRow, srcCol, dstRow, dstCol);
         remove(srcRow, srcCol);
-    }
-
-    
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
-
-    /**
-     * Prints the current Spreadsheet.
-     */
-    public void print() {
-        //print top border
-        System.out.print("┌───────┬");
-        for (int col = 0; col < maxUsedCellCol; col++) {
-            System.out.print("───────┬");
-        }
-        System.out.println("───────┐");
-        //print column names
-        System.out.print("│\t");
-        for (int col = 0; col <= maxUsedCellCol; col++) {
-            System.out.print("│   " + ANSI_RED + CellReference.toAlpha26(col) + "\t" + ANSI_RESET );
-        }
-        System.out.println("│");
-        //print content
-        for (int row = 0; row <= maxUsedCellRow; row++) {
-            System.out.print("│" + ANSI_RED + (row + 1) + "\t" + ANSI_RESET);
-            for (int col = 0; col <= maxUsedCellCol; col++) {
-                System.out.print("│");
-                if (exists(row, col)) {
-                    System.out.print(getValue(row,col).asString());    
-                }
-                System.out.print("\t");
-            }
-            System.out.println("│");
-        }
-        //print botton border
-        System.out.print("└───────┴");
-        for (int col = 0; col < maxUsedCellCol; col++) {
-            System.out.print("───────┴");
-        }
-        System.out.println("───────┘");
     }
     
 }

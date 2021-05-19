@@ -16,7 +16,7 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
-            spreadsheet.print();
+            PrintSpreadsheet.print(spreadsheet);
         } else {
             final Node node = parser.parseCellReference();
             if (!(node instanceof CellReference)) {

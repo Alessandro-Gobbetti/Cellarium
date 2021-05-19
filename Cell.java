@@ -8,10 +8,7 @@ import java.util.ArrayList;
  */
 public class Cell {
     
-    private Spreadsheet owner;
-    private int row;
-    private int col;
-    
+    private Spreadsheet owner;    
     private CellValue value;
     private boolean isEvaluating;
     private boolean isValueUpToDate;
@@ -27,10 +24,8 @@ public class Cell {
      * @param row    the row of the Cell.
      * @param col    the column of the Cell.
      */
-    public Cell(final Spreadsheet owner, final int row, final int col) {
+    public Cell(final Spreadsheet owner) {
         this.owner = owner;
-        this.row = row;
-        this.col = col;
         this.value = new EmptyCellValue();
         this.isEvaluating = false;
         this.isValueUpToDate = true;
