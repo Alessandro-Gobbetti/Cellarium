@@ -15,5 +15,15 @@
 * Added remove 
 
 ## Milestone 2: May 24
-* Added the a TUI
+* Added the TUI
+  * PRINT the spreadsheet
+  * SET cells
+  * CLEAR the spreadsheet or single cells
+  * HELP to get the commands
+
 * Added a CHANGES.md
+* Added a GUI
+* Created some new features:
+  * SAVE files in different formats
+  * OPEN external spreadsheets
+  * EXIT from the spreadsheet
