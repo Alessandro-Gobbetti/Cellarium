@@ -38,7 +38,7 @@ public class NodeTest {
         assertTrue(e.isConstant());
         assertFalse(a.isConstant());
         assertFalse(i.isConstant());
-        assertEquals("(5.0+6.0)", e.toString());
+        assertEquals("=5.0+6.0", e.toString());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class NodeTest {
         assertTrue(e.isConstant());
         assertFalse(a.isConstant());
         assertFalse(i.isConstant());
-        assertEquals("(5.0-6.0)", e.toString());
+        assertEquals("=5.0-6.0", e.toString());
     }
     
     @Test
@@ -60,7 +60,7 @@ public class NodeTest {
         assertTrue(e.isConstant());
         assertFalse(a.isConstant());
         assertFalse(i.isConstant());
-        assertEquals("(5.0*6.0)", e.toString());
+        assertEquals("=5.0*6.0", e.toString());
     }
     
     @Test
@@ -71,7 +71,7 @@ public class NodeTest {
         assertTrue(e.isConstant());
         assertFalse(a.isConstant());
         assertFalse(i.isConstant());
-        assertEquals("(5.0/6.0)", e.toString());
+        assertEquals("=5.0/6.0", e.toString());
     }
     
     @Test

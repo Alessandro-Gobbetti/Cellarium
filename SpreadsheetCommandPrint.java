@@ -11,6 +11,7 @@ import parser.*;
  */
 public class SpreadsheetCommandPrint implements SpreadsheetCommand{
 
+    @Override
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
@@ -31,10 +32,12 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
         return true;
     }
     
+    @Override
     public String helpShort() {
         return "Print the spreadsheet or a cell";
     }
     
+    @Override
     public String helpLong(final String commandName) {
         return commandName + ": print the entire spreadsheet.\n" +
                 commandName + " reference: print the reference cell content.";

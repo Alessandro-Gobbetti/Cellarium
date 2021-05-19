@@ -32,7 +32,7 @@ public abstract class UnaryOperation extends Node {
 
     @Override
     public String toString() {
-        return "(" + child.toString() + ")";
+        return "=" + child.toString();
     }
     
     /**

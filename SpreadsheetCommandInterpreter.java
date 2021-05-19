@@ -20,6 +20,7 @@ public class SpreadsheetCommandInterpreter {
             put("SET", new SpreadsheetCommandSet());
             put("PRINT", new SpreadsheetCommandPrint());
             put("CLEAR", new SpreadsheetCommandClear());
+            put("SAVE", new SpreadsheetCommandSave());
             put("EXIT", new SpreadsheetCommandExit());
             put("HELP", new SpreadsheetCommandHelp(SpreadsheetCommandInterpreter.this));
         }};

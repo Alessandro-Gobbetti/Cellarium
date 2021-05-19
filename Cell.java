@@ -124,4 +124,7 @@ public class Cell {
         return value;
     }
     
+    public String getFormula() {
+        return formula.toString();
+    }
 }

@@ -54,6 +54,14 @@ public class Spreadsheet {
         return (index - colFromIndex(index)) / MaxDim;
     }
     
+    public int getMaxUsedCellRow() {
+        return maxUsedCellRow;
+    }
+    
+    public int getMaxUsedCellCol() {
+        return maxUsedCellCol;
+    }
+    
     /**
      * Removes a certain Cell.
      * @param  row  the row of the Cell.
@@ -158,6 +166,11 @@ public class Spreadsheet {
         return c.eval();
     }
     
+    public String getFormula(final int row, final int col) {
+        final Cell c = getOrCreate(row, col);
+        return c.getFormula();
+    }
+    
     /**
      * Creates a new Cell with the Properties of an old one.
      * @param srcRow  row of the Copied Cell.
@@ -226,22 +239,4 @@ public class Spreadsheet {
         System.out.println("───────┘");
     }
     
-    // /**
-     // * to export the spreadsheet in csv format.
-     // */
-    // public void main(String[] args) {
-        // PrintWriter writer = new PrintWriter(new File("test.csv"));
-
-        // StringBuilder sb = new StringBuilder();
-        // for (int row = 0; row <= maxUsedCellRow; row++) {
-            // for (int col = 0; col <= maxUsedCellCol; col++) {
-                // sb.append(exists(row, col) ? getValue(row,col).asString() : ',');
-            // }
-            // sb.append('\n');
-        // }
-        // writer.write(sb.toString());
-    
-        // System.out.println("done!");
-
-    // }
 }
