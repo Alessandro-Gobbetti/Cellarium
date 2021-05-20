@@ -1,13 +1,14 @@
-import parser.*;
 
 /**
  * Write a description of class SpreadsheetSet here.
  * 
+ * <p>
  * HELP             to print the list of commands
  * HELP COMMAND     to print the help of a given command
- *
- * @author (your name)
- * @version (a version number or a date)
+ * </p>
+ * 
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCommandHelp implements SpreadsheetCommand {
 

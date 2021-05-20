@@ -1,4 +1,4 @@
-import parser.*;
+import parser.LexicalAnalyzer;
 
 /**
  * A Parser can convert source code into an AST

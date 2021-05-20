@@ -1,13 +1,15 @@
-import parser.*;
+import parser.TokenType;
 
 /**
  * Write a description of class SpreadsheetSet here.
  * 
+ * </p>
  * CLEAR         to clear all the spreadsheet
  * CLEAR A1      to clear a cell only
- *
- * @author (your name)
- * @version (a version number or a date)
+ * </p>
+ * 
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCommandClear implements SpreadsheetCommand {
 

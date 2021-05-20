@@ -1,6 +1,4 @@
-import java.util.*;
-import java.io.PrintWriter;
-import java.io.File;
+import java.util.HashMap;
 
 /**
  * Write a description of class Spreadsheet here.

@@ -1,7 +1,8 @@
-import parser.*;
+import parser.LexicalAnalyzer;
+import parser.TokenType;
 
 /**
- * A Parser for our Arith language
+ * A Parser for our Cellaium language
  * (a simple language of arithmetic expressions).
  * 
  * <code>
@@ -20,6 +21,10 @@ public final class CellariumParser implements Parser {
     
     private LexicalAnalyzer lexer;
 
+    /**
+     * To Init the LexicalAnlayzer
+     * @param sourceCode The source code of the program in the Cellaium language
+     */
     public void initLexer(final String sourceCode) {
         this.lexer = new LexicalAnalyzer(sourceCode);
         // fetch first token
@@ -28,7 +33,7 @@ public final class CellariumParser implements Parser {
     
     /**
      * Parse a program in the Cellarium language.
-     * @param sourceCode The source code of the program in the Arith language
+     * @param sourceCode The source code of the program in the Cellaium language
      * @return an AST of the program
      */
     public Node parse(final String sourceCode) {
@@ -50,6 +55,7 @@ public final class CellariumParser implements Parser {
      *          [ "=" ] EXPRESSION
      * </code>
      * 
+     * @return a Node representing the expression
      */
     public Node parseCell() {
         if (currentTokenMatches(TokenType.EQUAL)
@@ -290,6 +296,11 @@ public final class CellariumParser implements Parser {
         return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 
+    /**
+     * To compare token types.
+     * @param the given token type.
+     * @return true if the current token matches the given token type.
+     */
     public boolean currentTokenMatches(final TokenType type) {
         return lexer != null && lexer.currentTokenMatches(type);
     }

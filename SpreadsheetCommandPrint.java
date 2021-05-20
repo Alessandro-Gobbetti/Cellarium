@@ -1,13 +1,15 @@
-import parser.*;
+import parser.TokenType;
 
 /**
  * Write a description of class SpreadsheetSet here.
  * 
+ * <p>
  * PRINT         to print all the spreadsheet
  * PRINT A1      to print a cell only
- *
- * @author (your name)
- * @version (a version number or a date)
+ * </p>
+ * 
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCommandPrint implements SpreadsheetCommand{
 

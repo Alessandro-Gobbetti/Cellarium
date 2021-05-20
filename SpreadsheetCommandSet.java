@@ -2,11 +2,13 @@
 /**
  * Write a description of class SpreadsheetSet here.
  * 
+ * <p>
  * SET A1 23
  * SET CELLREFERENCE CELL
- *
- * @author (your name)
- * @version (a version number or a date)
+ * <p>
+ * 
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCommandSet implements SpreadsheetCommand {
 
