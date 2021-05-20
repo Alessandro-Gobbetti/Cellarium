@@ -28,4 +28,6 @@
 * Added a GUI
   * work in progress...
 
+* Added tests
+
 * Improved several features
