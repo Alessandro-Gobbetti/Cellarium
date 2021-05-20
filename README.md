@@ -2,12 +2,15 @@
 
 Cellarium is a Spreadsheet created by Alessandro Gobbetti and Laurenz Ebi in the frame of the Programming Fundamentals 2 class of 2021, at USI.
 
-## How to Run
+## Cellarium TUI (Text User Interface)
+![image](https://user-images.githubusercontent.com/79453106/119011744-a1c15600-b995-11eb-81e7-6aebc979b5d7.png)
 
-To run the programm you have to open your terminal and type:   
+### How to Run
+
+To run the programm you have to open your terminal, go in the `project-cellarium` directory and type:   
 
 ```bash
-java CellariumTextUserInterface
+java CellariumTui
 ```
 
 ### Controll the spreadsheet
@@ -41,7 +44,7 @@ To cancel one cell:
 ```bash
 CLEAR C2
 ```
-
+## Cellarium GUI (Graphics User Interface)
 
 ## More
 
