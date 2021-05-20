@@ -9,6 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+import java.awt.Dimension;
+import javax.swing.BoxLayout;
 
 /**
  * The Main GUI class.
@@ -16,7 +20,7 @@ import java.awt.Graphics;
  * @author (Alessandro Gobbetti & Laurenz Ebi)
  * @version (1.0)
  */
-public class Frame {
+public class CellariumGui {
 
     /**
      * Main function to start GUI.
@@ -53,12 +57,13 @@ public class Frame {
         //Panels
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+        
+        
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
+        
         JPanel toolbarPanel = new JPanel();
         toolbarPanel.setLayout(new FlowLayout());
-        
-        //Table
-        //JTable spreadsheet = new JTable();
-        //mainPanel.add(spreadsheet);
         
         //Buttons
         JButton open = new JButton("Open");
@@ -66,7 +71,23 @@ public class Frame {
         JButton save = new JButton("Save");
         toolbarPanel.add(save);
         
-        mainPanel.add(toolbarPanel, BorderLayout.NORTH);
+        topPanel.add(toolbarPanel);
+        
+        // ExpressionField
+        final JTextField expressionField = new JTextField(); // do something
+        topPanel.add(expressionField);
+        
+        frame.add(topPanel, BorderLayout.NORTH);
+        
+        
+        // Spreadsheet
+        final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
+        spreadsheetPanel.add(new JTable(60,30));
+        mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
+        
+        // set window dimensions
+        frame.setPreferredSize(new Dimension(600, 600));
+        frame.setMinimumSize(new Dimension(300, 300));
         
         //Font
         //Font newFont = new Font("Verdana", 2, 20);
