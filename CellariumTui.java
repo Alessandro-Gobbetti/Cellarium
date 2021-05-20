@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class CellariumTextUserInterface {
+public class CellariumTui {
     
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -20,14 +20,14 @@ public class CellariumTextUserInterface {
     public static void main(final String[] args) {
         System.out.println("Cellarium 1.0 (Jun 04 2021)");
         System.out.println("Type \"HELP\" for more information.");
-        Spreadsheet spreadsheet = new Spreadsheet();
-        SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
+        final Spreadsheet spreadsheet = new Spreadsheet();
+        final SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
         // scan the input 
         final Scanner scanner = new Scanner(System.in);
         while(!terminated) {
             System.out.print(ANSI_BOLD + ANSI_RED + "Cellarium> " + ANSI_RESET);
-            String command = scanner.nextLine();
-            boolean success = interpreter.parseAndExecute(command, spreadsheet);
+            final String command = scanner.nextLine();
+            final boolean success = interpreter.parseAndExecute(command, spreadsheet);
             if (!success) {
                 System.out.println("Please insert a valid command");
             }
@@ -36,9 +36,10 @@ public class CellariumTextUserInterface {
     
     /**
      * Set the terminated boolean: false to stop the program execution.
-     * @param terminated the new value of this.terminate: false to stop the program execution, true to contine.
+     * @param terminated  the new value of this.terminate: 
+     *                    false to stop the program execution, true to contine.
      */
     public static void setTerminated(final boolean terminated) {
-        CellariumTextUserInterface.terminated = terminated;
+        CellariumTui.terminated = terminated;
     }
 }

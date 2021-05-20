@@ -54,10 +54,18 @@ public class Spreadsheet {
         return (index - colFromIndex(index)) / MaxDim;
     }
     
+    /**
+     * Returns the row of the nonepmty cell with the greatest row.
+     * @return the greatest row. 
+     */
     public int getMaxUsedCellRow() {
         return maxUsedCellRow;
     }
     
+    /**
+     * Returns the row of the nonepmty cell with the greatest column.
+     * @return the greatest column. 
+     */
     public int getMaxUsedCellCol() {
         return maxUsedCellCol;
     }
@@ -73,7 +81,7 @@ public class Spreadsheet {
         // Update max indices
         if (row == maxUsedCellRow) {
             int resultRow = 0;
-            for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) {                                                                  
+            for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) { 
                 for (int c = maxUsedCellCol; c >= 0 && resultRow == 0; --c) {
                     if (exists(r,c)) {
                         resultRow = r;
@@ -156,7 +164,7 @@ public class Spreadsheet {
     }
     
     /**
-     * Calculates the value of a Cell.
+     * Returns the value of the Cell.
      * @param  row  the row of the Cell.
      * @param  col  the column of the Cell.
      * @return the value of a Cell.
@@ -166,6 +174,12 @@ public class Spreadsheet {
         return c.eval();
     }
     
+    /**
+     * Returns the formula of the Cell.
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     * @return the formula of the Cell. 
+     */
     public String getFormula(final int row, final int col) {
         final Cell c = getOrCreate(row, col);
         return c.getFormula();

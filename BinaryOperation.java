@@ -46,7 +46,9 @@ public abstract class BinaryOperation extends Node {
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        return new NumberCellValue(computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet)));
+        return new NumberCellValue(
+            computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet))
+        );
     }
     
     @Override

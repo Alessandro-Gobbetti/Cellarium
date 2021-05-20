@@ -3,30 +3,39 @@ import java.util.HashMap;
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Alessandro Gobbetti & Laurenz Ebi)
+ * @version (1.0)
  */
 public class SpreadsheetCommandInterpreter {
     
     private HashMap<String, SpreadsheetCommand> commandMap;
-    public static final String ANSI_BOLD ="\033[0;1m";
+    public static final String ANSI_BOLD = "\033[0;1m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     /**
-     * Constructor for objects of class SpreadsheetCommandInterpreter
+     * Constructor for objects of class SpreadsheetCommandInterpreter.
      */
     public SpreadsheetCommandInterpreter() {
-        commandMap = new HashMap<String, SpreadsheetCommand>() {{
-            put("SET", new SpreadsheetCommandSet());
-            put("PRINT", new SpreadsheetCommandPrint());
-            put("CLEAR", new SpreadsheetCommandClear());
-            put("SAVE", new SpreadsheetCommandSave());
-            put("OPEN", new SpreadsheetCommandOpen());
-            put("EXIT", new SpreadsheetCommandExit());
-            put("HELP", new SpreadsheetCommandHelp(SpreadsheetCommandInterpreter.this));
-        }};
+        commandMap = new HashMap<String, SpreadsheetCommand>() 
+        {
+            {
+                put("SET", new SpreadsheetCommandSet());
+                put("PRINT", new SpreadsheetCommandPrint());
+                put("CLEAR", new SpreadsheetCommandClear());
+                put("SAVE", new SpreadsheetCommandSave());
+                put("OPEN", new SpreadsheetCommandOpen());
+                put("EXIT", new SpreadsheetCommandExit());
+                put("HELP", new SpreadsheetCommandHelp(SpreadsheetCommandInterpreter.this));
+            }
+        };
     }
     
+    /**
+     * parseAndExecute 
+     * @param sourceCode   
+     * @param spreadsheet 
+     * @return boolean
+     */
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
@@ -55,7 +64,9 @@ public class SpreadsheetCommandInterpreter {
         System.out.println("Type \"HELP\" followed by a command for more information.");
         // iterate for all element in commandMap
         for (final HashMap.Entry<String, SpreadsheetCommand> entry : commandMap.entrySet()) {
-            System.out.println(ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " + entry.getValue().helpShort());
+            System.out.println(
+                ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " + entry.getValue().helpShort()
+            );
         }
     }
 }

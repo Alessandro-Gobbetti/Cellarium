@@ -9,11 +9,11 @@ import parser.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SpreadsheetCommandExit implements SpreadsheetCommand{
+public class SpreadsheetCommandExit implements SpreadsheetCommand {
 
     @Override
-    public boolean parseAndExecute(String sourceCode, Spreadsheet spreadsheet) {
-        CellariumTextUserInterface.setTerminated(true);
+    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
+        CellariumTui.setTerminated(true);
         return true;
     }
 
