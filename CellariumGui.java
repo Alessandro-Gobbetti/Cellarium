@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
+import javax.swing.UIManager;
 
 /**
  * The Main GUI class.
@@ -26,8 +27,14 @@ public class CellariumGui {
      * Main function to start GUI.
      */
     public static void main(String[] args) {
-        Font font = new Font("Verdana", Font.BOLD, 20);
+        //Font style
+        Font font = new Font("calibri", Font.PLAIN, 14);
+        
+        UIManager.put("Menu.font", font);
+        UIManager.put("MenuItem.font", font);
+        UIManager.put("Button.font", font);
 
+        // Frame
         JFrame frame = new JFrame("Cellarium");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -36,10 +43,7 @@ public class CellariumGui {
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
         
-        
-        
         JMenu fileMenu = new JMenu("File");
-        fileMenu.setFont(font);/////////////////////FIXME
         menubar.add(fileMenu);
         JMenu editMenu = new JMenu("Edit");
         menubar.add(editMenu);
@@ -58,6 +62,8 @@ public class CellariumGui {
         editMenu.add(deliteAllItem);
         JMenuItem helpItem = new JMenuItem("Cellarium Help");
         helpMenu.add(helpItem);
+        
+        
         
         //Panels
         JPanel mainPanel = new JPanel();
