@@ -9,7 +9,7 @@ import parser.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SpreadsheetCommandClear implements SpreadsheetCommand{
+public class SpreadsheetCommandClear implements SpreadsheetCommand {
 
     @Override
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
@@ -38,7 +38,7 @@ public class SpreadsheetCommandClear implements SpreadsheetCommand{
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + ": clear the entire spreadsheet.\n" +
-                commandName + " reference: clear the reference cell content.";
+        return commandName + ": clear the entire spreadsheet.\n"
+        + commandName + " reference: clear the reference cell content.";
     }
 }

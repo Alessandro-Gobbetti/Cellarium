@@ -8,7 +8,7 @@ import parser.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SpreadsheetCommandOpen implements SpreadsheetCommand{
+public class SpreadsheetCommandOpen implements SpreadsheetCommand {
 
     @Override
     public boolean parseAndExecute(final String sourceCode,final Spreadsheet spreadsheet) {

@@ -101,7 +101,7 @@ public final class LexicalAnalyzer {
         }
     }
     
-    public void skipSpaces(){
+    public void skipSpaces() {
         while (position < text.length() && Character.isSpace(text.charAt(position))) {
             ++position;
         }
@@ -145,7 +145,8 @@ public final class LexicalAnalyzer {
     }
     
     /**
-     * 
+     * Returns the name of the current Token.
+     * @return the name of the current Token. 
      */
     public String currentTokenName() {
         if (currentTokenIsInvalid()) {
