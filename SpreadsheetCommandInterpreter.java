@@ -3,8 +3,8 @@ import java.util.HashMap;
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
  *
- * @author (Alessandro Gobbetti & Laurenz Ebi)
- * @version (1.0)
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCommandInterpreter {
     
