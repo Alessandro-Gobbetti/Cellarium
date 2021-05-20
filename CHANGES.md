@@ -13,17 +13,19 @@
 * Changed the way of evaluation
 * Researched the packages we will use
 * Added remove 
+* Added a CHANGES.md
 
-## Milestone 2: May 24
+## Milestone 3: May 24
 * Added the TUI
-  * PRINT the spreadsheet
+  * PRINT the spreadsheet or a single cell
   * SET cells
   * CLEAR the spreadsheet or single cells
-  * HELP to get the commands
+  * HELP to get an explanation for all commands or a more detailed for a single command
+  * SAVE to save the spreadsheet in csv
+  * OPEN to open a csv file
+  * EXIT to quit the program
 
-* Added a CHANGES.md
 * Added a GUI
-* Created some new features:
-  * SAVE files in different formats
-  * OPEN external spreadsheets
-  * EXIT from the spreadsheet
+  * work in progress...
+
+* Improved several features
