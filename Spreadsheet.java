@@ -12,7 +12,7 @@ public class Spreadsheet {
     private int maxUsedCellRow;
     private int maxUsedCellCol; 
     
-    private static final int MaxDim = 32768;
+    private static final int MAXDIM = 32768;
     
     /**
      * Constructor of class Spreadsheet. 
@@ -31,7 +31,7 @@ public class Spreadsheet {
      * @return the index, which is unique for every Cell in a Spreadsheet. 
      */
     public int indexFromRowCol(final int row, final int col) {
-        return row * MaxDim + col;
+        return row * MAXDIM + col;
     }
     
     /**
@@ -40,7 +40,7 @@ public class Spreadsheet {
      * @return the column of the Cell. 
      */
     public int colFromIndex(final int index) {
-        return index % MaxDim;
+        return index % MAXDIM;
     }
     
     /**
@@ -49,7 +49,7 @@ public class Spreadsheet {
      * @return the row of the Cell. 
      */
     public int rowFromIndex(final int index) {
-        return (index - colFromIndex(index)) / MaxDim;
+        return (index - colFromIndex(index)) / MAXDIM;
     }
     
     /**
@@ -77,7 +77,12 @@ public class Spreadsheet {
         final int cellIndex = indexFromRowCol(row, col);
         cellMap.remove(cellIndex);
         // Update max indices
-        if (row == maxUsedCellRow) {
+        updateMaxRow(row);
+        updateMaxCol(col);
+    }
+    
+    private void updateMaxRow(final int newRow) {
+        if (newRow == maxUsedCellRow) {
             int resultRow = 0;
             for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) { 
                 for (int c = maxUsedCellCol; c >= 0 && resultRow == 0; --c) {
@@ -88,8 +93,10 @@ public class Spreadsheet {
             }
             maxUsedCellRow = resultRow;
         }
-        
-        if (col == maxUsedCellCol) {
+    }
+
+    private void updateMaxCol(final int newCol) {
+        if (newCol == maxUsedCellCol) {
             int resultCol = 0;
             for (int c = maxUsedCellCol; c >= 0 && resultCol == 0; --c) {
                 for (int r = maxUsedCellRow; r >= 0 && resultCol == 0; --r) {
@@ -132,8 +139,8 @@ public class Spreadsheet {
     public Cell get(final int row, final int col) {
         assert row >= 0;
         assert col >= 0;
-        assert row < MaxDim;
-        assert col < MaxDim;
+        assert row < MAXDIM;
+        assert col < MAXDIM;
         final int cellIndex = indexFromRowCol(row, col);
         return cellMap.get(cellIndex);
     }
@@ -147,8 +154,8 @@ public class Spreadsheet {
     public Cell getOrCreate(final int row, final int col) {
         assert row >= 0;
         assert col >= 0;
-        assert row < MaxDim;
-        assert col < MaxDim;
+        assert row < MAXDIM;
+        assert col < MAXDIM;
         Cell result = get(row, col);
         if (result == null) {
             final int cellIndex = indexFromRowCol(row, col);

@@ -27,7 +27,6 @@ public class SpreadsheetCommandSet implements SpreadsheetCommand {
         
         if (content instanceof Text) {
             // remove cell reference from text to print in the cell
-            final String oldContent = content.toString();
             final String[] arr = sourceCode.split(" ", 2);
             final String newContent = arr.length > 1 ? arr[1] : "";
             content = new Text(newContent);

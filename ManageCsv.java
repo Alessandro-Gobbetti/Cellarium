@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 /**
  * To save the spreadsheet into a csv file.
  */
@@ -53,11 +52,11 @@ public class ManageCsv {
             // Clear the current Spreadsheet.
             spreadsheet.clear();
             int currentRow = 0;
-            while ( line != null) {
+            while (line != null) {
                 final String[] rowData = line.split(",");
                 int currentCol = 0;
                 for (final String s : rowData) {
-                    if (s != ",") {
+                    if (!(",").equals(s)) {
                         final Node content = parser.parse(s);
                         final Cell c = spreadsheet.getOrCreate(currentRow, currentCol);
                         c.setFormula(content);

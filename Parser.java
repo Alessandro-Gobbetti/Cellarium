@@ -1,5 +1,3 @@
-import parser.LexicalAnalyzer;
-
 /**
  * A Parser can convert source code into an AST
  * consisting of Node objects.

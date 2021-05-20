@@ -40,7 +40,7 @@ public class SpreadsheetCommandInterpreter {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
-        final String[] arr = sourceCode.split(" ", 2);
+        final String[] arr = trimmedSourceCode.split(" ", 2);
         final String commandName = arr.length > 0 ? arr[0] : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         final SpreadsheetCommand command = commandMap.get(commandName);
