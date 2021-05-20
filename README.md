@@ -15,9 +15,13 @@ java CellariumTextUserInterface
 | Command | Description |
 | --- | --- |
 | `PRINT` | Prints the enire spreadsheet |
+| `PRINT NAMEOFTHECELL` | Prints one single cell |
 | `SET NAMEOFTHECELL VALUE` | To set or change a cell |
 | `CLEAR NAMEOFTHECELL` | To clear a certain cell |
 | `CLEAR` | To clear the spreadsheet |
+| `SAVE NameOfTheFile` | Saves the spreadsheet in the current directory with the given name |
+| `OPEN path` | Imports a given csv file in Cellarium |
+| `EXIT` | Closes the programm |
 | `HELP` | To open Help terminal with the commands |
 
 
