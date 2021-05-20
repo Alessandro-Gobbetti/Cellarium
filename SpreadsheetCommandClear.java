@@ -1,7 +1,7 @@
 import parser.TokenType;
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To clear all the spreadsheet or just a cell.
  * 
  * </p>
  * CLEAR         to clear all the spreadsheet
@@ -41,6 +41,6 @@ public class SpreadsheetCommandClear implements SpreadsheetCommand {
     @Override
     public String helpLong(final String commandName) {
         return commandName + ": clear the entire spreadsheet.\n"
-        + commandName + " reference: clear the reference cell content.";
+               + commandName + " reference: clear the reference cell content.";
     }
 }

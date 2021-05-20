@@ -19,10 +19,8 @@ public class Cell {
     
     /**
      * Constructor for objects of class Cell.
-     * Sets all fields.
+     * 
      * @param owner  the owner of the Cell.
-     * @param row    the row of the Cell.
-     * @param col    the column of the Cell.
      */
     public Cell(final Spreadsheet owner) {
         this.owner = owner;
@@ -119,6 +117,11 @@ public class Cell {
         return value;
     }
     
+    /**
+     * To return the formula as string.
+     * 
+     * @return the formula as string.
+     */
     public String getFormula() {
         return formula.toString();
     }

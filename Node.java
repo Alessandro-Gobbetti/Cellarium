@@ -24,12 +24,14 @@ public abstract class Node {
      * Decompile this node into a string.
      * Note that the resulting string may have
      * extra parentheses.
+     * 
      * @return a String representation of this AST
      */
     public abstract String toString();
     
     /**
      * Evaluates a certain computation of a Node.
+     * 
      * @param spreadsheet  the spreadsheet.
      * @return a double, the result of the computation
      */
@@ -37,7 +39,9 @@ public abstract class Node {
     
     /**
      * Changes the Dependecies.
-     * By default there are no dependencies, the subclasses that introduces dependencies must override.
+     * By default there are no dependencies, 
+     * the subclasses that introduces dependencies must override.
+     * 
      * @param  spreadsheet  the spreadsheet in which the cell is situated.
      * @param  list  the ArrayList with the current dependecies.
      */

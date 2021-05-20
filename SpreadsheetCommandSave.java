@@ -1,16 +1,16 @@
 import parser.TokenType;
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To save the spreadsheet into a csv file.
  * 
  * <p>
- * SAVE         to print all the spreadsheet
+ * SAVE         to save the spreadsheet into a csv file
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandSave implements SpreadsheetCommand{
+public class SpreadsheetCommandSave implements SpreadsheetCommand {
 
     @Override
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {

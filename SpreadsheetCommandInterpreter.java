@@ -31,16 +31,16 @@ public class SpreadsheetCommandInterpreter {
     }
     
     /**
-     * parseAndExecute 
-     * @param sourceCode   
-     * @param spreadsheet 
-     * @return boolean
+     * To parse the given source code and execute it on a given spreadsheet.
+     * @param sourceCode the code to parse.  
+     * @param spreadsheet the given spreadsheet.
+     * @return true if no errors during parsing and execution.
      */
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
-        final String arr[] = sourceCode.split(" ", 2);
+        final String[] arr = sourceCode.split(" ", 2);
         final String commandName = arr.length > 0 ? arr[0] : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         final SpreadsheetCommand command = commandMap.get(commandName);
@@ -50,6 +50,10 @@ public class SpreadsheetCommandInterpreter {
         return command.parseAndExecute(parameters, spreadsheet);       
     }
     
+    /**
+     * Print a detailed description for the given command.
+     * @param commandName the command to return a help.
+     */
     public void helpCommand(final String commandName) {
         final SpreadsheetCommand command = commandMap.get(commandName);
         if (command == null) {
@@ -60,6 +64,9 @@ public class SpreadsheetCommandInterpreter {
         }
     }
 
+    /**
+     * Print a short description for all the possible commands.
+     */
     public void helpCommandList() {
         System.out.println("Type \"HELP\" followed by a command for more information.");
         // iterate for all element in commandMap

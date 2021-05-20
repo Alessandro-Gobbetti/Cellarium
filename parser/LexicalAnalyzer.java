@@ -101,6 +101,9 @@ public final class LexicalAnalyzer {
         }
     }
     
+    /**
+     * to skip the spaces into a text.
+     */
     public void skipSpaces() {
         while (position < text.length() && Character.isSpace(text.charAt(position))) {
             ++position;

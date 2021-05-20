@@ -1,10 +1,9 @@
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To quit the program.
  * 
  * <p>
- * HELP             to print the list of commands
- * HELP COMMAND     to print the help of a given command
+ * EXIT             to quit the program.
  * </p>
  *
  * @author Alessandro Gobbetti & Laurenz Ebi

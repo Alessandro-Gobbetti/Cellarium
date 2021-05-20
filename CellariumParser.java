@@ -22,7 +22,7 @@ public final class CellariumParser implements Parser {
     private LexicalAnalyzer lexer;
 
     /**
-     * To Init the LexicalAnlayzer
+     * To Init the LexicalAnlayzer.
      * @param sourceCode The source code of the program in the Cellaium language
      */
     public void initLexer(final String sourceCode) {
@@ -298,7 +298,7 @@ public final class CellariumParser implements Parser {
 
     /**
      * To compare token types.
-     * @param the given token type.
+     * @param type the given token type.
      * @return true if the current token matches the given token type.
      */
     public boolean currentTokenMatches(final TokenType type) {

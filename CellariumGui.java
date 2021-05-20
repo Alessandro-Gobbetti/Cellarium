@@ -28,7 +28,7 @@ public class CellariumGui {
      */
     public static void main(final String[] args) {
         //Font style
-        final Font font = new Font("calibri", Font.PLAIN, 14);
+        final Font font = new Font("sans serif", Font.PLAIN, 14);
         
         UIManager.put("Menu.font", font);
         UIManager.put("MenuItem.font", font);

@@ -10,12 +10,13 @@ public class CellariumTui {
     
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_BOLD ="\033[0;1m";
+    private static final String ANSI_BOLD = "\033[0;1m";
     
-    private static boolean terminated = false;
+    private static boolean terminate = false;
     
     /**
-     * Main method to run a TUI version of Cellarium
+     * Main method to run a TUI version of Cellarium.
+     * @param args the arguments list
      */
     public static void main(final String[] args) {
         System.out.println("Cellarium 1.0 (Jun 04 2021)");
@@ -24,7 +25,7 @@ public class CellariumTui {
         final SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
         // scan the input 
         final Scanner scanner = new Scanner(System.in);
-        while(!terminated) {
+        while (!terminate) {
             System.out.print(ANSI_BOLD + ANSI_RED + "Cellarium> " + ANSI_RESET);
             final String command = scanner.nextLine();
             final boolean success = interpreter.parseAndExecute(command, spreadsheet);
@@ -36,10 +37,10 @@ public class CellariumTui {
     
     /**
      * Set the terminated boolean: false to stop the program execution.
-     * @param terminated  the new value of this.terminate: 
-     *                    false to stop the program execution, true to contine.
+     * @param terminate  the new value of this.terminate: 
+     *                   false to stop the program execution, true to contine.
      */
-    public static void setTerminated(final boolean terminated) {
-        CellariumTui.terminated = terminated;
+    public static void setTerminated(final boolean terminate) {
+        CellariumTui.terminate = terminate;
     }
 }

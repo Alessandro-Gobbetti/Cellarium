@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To print a help message for all commands or just for one.
  * 
  * <p>
  * HELP             to print the list of commands
@@ -14,6 +14,10 @@ public class SpreadsheetCommandHelp implements SpreadsheetCommand {
 
     private SpreadsheetCommandInterpreter interpreter;
     
+    /**
+     * Constructor for SpreadsheetCommandHelp.
+     * @param interpreter the interpreter
+     */
     public SpreadsheetCommandHelp(final SpreadsheetCommandInterpreter interpreter) {
         super();
         this.interpreter = interpreter;

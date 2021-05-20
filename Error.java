@@ -14,8 +14,9 @@ public class Error extends Node {
     
     
     /**
-     * Create a new IntLiteral node.
-     * @param value the integer value this node evaluates to
+     * Create a new Error node.
+     * @param code the code of the error
+     * @param text a more detailed description of the error
      */
     public Error(final String code, final String text) {
         super();

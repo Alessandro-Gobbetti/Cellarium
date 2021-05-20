@@ -1,7 +1,7 @@
 import parser.TokenType;
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To print a spreadsheet or just a cell. 
  * 
  * <p>
  * PRINT         to print all the spreadsheet
@@ -11,7 +11,7 @@ import parser.TokenType;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandPrint implements SpreadsheetCommand{
+public class SpreadsheetCommandPrint implements SpreadsheetCommand {
 
     @Override
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
@@ -28,7 +28,8 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
             if (!parser.currentTokenMatches(TokenType.END_OF_FILE)) {
                 return false;
             }
-            final Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), cellReference.getCol(0));
+            final Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), 
+                                                      cellReference.getCol(0));
             System.out.println(cell.eval().asString());
         }
         return true;
@@ -41,7 +42,7 @@ public class SpreadsheetCommandPrint implements SpreadsheetCommand{
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + ": print the entire spreadsheet.\n" +
-                commandName + " reference: print the reference cell content.";
+        return commandName + ": print the entire spreadsheet.\n"
+               + commandName + " reference: print the reference cell content.";
     }
 }

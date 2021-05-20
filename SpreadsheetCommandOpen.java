@@ -1,10 +1,10 @@
 import parser.TokenType;
 
 /**
- * Write a description of class SpreadsheetSet here.
+ * To open a csv file as a spreadsheet.
  * 
  * <p>
- * SAVE         to print all the spreadsheet
+ * OPEN         to open a csv file as a spreadsheet.
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
