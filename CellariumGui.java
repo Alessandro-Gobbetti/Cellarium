@@ -26,15 +26,20 @@ public class CellariumGui {
      * Main function to start GUI.
      */
     public static void main(String[] args) {
+        Font font = new Font("Verdana", Font.BOLD, 20);
+
         JFrame frame = new JFrame("Cellarium");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         
         //MenuBar
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
         
         
+        
         JMenu fileMenu = new JMenu("File");
+        fileMenu.setFont(font);/////////////////////FIXME
         menubar.add(fileMenu);
         JMenu editMenu = new JMenu("Edit");
         menubar.add(editMenu);
