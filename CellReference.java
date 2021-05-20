@@ -39,6 +39,9 @@ public class CellReference extends Node {
         // looping the given string code from left to right
         for (int k = 0; k < codeLenght; ++k) {
             final char c = codeAlpha26.charAt(k);
+            if (Character.isDigit(c)) {
+                break;
+            }
             // Character.getNumericValue() returns the values
             //  10-35 for the letter A-Z
             final int digit = Character.getNumericValue(c) - 9;

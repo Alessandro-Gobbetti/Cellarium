@@ -175,4 +175,16 @@ public class NodeTest {
         assertEquals(2.23606797749979, a.eval(s).asNumber(), 0.000000000001);
         assertEquals(0.0, i.eval(s).asNumber(), 0.0);
     }
+    
+    @Test
+    public void testCellReference() {
+        Spreadsheet s = new Spreadsheet();
+        CellReference c = new CellReference(true, 1, false, 2);
+        assertFalse(c.isConstant());
+        assertEquals(0.0, c.eval(s).asNumber(), 0.0);
+        assertEquals("C$2", c.toString());
+        assertEquals(1, c.getRow(1), 0.0);
+        assertEquals(3, c.getCol(1), 0.0);
+    }
+        
 }
