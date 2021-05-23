@@ -38,6 +38,7 @@ public final class LexicalAnalyzer {
             new CellReferenceTokenFactory(),
             new FunctionTokenFactory(),
             new LiteralTokenFactory(),
+            new OperatorTokenFactory(",", TokenType.COMMA),
             new OperatorTokenFactory("=", TokenType.EQUAL),
             new OperatorTokenFactory("+", TokenType.PLUS),
             new OperatorTokenFactory("-", TokenType.MINUS),

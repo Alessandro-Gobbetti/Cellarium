@@ -1,4 +1,3 @@
-
 /**
  * To print a help message for all commands or just for one.
  * 

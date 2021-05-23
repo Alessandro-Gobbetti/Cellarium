@@ -8,7 +8,9 @@ import java.util.ArrayList;
  */
 public class Cell {
     
-    private Spreadsheet owner;    
+    private Spreadsheet owner;
+    private int row;
+    private int col;
     private CellValue value;
     private boolean isEvaluating;
     private boolean isValueUpToDate;
@@ -22,8 +24,10 @@ public class Cell {
      * 
      * @param owner  the owner of the Cell.
      */
-    public Cell(final Spreadsheet owner) {
+    public Cell(final Spreadsheet owner, final int row, final int col) {
         this.owner = owner;
+        this.row = row;
+        this.col = col;
         this.value = new EmptyCellValue();
         this.isEvaluating = false;
         this.isValueUpToDate = true;
@@ -36,10 +40,22 @@ public class Cell {
      * @param newFormula  the new formula of the Cell.
      */
     public void setFormula(final Node newFormula) {
+        setFormulaAndGetOutdatedCells(newFormula, null);
+    }
+    
+    public void setFormulaAndGetOutdatedCells(final Node newFormula, ArrayList<Cell> markedOutOfDate) {
         removeDependencies();
         formula = newFormula;
         addDependencies();
-        markValueOutOfDate();
+        markValueOutOfDate(markedOutOfDate);
+    }
+    
+    public int getRow() {
+        return row;
+    }
+    
+    public int getCol() {
+        return col;
     }
     
     /**
@@ -82,14 +98,18 @@ public class Cell {
         cellDependingOnThis.remove(cell);
     }
     
+    
     /**
      * Marks that the Cell and his Dependencies are not Updated.
      */
-    public void markValueOutOfDate() {
+    public void markValueOutOfDate(ArrayList<Cell> markedOutOfDate) {
         if (isValueUpToDate) {
+            if (markedOutOfDate != null) {
+                markedOutOfDate.add(this);
+            }
             isValueUpToDate = false;
             for (final Cell c : cellDependingOnThis) {
-                c.markValueOutOfDate();
+                c.markValueOutOfDate(markedOutOfDate);
             }
         }
     }
@@ -125,4 +145,7 @@ public class Cell {
     public String getFormula() {
         return formula.toString();
     }
+    
+    
+
 }

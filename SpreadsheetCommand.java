@@ -1,4 +1,3 @@
-
 /**
  * Interface for Spreadsheet commands.
  *

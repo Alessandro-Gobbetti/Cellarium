@@ -20,6 +20,8 @@ public enum TokenType {
     STAR("star"), 
     SLASH("slash"), 
     PERCENT("percent"), 
+    
+    COMMA("comma"),
 
     OPEN_PAREN("open parenthesis"), 
     CLOSED_PAREN("closed parenthesis"),

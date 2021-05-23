@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
+import java.awt.event.ActionEvent;
+
 
 /**
  * The Main GUI class.
@@ -20,13 +23,37 @@ import javax.swing.UIManager;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class CellariumGui {
-
-    /**
-     * Main function to start GUI.
-     * @param args  String[] of commands.
-     */
-    public static void main(final String[] args) {
+public class CellariumGui implements ActionListener {
+    
+    private Spreadsheet spreadsheet;
+    private SpreadsheetViewTableModel spreadsheetView;
+    
+    public CellariumGui(){
+        spreadsheet = new Spreadsheet();
+        spreadsheetView = new SpreadsheetViewTableModel(spreadsheet);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        if ("View up".equals(e.getActionCommand())) {
+            int row = spreadsheetView.getOriginRow();
+            if (row > 1) {
+                spreadsheetView.setOrigin(row - 1, spreadsheetView.getOriginCol());
+            }
+        } else if ("View down".equals(e.getActionCommand())) {
+            int row = spreadsheetView.getOriginRow();
+            spreadsheetView.setOrigin(row + 1, spreadsheetView.getOriginCol());
+        } else if ("View left".equals(e.getActionCommand())) {
+            int col = spreadsheetView.getOriginCol();
+            if (col > 1) {
+                spreadsheetView.setOrigin(spreadsheetView.getOriginRow(), col - 1);
+            }
+        } else if ("View right".equals(e.getActionCommand())) {
+            int col = spreadsheetView.getOriginCol();
+            spreadsheetView.setOrigin(spreadsheetView.getOriginRow(), col + 1);
+        }
+    } 
+    
+    public void run() {
         //Font style
         final Font font = new Font("SansSerif", Font.PLAIN, 14);
         
@@ -82,6 +109,30 @@ public class CellariumGui {
         final JButton save = new JButton("Save");
         toolbarPanel.add(save);
         
+        final JButton up = new JButton("Up");
+        //up.setMnemonic(KeyEvent.VK_E);
+        up.setActionCommand("View up");
+        //up.setEnabled(false);
+        up.addActionListener(this);
+        toolbarPanel.add(up);
+        
+        final JButton down = new JButton("Down");
+        down.setActionCommand("View down");
+        down.addActionListener(this);
+        toolbarPanel.add(down);
+        
+        final JButton left = new JButton("Left");
+        left.setActionCommand("View left");
+        left.addActionListener(this);
+        toolbarPanel.add(left);
+        
+        final JButton right = new JButton("Right");
+        right.setActionCommand("View right");
+        right.addActionListener(this);
+        toolbarPanel.add(right);
+        
+        
+        
         topPanel.add(toolbarPanel);
         
         // ExpressionField
@@ -93,7 +144,16 @@ public class CellariumGui {
         
         // Spreadsheet
         final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
-        spreadsheetPanel.add(new JTable(60,30));
+        //final Table table = new Table(new Spreadsheet());
+        //table.editTable();
+        //spreadsheetPanel.add(table);
+        
+        final JTable table = new JTable(spreadsheetView);
+        table.setRowSelectionAllowed(true);
+        table.setColumnSelectionAllowed(true);
+        
+        table.setDefaultRenderer(String.class, new SpreadsheetViewTableRenderer());
+        spreadsheetPanel.add(table);
         mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
         
         // set window dimensions
@@ -107,6 +167,15 @@ public class CellariumGui {
         frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    /**
+     * Main function to start GUI.
+     * @param args  String[] of commands.
+     */
+    public static void main(final String[] args) {
+        CellariumGui gui = new CellariumGui();
+        gui.run();
     }
 
 }

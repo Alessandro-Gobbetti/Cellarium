@@ -1,5 +1,7 @@
 import parser.LexicalAnalyzer;
 import parser.TokenType;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A Parser for our Cellaium language
@@ -12,14 +14,28 @@ import parser.TokenType;
  * EXPRESSION   ::= [ "+" | "-" ] TERM { ( "+" | "-" ) TERM }
  * TERM         ::= FACTOR { ( "*" | "/" ) FACTOR }
  * FACTOR       ::= Literal |
- *                  Identifier | 
+ *                  FUNCTION | 
  *                  Cell reference |
  *                  "(" EXPRESSION ")"
+ * FUNCTION     ::= FUNCTION_NAME parameters ")"  
+ *               
  * </code>
  */
 public final class CellariumParser implements Parser {
     
     private LexicalAnalyzer lexer;
+    private HashMap<String, FunctionNodeCreator> functionMap;
+    
+    public CellariumParser() {
+        functionMap = new HashMap<String, FunctionNodeCreator>() 
+        {
+            {
+                put("SIN(", new SineNodeCreator());
+                put("COS(", new CosineNodeCreator());
+                put("PI(", new LiteralNodeCreator(Math.PI));
+            }
+        };
+    }
 
     /**
      * To Init the LexicalAnlayzer.
@@ -196,10 +212,8 @@ public final class CellariumParser implements Parser {
             // produce Node
             return factor;
         } else if (currentTokenMatches(TokenType.FUNCTION)) {
-            final Node factor = new Variable(lexer.getCurrentToken().getText());
-            lexer.fetchNextToken();
             // produce Node
-            return factor;
+            return parseFunction();
         } else if (currentTokenMatches(TokenType.CELLREFERENCE)) {
             // parse the cell reference and produce Node
             return parseCellReference();
@@ -296,6 +310,63 @@ public final class CellariumParser implements Parser {
         return new CellReference(rowIsConstant, row, colIsConstant, col);
     }
 
+    private Node parseFunction() {
+        if (!currentTokenMatches(TokenType.FUNCTION)) {
+            return new Error("Err:Syntax",
+                             "Expected a FUNCTION, got " + lexer.currentTokenName());
+        }
+        // Get the reference string before skipping it.
+        final String functionName = lexer.getCurrentToken().getText().toUpperCase();
+        lexer.fetchNextToken();
+        final FunctionNodeCreator functionNodeCreator = functionMap.get(functionName);
+        if (functionNodeCreator == null) {
+            return new Error("Err:Syntax", "Unknown function, got " + functionName);
+        }
+        ArrayList<Node> parameters = parseParameters();
+        if (parameters == null) {
+            return new Error("Err:Syntax", "Parse parameters error");
+        } else if (parameters.size() > 0 && parameters.get(0).isError()) {
+            return parameters.get(0);
+        } else if (!currentTokenMatches(TokenType.CLOSED_PAREN)) {
+            return new Error("Err:Syntax",
+                             "Syntax error: expected a ')', got " + lexer.currentTokenName());
+        }
+        // skip the closed parenthesis
+        lexer.fetchNextToken();
+        //create node
+        return functionNodeCreator.create(parameters);
+    }
+    
+    /**
+     * returns empty list if no paramters,
+     * list with one element if there are errors,
+     * otherwise, a list with all the parameters.
+     */
+    private ArrayList<Node> parseParameters() {
+        ArrayList<Node> result = new ArrayList<Node>();
+        if (!currentTokenMatches(TokenType.CLOSED_PAREN)) {
+            Node parameter = parseExpression();
+            if (parameter.isError()) {
+                result.clear();
+                result.add(parameter);
+                return result;
+            }
+            result.add(parameter);
+            while (currentTokenMatches(TokenType.COMMA)) {
+                //skip comma
+                lexer.fetchNextToken();
+                parameter = parseExpression();
+                if (parameter.isError()) {
+                    result.clear();
+                    result.add(parameter);
+                    return result;
+                }
+                result.add(parameter);
+            }
+        }
+        return result;
+    }
+    
     /**
      * To compare token types.
      * @param type the given token type.

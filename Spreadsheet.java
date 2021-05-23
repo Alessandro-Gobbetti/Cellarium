@@ -68,6 +68,13 @@ public class Spreadsheet {
         return maxUsedCellCol;
     }
     
+    
+    
+    
+    public HashMap getMap() {
+        return cellMap;
+    }
+    
     /**
      * Removes a certain Cell.
      * @param  row  the row of the Cell.
@@ -159,7 +166,7 @@ public class Spreadsheet {
         Cell result = get(row, col);
         if (result == null) {
             final int cellIndex = indexFromRowCol(row, col);
-            result = new Cell(this);
+            result = new Cell(this, row, col);
             cellMap.put(cellIndex, result);
             // Update max indices
             maxUsedCellRow = Math.max(maxUsedCellRow, row);

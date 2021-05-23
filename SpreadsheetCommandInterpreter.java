@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 
 /**
@@ -41,7 +42,7 @@ public class SpreadsheetCommandInterpreter {
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
         final String[] arr = trimmedSourceCode.split(" ", 2);
-        final String commandName = arr.length > 0 ? arr[0] : "";   // command
+        final String commandName = arr.length > 0 ? arr[0].toUpperCase() : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         final SpreadsheetCommand command = commandMap.get(commandName);
         if (command == null) {
