@@ -1,4 +1,4 @@
-package textUserInterface;
+package tui;
 
 import spreadsheet.*;
 

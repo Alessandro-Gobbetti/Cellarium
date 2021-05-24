@@ -1,4 +1,4 @@
-package graphicalUserInterface;
+package gui;
 
 import spreadsheet.*;
 
@@ -7,7 +7,8 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
- * Write a description of class SpreadsheetTableModel here.
+ * Handles how the spreadsheet has to be showed.
+ * Creates the index lines for columns and rows. 
  *
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
@@ -33,6 +34,62 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         this.spreadsheet = spreadsheet;
     }
 
+    private int viewToSpreadsheetRow(final int row) {
+        return row - 2 + originRow;
+    }
+    
+    private int viewToSpreadsheetCol(final int col) {
+        return col - 2 + originCol;
+    }
+    
+    private int spreadsheetToViewRow(final int row) {
+        return row + 2 - originRow;
+    }
+    
+    private int spreadsheetToViewCol(final int col) {
+        return col + 2 - originCol;
+    }
+    
+    @Override
+    public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+        return rowIndex > 0 && columnIndex > 0;
+    }
+    
+    //Getter methods
+    /**
+     * Defines whether the Cell is a normal cell or it has to show 
+     * the index.
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     * @return the value of the Cell.
+     */
+    public Object getValueAt(final int row, final int col) {
+        String result = "";
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        if (col == 0) {
+            if (row > 0) {
+                result = "" + (r + 1);
+            }
+        } else if  (row == 0) {
+            if (col > 0) {
+                result = CellReference.toAlpha26(c);
+            }
+        } else {
+            if (spreadsheet.exists(r, c)) {
+                final Cell cell = spreadsheet.getOrCreate(r, c);
+                result = cell.eval().asString();
+                //result = "(" + r + "," + c + ")";
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public Class<?> getColumnClass(final int col) {
+        return String.class;
+    }
+    
     /**
      * Returns the value of rowCount.
      * @return the rowCount.
@@ -65,61 +122,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return originCol;
     }
     
-    private int viewToSpreadsheetRow(final int row) {
-        return row - 2 + originRow;
-    }
-    
-    private int viewToSpreadsheetCol(final int col) {
-        return col - 2 + originCol;
-    }
-    
-    private int spreadsheetToViewRow(final int row) {
-        return row + 2 - originRow;
-    }
-    
-    private int spreadsheetToViewCol(final int col) {
-        return col + 2 - originCol;
-    }
-    
-    /**
-     * Defines whether the Cell is a normal cell or it has to show 
-     * the index.
-     * @param row  the row of the Cell.
-     * @param col  the column of the Cell.
-     * @return the value of the Cell.
-     */
-    public Object getValueAt(final int row, final int col) {
-        String result = "";
-        final int r = viewToSpreadsheetRow(row);
-        final int c = viewToSpreadsheetCol(col);
-        if (col == 0) {
-            if (row > 0) {
-                result = "" + (r + 1);
-            }
-        } else if  (row == 0) {
-            if (col > 0) {
-                result = CellReference.toAlpha26(c);
-            }
-        } else {
-            if (spreadsheet.exists(r, c)) {
-                final Cell cell = spreadsheet.getOrCreate(r, c);
-                result = cell.eval().asString();
-                //result = "(" + r + "," + c + ")";
-            }
-        }
-        return result;
-    }
-    
-    @Override
-    public boolean isCellEditable(final int rowIndex, final int columnIndex) {
-        return rowIndex > 0 && columnIndex > 0;
-    }
-    
-    @Override
-    public Class<?> getColumnClass(final int col) {
-        return String.class;
-    }
-    
+    //Setter methods
     @Override
     public void setValueAt(final Object aValue, final int row, final int col) {
         final String sourceCode = (String)aValue;
@@ -152,4 +155,5 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         originCol = col;
         fireTableDataChanged();
     }
+    
 }

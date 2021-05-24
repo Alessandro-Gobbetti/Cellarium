@@ -1,4 +1,4 @@
-package graphicalUserInterface;
+package gui;
 
 import spreadsheet.*;
 
@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Font;
 
 /**
- * Write a description of class SpreadsheetViewTableRenderer here.
+ * Handels the colors of different sections of the Spreadsheet.
  *
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
