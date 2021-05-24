@@ -16,6 +16,11 @@ public class Actions implements ActionListener {
     private Spreadsheet spreadsheet;
     private SpreadsheetViewTableModel spreadsheetView;
     
+    /**
+     * Constrctor of Actions.
+     * @param spreadsheet      the spreadsheet to compute on.
+     * @param spreadsheetView  the SpreadsheetViewTableModel reference object.
+     */
     public Actions(final Spreadsheet spreadsheet, final SpreadsheetViewTableModel spreadsheetView) {
         this.spreadsheet = spreadsheet;
         this.spreadsheetView = spreadsheetView;

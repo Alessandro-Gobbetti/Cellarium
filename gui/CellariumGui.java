@@ -4,18 +4,13 @@ import spreadsheet.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.UIManager;
+
 
 /**
  * The Main GUI class.
@@ -93,15 +88,10 @@ public class CellariumGui {
         final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
         
         //Table 
-        final JTable table = new JTable(spreadsheetView);
-        //Enables selection of Cells
-        table.setRowSelectionAllowed(true);
-        table.setColumnSelectionAllowed(true);
-        
-        table.setDefaultRenderer(String.class, new SpreadsheetViewTableRenderer());
-        
+        final Table table = new Table(); 
+       
         //Adds Table to Spreadsheet
-        spreadsheetPanel.add(table);
+        spreadsheetPanel.add(table.createTable(spreadsheetView));
         
         //Adds Spreadsheet to mainPanel
         mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
