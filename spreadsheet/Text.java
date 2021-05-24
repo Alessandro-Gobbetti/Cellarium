@@ -34,10 +34,8 @@ public class Text extends Node {
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
         if (text == null || "".equals(text.trim())) {
-            System.out.println("A" + text + "A");
             return new EmptyCellValue();
         } else {
-            System.out.println("B" + text + "B");
             return new StringCellValue(text);
         }
     }

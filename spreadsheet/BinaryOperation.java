@@ -46,7 +46,6 @@ public abstract class BinaryOperation extends Node {
      */
     public CellValue computeBinary(final CellValue left, final CellValue right) {
         if (!left.isConvertibleToNumber() || !right.isConvertibleToNumber()) {
-            System.out.println("X" + left.asString() + "X");
             return new ErrorCellValue("#VALUE!", "Expected a number");
         } else {
             return computeBinaryFromNumbers(left.asNumber(), right.asNumber());
