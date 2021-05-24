@@ -1,11 +1,12 @@
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+
 
 /**
  * Write a description of class SpreadsheetTableModel here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetViewTableModel extends AbstractTableModel {
     
@@ -16,7 +17,8 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     private int columnCount;
 
     /**
-     * Constructor for objects of class SpreadsheetTableModel
+     * Constructor for objects of class SpreadsheetTableModel.
+     * @param spreadsheet  a spreadsheet to compute on.
      */
     public SpreadsheetViewTableModel(final Spreadsheet spreadsheet) {
         super();
@@ -27,18 +29,34 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         this.spreadsheet = spreadsheet;
     }
 
+    /**
+     * Returns the value of rowCount.
+     * @return the rowCount.
+     */
     public int getRowCount() {
         return rowCount;
     }
     
+    /**
+     * Returns the value of columnCount.
+     * @return the columnCount.
+     */
     public int getColumnCount() {
         return columnCount;
     }
     
+    /**
+     * Returns the value of originRow.
+     * @return the originRow.
+     */
     public int getOriginRow() {
         return originRow;
     }
     
+    /**
+     * Returns the value of originCol.
+     * @return the originCol.
+     */
     public int getOriginCol() {
         return originCol;
     }
@@ -59,7 +77,13 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return col + 2 - originCol;
     }
     
-        
+    /**
+     * Defines whether the Cell is a normal cell or it has to show 
+     * the index.
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     * @return the value of the Cell.
+     */
     public Object getValueAt(final int row, final int col) {
         String result = "";
         final int r = viewToSpreadsheetRow(row);
@@ -114,6 +138,11 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         }
     }
     
+    /**
+     * Cheanges the origin Cell and updates the table.
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     */
     public void setOrigin(final int row, final int col) {
         originRow = row;
         originCol = col;

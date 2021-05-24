@@ -6,6 +6,7 @@
  */
 public class CosineNodeCreator extends UnaryFunctionNodeCreator {
     
+    @Override
     public Node unaryCreate(final Node parameter) {
         return new Cosine(parameter);
     }
