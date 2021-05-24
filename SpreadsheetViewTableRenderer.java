@@ -16,7 +16,7 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     private final Font font;
     
     public SpreadsheetViewTableRenderer() {
-        super.setOpaque(true); //FIXME
+        super.setOpaque(true);
         font = new Font("SansSerif", Font.PLAIN, 14);
     }
      

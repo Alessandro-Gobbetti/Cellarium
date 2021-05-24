@@ -15,8 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import java.awt.event.ActionEvent;
-
-
 /**
  * The Main GUI class.
  *
@@ -110,7 +108,7 @@ public class CellariumGui implements ActionListener {
         toolbarPanel.add(save);
         
         final JButton up = new JButton("Up");
-        //up.setMnemonic(KeyEvent.VK_E);
+        //up.setMnemonic(KeyEvent.VK_SCROLL_LOCK);
         up.setActionCommand("View up");
         //up.setEnabled(false);
         up.addActionListener(this);
