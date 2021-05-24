@@ -14,6 +14,7 @@ java CellariumTui
 ```
 
 ### Controll the spreadsheet
+No matter capitalization.
 
 | Command | Description |
 | --- | --- |
@@ -45,6 +46,14 @@ To cancel one cell:
 CLEAR C2
 ```
 ## Cellarium GUI (Graphics User Interface)
+
+### How to Run
+Run method main in `CellariumGui.java`.
+
+### Controll the spreadsheet
+Select a cell and edit it.
+
+Use buttons to move the Spreadsheet.
 
 ## More
 
