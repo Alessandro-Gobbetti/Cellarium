@@ -19,7 +19,7 @@ public class Sine extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final CellValue child) {
-        return Math.sin(child.asNumber());
-    }
+    public CellValue computeUnaryFromNumber(final double value) {
+        return new NumberCellValue(Math.sin(value));
+    } 
 }

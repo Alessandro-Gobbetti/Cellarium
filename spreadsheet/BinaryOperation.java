@@ -44,13 +44,20 @@ public abstract class BinaryOperation extends Node {
      * @param right  the right operand
      * @return the result of a binary operation
      */
-    public abstract double computeBinary(final CellValue left, final CellValue right);
+    public CellValue computeBinary(final CellValue left, final CellValue right) {
+        if (!left.isConvertibleToNumber() || !right.isConvertibleToNumber()) {
+            System.out.println("X" + left.asString() + "X");
+            return new ErrorCellValue("#VALUE!", "Expected a number");
+        } else {
+            return computeBinaryFromNumbers(left.asNumber(), right.asNumber());
+        }
+    }
+    
+    public abstract CellValue computeBinaryFromNumbers(final double leftValue, final double rightValue);
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        return new NumberCellValue(
-            computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet))
-        );
+        return computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet));
     }
     
     @Override

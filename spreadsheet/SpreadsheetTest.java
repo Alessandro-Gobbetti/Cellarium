@@ -69,12 +69,15 @@ public class SpreadsheetTest {
         Cell cA1 =  s.getOrCreate(0,0);
         Cell cA2 =  s.getOrCreate(1,0);
         Cell cA3 =  s.getOrCreate(2,0);
+        Cell cA4 =  s.getOrCreate(3,0);
         
         cA1.setFormula(p.parse("10"));
         cA2.setFormula(p.parse("= A1 + 5.0"));
         cA3.setFormula(p.parse("= A1 * A2"));
+        cA4.setFormula(p.parse("=AVERAGE(A1:A3)"));
 
         assertEquals(150, s.getValue(2, 0).asNumber(), 0.0);
+        assertEquals((10.0+15.0+150.0)/3.0, s.getValue(3, 0).asNumber(), 0.000001);
         cA1.setFormula(p.parse("= +20"));
         assertEquals(500, s.getValue(2, 0).asNumber(), 0.0);
     }

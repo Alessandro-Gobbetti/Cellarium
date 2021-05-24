@@ -20,7 +20,13 @@ public class SquareRoot extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final CellValue child) {
-        return Math.sqrt(child.asNumber());
-    }
+    public CellValue computeUnaryFromNumber(final double value) {
+        if (value < 0) {
+            return new ErrorCellValue("#SQRT(NEG)",
+                                      "Negative value for square root, got" + value);
+        } else {
+            return new NumberCellValue(Math.sqrt(value));
+        }
+    } 
+    
 }

@@ -27,12 +27,11 @@ public class StringCellValue implements CellValue {
     
     @Override
     public boolean isConvertibleToNumber() {
-        return false;
+        return false; 
     }
     
     @Override
     public double asNumber() {
-        //FIXME
         return Double.NaN;
     }
     

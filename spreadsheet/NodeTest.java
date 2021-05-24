@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
 
 
 /**
@@ -163,5 +164,22 @@ public class NodeTest {
         assertEquals(1, c.getRow(1), 0.0);
         assertEquals(3, c.getCol(1), 0.0);
     }
+    
+    @Test
+    public void testAverage() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser();
+        Cell cA1 =  s.getOrCreate(0,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cA3 =  s.getOrCreate(2,0);
         
+        cA1.setFormula(p.parse("10"));
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+
+        Node e = new Average(new CellReferenceRange(new CellReference(false, 0, false, 0),
+                                                    new CellReference(false, 2, false, 0)));
+        assertEquals(58.333333333, e.eval(s).asNumber(), 0.0000001);
+        assertEquals("AVERAGE(A1:A3)", e.toString());
+    }
 }

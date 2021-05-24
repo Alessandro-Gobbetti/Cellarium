@@ -50,11 +50,19 @@ public abstract class UnaryOperation extends Node {
      * @param child  the operand
      * @return the result of a unary operation
      */
-    public abstract double computeUnary(final CellValue child);
+    public CellValue computeUnary(final CellValue child) {
+        if (!child.isConvertibleToNumber()) {
+            return new ErrorCellValue("#VALUE", "Expected a number");
+        } else {
+            return computeUnaryFromNumber(child.asNumber());
+        }
+    }
+    
+    public abstract CellValue computeUnaryFromNumber(final double child);
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        return new NumberCellValue(computeUnary(child.eval(spreadsheet)));
+        return computeUnary(child.eval(spreadsheet));
     }
     
     @Override

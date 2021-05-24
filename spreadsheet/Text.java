@@ -33,11 +33,17 @@ public class Text extends Node {
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        return new StringCellValue(text);
+        if (text == null || "".equals(text.trim())) {
+            System.out.println("A" + text + "A");
+            return new EmptyCellValue();
+        } else {
+            System.out.println("B" + text + "B");
+            return new StringCellValue(text);
+        }
     }
     
     @Override
     public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        //FIXME
+        // no dependencies.
     }
 }

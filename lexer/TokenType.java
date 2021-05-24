@@ -22,6 +22,7 @@ public enum TokenType {
     PERCENT("percent"), 
     
     COMMA("comma"),
+    COLON("colon"),
 
     OPEN_PAREN("open parenthesis"), 
     CLOSED_PAREN("closed parenthesis"),

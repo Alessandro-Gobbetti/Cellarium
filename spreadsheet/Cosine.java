@@ -20,7 +20,7 @@ public class Cosine extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final CellValue child) {
-        return Math.cos(child.asNumber());
-    }
+    public CellValue computeUnaryFromNumber(final double value) {
+        return new NumberCellValue(Math.cos(value));
+    } 
 }

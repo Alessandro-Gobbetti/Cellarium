@@ -20,7 +20,7 @@ public class Subtraction extends BinaryOperation {
     }
     
     @Override
-    public double computeBinary(final CellValue left, final CellValue right) {
-        return left.asNumber() - right.asNumber();
+    public CellValue computeBinaryFromNumbers(final double left, final double right) {
+        return new NumberCellValue(left - right);
     }
 }

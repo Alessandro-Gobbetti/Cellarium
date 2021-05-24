@@ -48,6 +48,6 @@ public class Error extends Node {
     
     @Override
     public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        //FIXME
+        // no dependencies.
     }
 }

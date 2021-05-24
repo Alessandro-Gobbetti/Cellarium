@@ -39,6 +39,7 @@ public final class LexicalAnalyzer {
             new FunctionTokenFactory(),
             new LiteralTokenFactory(),
             new OperatorTokenFactory(",", TokenType.COMMA),
+            new OperatorTokenFactory(":", TokenType.COLON),
             new OperatorTokenFactory("=", TokenType.EQUAL),
             new OperatorTokenFactory("+", TokenType.PLUS),
             new OperatorTokenFactory("-", TokenType.MINUS),

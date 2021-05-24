@@ -137,7 +137,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         final Cell cell = spreadsheet.getOrCreate(r, c);
         final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
         cell.setFormulaAndGetOutdatedCells(content, markedOutOfDate);
-        //fireTableDataChanged(); //FIXME set formula should return the changed cells...
+        //fireTableDataChanged(); //to update all the table cells.
         for (final Cell outdatedCell : markedOutOfDate) {
             final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
             final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());

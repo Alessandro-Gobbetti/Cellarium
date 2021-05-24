@@ -20,7 +20,11 @@ public class Division extends BinaryOperation {
     }
     
     @Override
-    public double computeBinary(final CellValue left, final CellValue right) {
-        return left.asNumber() / right.asNumber();
+    public CellValue computeBinaryFromNumbers(final double left, final double right) {
+        if (right == 0.0) {
+            return new ErrorCellValue("#DIV/0!", "Division by zero.");
+        } else {
+            return new NumberCellValue(left + right);
+        }
     }
 }

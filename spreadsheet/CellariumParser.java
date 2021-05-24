@@ -36,9 +36,10 @@ public final class CellariumParser implements Parser {
         functionMap = new HashMap<String, FunctionNodeCreator>() 
         {
             {
+                put("PI(", new LiteralNodeCreator(Math.PI));
                 put("SIN(", new SineNodeCreator());
                 put("COS(", new CosineNodeCreator());
-                put("PI(", new LiteralNodeCreator(Math.PI));
+                put("AVERAGE(", new AverageNodeCreator());
             }
         };
     }
@@ -81,8 +82,11 @@ public final class CellariumParser implements Parser {
      */
     public Node parseCell() {
         if (currentTokenMatches(TokenType.EQUAL)
-            || currentTokenMatches(TokenType.PLUS)) {
-            lexer.fetchNextToken();
+            || currentTokenMatches(TokenType.PLUS)
+            || currentTokenMatches(TokenType.MINUS)) {
+            if (currentTokenMatches(TokenType.EQUAL)) {
+                lexer.fetchNextToken();
+            }
             final Node expression = parseExpression();
             if (!expression.isError() && !currentTokenMatches(TokenType.END_OF_FILE)) {
                 return new Error("Err:Syntax", "Syntax error: garbage after the expression");
@@ -203,9 +207,9 @@ public final class CellariumParser implements Parser {
      * <p>EBNF:
      * <code>
      * FACTOR ::=  
-     *          Literal | 
-     *          Identifier | 
+     *          Literal |
      *          Cell reference |
+     *          Cell range |
      *          "(" EXPRESSION ")"
      * </code>
      * 
@@ -221,8 +225,24 @@ public final class CellariumParser implements Parser {
             // produce Node
             return parseFunction();
         } else if (currentTokenMatches(TokenType.CELLREFERENCE)) {
-            // parse the cell reference and produce Node
-            return parseCellReference();
+            Node reference = parseCellReference();
+            if (reference.isError()) {
+                return reference;
+            }
+            if (!currentTokenMatches(TokenType.COLON)) {
+                return reference;
+            } else {
+                // skip the colon
+                lexer.fetchNextToken();
+                Node secondReference = parseCellReference();
+                if (secondReference.isError()) {
+                    return secondReference;
+                }
+                // cast nodes to CellReferences, we know it's possible because there are not errors.
+                final CellReference begin = (CellReference)reference;
+                final CellReference end = (CellReference)secondReference;
+                return new CellReferenceRange(begin, end);
+            }
         } else if (currentTokenMatches(TokenType.OPEN_PAREN)) {
             // skip the parenthesis
             lexer.fetchNextToken();

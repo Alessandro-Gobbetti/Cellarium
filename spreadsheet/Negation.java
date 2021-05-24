@@ -19,7 +19,7 @@ public class Negation extends UnaryOperation {
     }
     
     @Override
-    public double computeUnary(final CellValue child) {
-        return -child.asNumber();
+    public CellValue computeUnaryFromNumber(final double value) {
+        return new NumberCellValue(-value);
     } 
 }
