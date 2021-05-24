@@ -11,7 +11,9 @@ public class CellReferenceRange { // extends Node
     private CellReference end;
 
     /**
-     * Constructor for objects of class CellReferenceRange
+     * Constructor for objects of class CellReferenceRange.
+     * @param begin the first cell
+     * @param end the last cell
      */
     public CellReferenceRange(final CellReference begin, final CellReference end) {
         this.begin = begin;

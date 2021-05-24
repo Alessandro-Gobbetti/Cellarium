@@ -1,5 +1,6 @@
 import parser.LexicalAnalyzer;
 import parser.TokenType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +27,9 @@ public final class CellariumParser implements Parser {
     private LexicalAnalyzer lexer;
     private HashMap<String, FunctionNodeCreator> functionMap;
     
+    /**
+     * Constructor for CellariumParser. To initialize a map with all functions.
+     */
     public CellariumParser() {
         functionMap = new HashMap<String, FunctionNodeCreator>() 
         {

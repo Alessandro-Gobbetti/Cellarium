@@ -6,6 +6,7 @@
  */
 public class SineNodeCreator extends UnaryFunctionNodeCreator {
     
+    @Override
     public Node unaryCreate(final Node parameter) {
         return new Sine(parameter);
     }

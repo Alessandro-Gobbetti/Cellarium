@@ -1,4 +1,3 @@
-import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * The Main GUI class.
  *
@@ -26,11 +27,15 @@ public class CellariumGui implements ActionListener {
     private Spreadsheet spreadsheet;
     private SpreadsheetViewTableModel spreadsheetView;
     
-    public CellariumGui(){
+    /**
+     * Constructor for CellariumGui.
+     */
+    public CellariumGui() {
         spreadsheet = new Spreadsheet();
         spreadsheetView = new SpreadsheetViewTableModel(spreadsheet);
     }
     
+    @Override
     public void actionPerformed(final ActionEvent e) {
         if ("View up".equals(e.getActionCommand())) {
             final int row = spreadsheetView.getOriginRow();
@@ -51,6 +56,9 @@ public class CellariumGui implements ActionListener {
         }
     } 
     
+    /**
+     * To draw the gui.
+     */
     public void run() {
         //Font style
         final Font font = new Font("SansSerif", Font.PLAIN, 14);

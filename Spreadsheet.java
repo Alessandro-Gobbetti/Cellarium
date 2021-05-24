@@ -68,13 +68,6 @@ public class Spreadsheet {
         return maxUsedCellCol;
     }
     
-    
-    
-    
-    public HashMap getMap() {
-        return cellMap;
-    }
-    
     /**
      * Removes a certain Cell.
      * @param  row  the row of the Cell.
