@@ -26,7 +26,13 @@
   * EXIT to quit the program
 
 * Added a GUI
-  * work in progress...
+  * Added a SpreadsheetViewTableModel to manage the part of the spreadsheet that we show on screen.
+    * The idea is that we only print a part of the spreadsheet and then we can use buttons to change the visible part
+  * Added a table rendere to modify the style anc colors to print.
+* Improved language
+  * now we support functions
+    * Added function node creators to do this
+  * still working to support ranges
 
 * Added tests
 
