@@ -2,8 +2,8 @@
 /**
  * Write a description of class SumNodeCreator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class SumNodeCreator
 {
@@ -25,7 +25,7 @@ public class SumNodeCreator
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public int sampleMethod(int y)
+    public int sampleMethod(final int y)
     {
         // put your code here
         return x + y;

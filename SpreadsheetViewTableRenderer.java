@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Font;
@@ -8,21 +7,22 @@ import java.awt.Font;
 /**
  * Write a description of class SpreadsheetViewTableRenderer here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     
     private final Font font;
     
     public SpreadsheetViewTableRenderer() {
+        super();
         super.setOpaque(true);
         font = new Font("SansSerif", Font.PLAIN, 14);
     }
      
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                   boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected,
+                                                   final boolean hasFocus, final int row, final int column) {
         super.setFont(font);
         if (row == 0) {
             if (table.isColumnSelected(column)) {
@@ -38,9 +38,9 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
                 super.setBackground(Color.GRAY);
             }
             super.setForeground(Color.WHITE);
-        // } else if (isSelected && hasFocus) {
+        //  } else if (isSelected && hasFocus) {
             // super.setBackground(Color.ORANGE);
-        // } else if (isSelected) {
+        //  } else if (isSelected) {
             // super.setBackground(Color.YELLOW);
         } else if (hasFocus) {
             super.setBackground(Color.RED);

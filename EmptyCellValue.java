@@ -6,13 +6,6 @@
  */
 public class EmptyCellValue implements CellValue {
     
-    /**
-     * Constructor for objects of class EmptyCellValue.
-     */
-    public EmptyCellValue() {
-        super();
-    }
-
     @Override
     public CellType type() {
         return CellType.EMPTY;

@@ -18,7 +18,8 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     /**
      * Constructor for objects of class SpreadsheetTableModel
      */
-    public SpreadsheetViewTableModel(Spreadsheet spreadsheet) {
+    public SpreadsheetViewTableModel(final Spreadsheet spreadsheet) {
+        super();
         originRow = 1;
         originCol = 1;
         rowCount = 60;
@@ -42,24 +43,24 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return originCol;
     }
     
-    private int viewToSpreadsheetRow(int row) {
+    private int viewToSpreadsheetRow(final int row) {
         return row - 2 + originRow;
     }
     
-    private int viewToSpreadsheetCol(int col) {
+    private int viewToSpreadsheetCol(final int col) {
         return col - 2 + originCol;
     }
     
-    private int spreadsheetToViewRow(int row) {
+    private int spreadsheetToViewRow(final int row) {
         return row + 2 - originRow;
     }
     
-    private int spreadsheetToViewCol(int col) {
+    private int spreadsheetToViewCol(final int col) {
         return col + 2 - originCol;
     }
     
         
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(final int row, final int col) {
         String result = "";
         final int r = viewToSpreadsheetRow(row);
         final int c = viewToSpreadsheetCol(col);
@@ -73,7 +74,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
             }
         } else {
             if (spreadsheet.exists(r, c)) {
-                Cell cell = spreadsheet.getOrCreate(r, c);
+                final Cell cell = spreadsheet.getOrCreate(r, c);
                 result = cell.eval().asString();
                 //result = "(" + r + "," + c + ")";
             }
@@ -82,38 +83,38 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     }
     
     @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
+    public boolean isCellEditable(final int rowIndex, final int columnIndex) {
         return rowIndex > 0 && columnIndex > 0;
     }
     
     @Override
-    public Class<?> getColumnClass(int col) {
+    public Class<?> getColumnClass(final int col) {
         return String.class;
     }
     
     @Override
-    public void setValueAt(Object aValue, int row, int col) {
-        String sourceCode = (String)aValue;
+    public void setValueAt(final Object aValue, final int row, final int col) {
+        final String sourceCode = (String)aValue;
         final int r = viewToSpreadsheetRow(row);
         final int c = viewToSpreadsheetCol(col);
         
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
         // parse the new content of the cell
-        Node content = parser.parseCell();
+        final Node content = parser.parseCell();
         
         final Cell cell = spreadsheet.getOrCreate(r, c);
-        ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
+        final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
         cell.setFormulaAndGetOutdatedCells(content, markedOutOfDate);
         //fireTableDataChanged(); //FIXME set formula should return the changed cells...
-        for (Cell outdatedCell : markedOutOfDate) {
-            int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
-            int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
+        for (final Cell outdatedCell : markedOutOfDate) {
+            final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
+            final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
             fireTableCellUpdated(outdatedRow, outdatedCol);
         }
     }
     
-    public void setOrigin(int row, int col) {
+    public void setOrigin(final int row, final int col) {
         originRow = row;
         originCol = col;
         fireTableDataChanged();

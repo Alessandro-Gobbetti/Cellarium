@@ -322,7 +322,7 @@ public final class CellariumParser implements Parser {
         if (functionNodeCreator == null) {
             return new Error("Err:Syntax", "Unknown function, got " + functionName);
         }
-        ArrayList<Node> parameters = parseParameters();
+        final ArrayList<Node> parameters = parseParameters();
         if (parameters == null) {
             return new Error("Err:Syntax", "Parse parameters error");
         } else if (parameters.size() > 0 && parameters.get(0).isError()) {
@@ -343,7 +343,7 @@ public final class CellariumParser implements Parser {
      * otherwise, a list with all the parameters.
      */
     private ArrayList<Node> parseParameters() {
-        ArrayList<Node> result = new ArrayList<Node>();
+        final ArrayList<Node> result = new ArrayList<Node>();
         if (!currentTokenMatches(TokenType.CLOSED_PAREN)) {
             Node parameter = parseExpression();
             if (parameter.isError()) {

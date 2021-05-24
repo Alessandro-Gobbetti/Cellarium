@@ -1,14 +1,12 @@
-import java.util.ArrayList;
-
 /**
  * Write a description of class CosineNodeCreator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class CosineNodeCreator extends UnaryFunctionNodeCreator {
     
-    public Node unaryCreate(Node parameter) {
+    public Node unaryCreate(final Node parameter) {
         return new Cosine(parameter);
     }
 }

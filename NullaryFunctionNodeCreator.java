@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class UnaryNodeCreator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public abstract class NullaryFunctionNodeCreator implements FunctionNodeCreator {
     

@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class FunctionParser here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public abstract interface FunctionNodeCreator {
     public Node create(ArrayList<Node> list);

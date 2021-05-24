@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 /**
  * The Main GUI class.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
  */
 public class CellariumGui implements ActionListener {
@@ -31,22 +31,22 @@ public class CellariumGui implements ActionListener {
         spreadsheetView = new SpreadsheetViewTableModel(spreadsheet);
     }
     
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         if ("View up".equals(e.getActionCommand())) {
-            int row = spreadsheetView.getOriginRow();
+            final int row = spreadsheetView.getOriginRow();
             if (row > 1) {
                 spreadsheetView.setOrigin(row - 1, spreadsheetView.getOriginCol());
             }
         } else if ("View down".equals(e.getActionCommand())) {
-            int row = spreadsheetView.getOriginRow();
+            final int row = spreadsheetView.getOriginRow();
             spreadsheetView.setOrigin(row + 1, spreadsheetView.getOriginCol());
         } else if ("View left".equals(e.getActionCommand())) {
-            int col = spreadsheetView.getOriginCol();
+            final int col = spreadsheetView.getOriginCol();
             if (col > 1) {
                 spreadsheetView.setOrigin(spreadsheetView.getOriginRow(), col - 1);
             }
         } else if ("View right".equals(e.getActionCommand())) {
-            int col = spreadsheetView.getOriginCol();
+            final int col = spreadsheetView.getOriginCol();
             spreadsheetView.setOrigin(spreadsheetView.getOriginRow(), col + 1);
         }
     } 
@@ -172,7 +172,7 @@ public class CellariumGui implements ActionListener {
      * @param args  String[] of commands.
      */
     public static void main(final String[] args) {
-        CellariumGui gui = new CellariumGui();
+        final CellariumGui gui = new CellariumGui();
         gui.run();
     }
 

@@ -2,17 +2,11 @@
 /**
  * Write a description of class Sum here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class Sum {
     
-    // child is a Range
-    // if child instance of Range...
-    /**
-     * Constructor for objects of class Sum
-     */
-    public Sum() {
-    }
+    
 
 }

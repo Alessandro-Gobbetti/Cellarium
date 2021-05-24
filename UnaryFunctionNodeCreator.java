@@ -3,13 +3,13 @@ import java.util.ArrayList;
 /**
  * Write a description of class UnaryNodeCreator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public abstract class UnaryFunctionNodeCreator implements FunctionNodeCreator {
     
     @Override
-    public Node create(ArrayList<Node> list) {
+    public Node create(final ArrayList<Node> list) {
         if (list.size() != 1) {
             return new Error("Err:Syntax" , "Expected one parameter, got " + list.size() + " parameters.");
         } else { 

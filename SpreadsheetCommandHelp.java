@@ -26,7 +26,7 @@ public class SpreadsheetCommandHelp implements SpreadsheetCommand {
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
-        if (("").equals(trimmedSourceCode)) {
+        if ("".equals(trimmedSourceCode)) {
             interpreter.helpCommandList();
         } else {
             interpreter.helpCommand(trimmedSourceCode);

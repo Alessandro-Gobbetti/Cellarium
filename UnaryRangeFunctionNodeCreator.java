@@ -2,8 +2,8 @@
 /**
  * Write a description of class RangeFunctionNodeCreator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti && Laurenz Ebi
+ * @version 1.0
  */
 public class UnaryRangeFunctionNodeCreator { //extends UnaryFunctionNodeCreator {
     // check if instance node of CellReference or Range...
