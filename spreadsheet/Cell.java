@@ -148,6 +148,8 @@ public class Cell {
         return formula.toString();
     }
     
-    
+    public int numberOfCellsDependingOnThis() {
+        return cellDependingOnThis.size();
+    }
 
 }

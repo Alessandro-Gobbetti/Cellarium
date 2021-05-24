@@ -76,6 +76,14 @@ public class Spreadsheet {
      * @param  col  the column of the Cell.
      */
     public void remove(final int row, final int col) {
+        final Cell cell = get(row, col);
+        if (cell != null) {
+            cell.setFormula(null);
+            if (cell.numberOfCellsDependingOnThis() > 0) {
+                // we cannot remove the cell because it is referenced by some formula.
+                return;
+            }
+        }
         final int cellIndex = indexFromRowCol(row, col);
         cellMap.remove(cellIndex);
         // Update max indices
