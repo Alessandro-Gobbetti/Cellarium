@@ -3,28 +3,27 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * A Average is an AST node that 
+ * A Sum is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Average extends RangeOperation {
+public class Sum extends RangeOperation {
     
     /**
      * Create a new Average node.
      * @param child the range over which to calculate the average.
      */
-    public Average(final CellReferenceRange child) {
+    public Sum(final CellReferenceRange child) {
         super(child);
     }
     
     @Override
     public String toString() {
-        return "AVERAGE(" + childToString() + ")";
+        return "SUM(" + childToString() + ")";
     }
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        int count = 0;
         double sum = 0;
                
         final int beginRow = getChild().getMinRow();
@@ -39,9 +38,8 @@ public class Average extends RangeOperation {
                     return new ErrorCellValue("#VALUE", "Expected a number");
                 }
                 sum = sum + value.asNumber();
-                count++;
             }
         }
-        return new NumberCellValue(sum / count);
+        return new NumberCellValue(sum);
     }
 }

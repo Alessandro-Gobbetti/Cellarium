@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class Cell here.
  *
- * @author (Alessandro Gobbetti & Laurenz Ebi)
- * @version (1.0)
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class Cell {
     

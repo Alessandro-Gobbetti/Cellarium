@@ -3,29 +3,28 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * A Average is an AST node that 
+ * A Maximum is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
  */
-public class Average extends RangeOperation {
+public class Maximum extends RangeOperation {
     
     /**
-     * Create a new Average node.
+     * Create a new Maximum node.
      * @param child the range over which to calculate the average.
      */
-    public Average(final CellReferenceRange child) {
+    public Maximum(final CellReferenceRange child) {
         super(child);
     }
     
     @Override
     public String toString() {
-        return "AVERAGE(" + childToString() + ")";
+        return "MAX(" + childToString() + ")";
     }
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        int count = 0;
-        double sum = 0;
+        double max = 0;
                
         final int beginRow = getChild().getMinRow();
         final int beginCol = getChild().getMinCol();
@@ -35,13 +34,16 @@ public class Average extends RangeOperation {
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
                 final CellValue value = spreadsheet.getOrCreate(row,col).eval();
+                final Cell cell = spreadsheet.get(row,col);
                 if (!value.isConvertibleToNumber()) {
                     return new ErrorCellValue("#VALUE", "Expected a number");
+                } else if (!(cell == null || cell.eval() instanceof EmptyCellValue)) {
+                    if (value.asNumber() > max) {
+                        max = value.asNumber();
+                    }
                 }
-                sum = sum + value.asNumber();
-                count++;
             }
         }
-        return new NumberCellValue(sum / count);
+        return new NumberCellValue(max);
     }
 }

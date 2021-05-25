@@ -40,6 +40,10 @@ public final class CellariumParser implements Parser {
                 put("SIN(", new SineNodeCreator());
                 put("COS(", new CosineNodeCreator());
                 put("AVERAGE(", new AverageNodeCreator());
+                put("SUM(", new SumNodeCreator());
+                put("COUNT(", new CountNodeCreator());
+                put("MIN(", new MinimumNodeCreator());
+                put("MAX(", new MaximumNodeCreator());
             }
         };
     }

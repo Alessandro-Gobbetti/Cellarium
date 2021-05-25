@@ -130,7 +130,7 @@ public class Spreadsheet {
     
     
     /**
-     * Removes a certain Cell.
+     * Whatches out if the Cell exists.
      * @param  row  the row of the Cell.
      * @param  col  the column of the Cell.
      * @return boolean  if the Cell exists.

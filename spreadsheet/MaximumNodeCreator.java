@@ -2,15 +2,15 @@ package spreadsheet;
 
 
 /**
- * Write a description of class AverageNodeCreator here.
+ * This Clas creates a Maximum node.
  *
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
  */
-public class AverageNodeCreator extends UnaryRangeFunctionNodeCreator {
+public class MaximumNodeCreator extends UnaryRangeFunctionNodeCreator {
     
     @Override
     public Node unaryRangeCreate(final CellReferenceRange range) {
-        return new Average(range);
+        return new Maximum(range);
     }
 }
