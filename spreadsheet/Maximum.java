@@ -25,6 +25,7 @@ public class Maximum extends RangeOperation {
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
         double max = 0;
+        boolean input = false;
                
         final int beginRow = getChild().getMinRow();
         final int beginCol = getChild().getMinCol();
@@ -38,8 +39,11 @@ public class Maximum extends RangeOperation {
                 if (!value.isConvertibleToNumber()) {
                     return new ErrorCellValue("#VALUE", "Expected a number");
                 } else if (!(cell == null || cell.eval() instanceof EmptyCellValue)) {
-                    if (value.asNumber() > max) {
+                    if (!input) {
+                        input = true;
                         max = value.asNumber();
+                    } else {
+                        max = Math.max(value.asNumber(), max);
                     }
                 }
             }

@@ -25,6 +25,7 @@ public class Minimum extends RangeOperation {
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
         double min = 0;
+        boolean input = false;
                
         final int beginRow = getChild().getMinRow();
         final int beginCol = getChild().getMinCol();
@@ -38,8 +39,11 @@ public class Minimum extends RangeOperation {
                 if (!value.isConvertibleToNumber()) {
                     return new ErrorCellValue("#VALUE", "Expected a number");
                 } else if (!(cell == null || cell.eval() instanceof EmptyCellValue)) {
-                    if (value.asNumber() < min) {
+                    if (!input) {
+                        input = true;
                         min = value.asNumber();
+                    } else {
+                        min = Math.min(value.asNumber(), min);
                     }
                 }
             }
