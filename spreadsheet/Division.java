@@ -24,7 +24,7 @@ public class Division extends BinaryOperation {
         if (right == 0.0) {
             return new ErrorCellValue("#DIV/0!", "Division by zero.");
         } else {
-            return new NumberCellValue(left + right);
+            return new NumberCellValue(left / right);
         }
     }
 }

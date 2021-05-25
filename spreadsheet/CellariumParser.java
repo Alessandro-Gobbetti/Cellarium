@@ -84,7 +84,9 @@ public final class CellariumParser implements Parser {
         if (currentTokenMatches(TokenType.EQUAL)
             || currentTokenMatches(TokenType.PLUS)
             || currentTokenMatches(TokenType.MINUS)) {
-            if (currentTokenMatches(TokenType.EQUAL)) {
+            // if we got a minus we should parse it in parseExpression
+            // = 4 +-3 is allowed.
+            if (!currentTokenMatches(TokenType.MINUS)) {
                 lexer.fetchNextToken();
             }
             final Node expression = parseExpression();
