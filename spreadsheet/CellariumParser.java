@@ -37,6 +37,7 @@ public final class CellariumParser implements Parser {
         {
             {
                 put("PI(", new LiteralNodeCreator(Math.PI));
+                put("E(", new LiteralNodeCreator(Math.E));
                 put("SIN(", new SineNodeCreator());
                 put("COS(", new CosineNodeCreator());
                 put("AVERAGE(", new AverageNodeCreator());

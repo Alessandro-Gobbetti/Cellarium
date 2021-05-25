@@ -12,7 +12,7 @@ import javax.swing.UIManager;
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
  */
-public class ToolBar {
+public class ToolBar extends JPanel {
     
     /**
      * Creates the a ToolBar for the Spreadsheet.
@@ -20,41 +20,37 @@ public class ToolBar {
      * @param actions  Actions object to be able to compute actions.
      * @return JPanel  a new Toolbar with Buttons.
      */
-    public JPanel createToolBar(final Font font, final Actions actions) {
+    public ToolBar(final Font font, final Actions actions) {
+        super();
         //Sets Font of Buttons
         UIManager.put("Button.font", font);
         
-        //Creates JPanel for ToolBar
-        final JPanel toolbarPanel = new JPanel();
-        toolbarPanel.setLayout(new FlowLayout());
+        setLayout(new FlowLayout());
         
         //Buttons
         final JButton open = new JButton("Open");
-        toolbarPanel.add(open);
+        add(open);
         final JButton save = new JButton("Save");
-        toolbarPanel.add(save);
+        add(save);
         
         final JButton up = new JButton("Up");
         up.setActionCommand("View up");
         up.addActionListener(actions);
-        toolbarPanel.add(up);
+        add(up);
         
         final JButton down = new JButton("Down");
         down.setActionCommand("View down");
         down.addActionListener(actions);
-        toolbarPanel.add(down);
+        add(down);
         
         final JButton left = new JButton("Left");
         left.setActionCommand("View left");
         left.addActionListener(actions);
-        toolbarPanel.add(left);
+        add(left);
         
         final JButton right = new JButton("Right");
         right.setActionCommand("View right");
         right.addActionListener(actions);
-        toolbarPanel.add(right);
-        
-        //Returns toolbar
-        return toolbarPanel;
+        add(right);
     }
 }

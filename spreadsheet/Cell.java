@@ -33,6 +33,7 @@ public class Cell {
         this.value = new EmptyCellValue();
         this.isEvaluating = false;
         this.isValueUpToDate = true;
+        this.formula = null;
         this.style = new Style();
         this.cellDependingOnThis = new ArrayList<Cell>();
     }
@@ -145,6 +146,9 @@ public class Cell {
      * @return the formula as string.
      */
     public String getFormula() {
+        if (formula == null) {
+            return "";
+        }
         return formula.toString();
     }
     

@@ -53,9 +53,9 @@ public class CellariumGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Menu Bar 
-        final MenuBar menubar = new MenuBar();
+        final MenuBar menubar = new MenuBar(font);
         //Adds MenuBar to frame
-        frame.setJMenuBar(menubar.createMenuBar(font));
+        frame.setJMenuBar(menubar);
         
         
         //MainPanel
@@ -68,16 +68,32 @@ public class CellariumGui {
 
         
         //ToolBar
-        final ToolBar toolbar = new ToolBar();
         //Makes possible that actions are executed on the ToolBar
         final Actions actions = new Actions(spreadsheet, spreadsheetView);
-        
+        final ToolBar toolbar = new ToolBar(font, actions);
         //Adds ToolBar to TopPanel
-        topPanel.add(toolbar.createToolBar(font, actions));
+        topPanel.add(toolbar);
+        //table.getSelected
         
+        
+        
+        
+        //Spreadsheet
+        final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
+        
+        //Table 
+        final Table table = new Table(spreadsheetView);
+       
+        //Adds Table to Spreadsheet
+        spreadsheetPanel.add(table);
+        
+        //Adds Spreadsheet to mainPanel
+        mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
+        
+
         
         //ExpressionField
-        final JTextField expressionField = new JTextField(); // do something
+        final JTextField expressionField = new JTextField(table.getSelectedCell(spreadsheet).getFormula()); // do something
         //Adds the expressionField to the topPanel
         topPanel.add(expressionField);
         
@@ -85,36 +101,38 @@ public class CellariumGui {
         frame.add(topPanel, BorderLayout.NORTH);
         
         
-        //Spreadsheet
-        final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
+        // Srollbars
+        Scrollbar rowScrollbar = new Scrollbar(Scrollbar.VERTICAL);
+        final SpreadsheetScrollbarHandler rowScrollbarHandler = new SpreadsheetScrollbarHandler(spreadsheet, spreadsheetView,
+                                                                                                rowScrollbar, table);
+        rowScrollbar.addAdjustmentListener(rowScrollbarHandler);
+        mainPanel.add(rowScrollbar, BorderLayout.EAST);
         
-        //Table 
-        final Table table = new Table(); 
-       
-        //Adds Table to Spreadsheet
-        spreadsheetPanel.add(table.createTable(spreadsheetView));
+        Scrollbar colScrollbar = new Scrollbar(Scrollbar.HORIZONTAL);
+        final SpreadsheetScrollbarHandler colScrollbarHandler = new SpreadsheetScrollbarHandler(spreadsheet, spreadsheetView,
+                                                                                                colScrollbar, table);
+        colScrollbar.addAdjustmentListener(colScrollbarHandler);
+        mainPanel.add(colScrollbar, BorderLayout.SOUTH);
         
-        //Adds Spreadsheet to mainPanel
-        mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
         
+        
+        
+        
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row = spreadsheetView.viewToSpreadsheetRow(table.rowAtPoint(e.getPoint()));
+                int col = spreadsheetView.viewToSpreadsheetCol(table.columnAtPoint(e.getPoint()));
+                // = spreadsheet.getFormula(row,col);
+                
+                //JOptionPane.showMessageDialog(null," Value in the cell clicked :"+ " " +table.getValueAt(row,col).toString());
+                System.out.println(" Formula in the cell clicked :"+ " " +spreadsheet.getFormula(row,col));
+            }
 
+        });
         
-        final Scrollbar scrollbarUpDown = new Scrollbar();
-        mainPanel.add(scrollbarUpDown, BorderLayout.EAST);
         
-        final int colViewCount = spreadsheetView.getColumnCount();
-        final int colOrigin = spreadsheetView.getOriginCol();
-        final int colDimension = spreadsheetView.getSpreadsheetColDimension();
-        //final int 
-        Scrollbar scrollbarLeftRight = new Scrollbar(Scrollbar.HORIZONTAL,
-                                                            spreadsheetView.getOriginCol(),
-                                                            spreadsheetView.getColumnCount(),
-                                                            1, 
-                                                            spreadsheetView.getSpreadsheetColDimension()*2);
-        final Events event = new Events(spreadsheet, spreadsheetView);
-        scrollbarLeftRight.addAdjustmentListener(event);
-        //scrollbarLeftRight.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        mainPanel.add(scrollbarLeftRight, BorderLayout.SOUTH);
+        
+        
         
         //Set window dimensions
         frame.setPreferredSize(new Dimension(600, 600));
@@ -124,7 +142,29 @@ public class CellariumGui {
         frame.add(mainPanel);
         
         frame.pack();
+        rowScrollbarHandler.init();//initHorizontalScrollbar(horizontalScrollbar, table);
+        colScrollbarHandler.init();
         frame.setVisible(true);
     }
-
+    
+    private void initHorizontalScrollbar(Scrollbar scrollbar, Table table) {
+        final int value = spreadsheetView.getOriginCol();
+        final int visible = table.getNumberOfVisibleCols();
+        final int minimum = 1;
+        final int maximum = value + visible + visible;
+        scrollbar.setValues(value, visible, minimum, maximum);
+    }
+    
+    private void setHorizontalScrollbar(Scrollbar scrollbar, Table table, int value) {
+        int visible = scrollbar.getVisibleAmount();
+        int minimum = 1;
+        int maximum = scrollbar.getMaximum();
+        if (value + visible > maximum) {
+            maximum = maximum + visible;
+        } else if (value + visible + visible < maximum) {
+            maximum = maximum - visible;
+        }
+        scrollbar.setValue(value);
+        scrollbar.setMaximum(maximum);
+    }
 }

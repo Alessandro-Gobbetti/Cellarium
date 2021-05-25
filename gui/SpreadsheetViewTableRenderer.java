@@ -34,14 +34,14 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
                                                    final int row, final int column) {
         super.setFont(font);
         if (row == 0) {
-            if (table.isColumnSelected(column)) {
+            if (column == table.getSelectedColumn()) {
                 super.setBackground(Color.ORANGE);
             } else {
                 super.setBackground(Color.GRAY);
             }
             super.setForeground(Color.WHITE);
         } else if (column == 0) {
-            if (table.isRowSelected(row)) {
+            if (row == table.getSelectedRow()) {
                 super.setBackground(Color.ORANGE);
             } else {
                 super.setBackground(Color.GRAY);
@@ -51,7 +51,7 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
             // super.setBackground(Color.ORANGE);
             //} else if (isSelected) {
             // super.setBackground(Color.YELLOW);
-        } else if (hasFocus) {
+        } else if (isSelected) {
             super.setBackground(Color.RED);
             super.setForeground(Color.BLACK);
         } else {

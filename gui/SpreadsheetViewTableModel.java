@@ -34,19 +34,19 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         this.spreadsheet = spreadsheet;
     }
 
-    private int viewToSpreadsheetRow(final int row) {
+    public int viewToSpreadsheetRow(final int row) {
         return row - 2 + originRow;
     }
     
-    private int viewToSpreadsheetCol(final int col) {
+    public int viewToSpreadsheetCol(final int col) {
         return col - 2 + originCol;
     }
     
-    private int spreadsheetToViewRow(final int row) {
+    public int spreadsheetToViewRow(final int row) {
         return row + 2 - originRow;
     }
     
-    private int spreadsheetToViewCol(final int col) {
+    public int spreadsheetToViewCol(final int col) {
         return col + 2 - originCol;
     }
     
