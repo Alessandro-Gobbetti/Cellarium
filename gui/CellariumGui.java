@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import java.awt.Scrollbar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -96,6 +97,24 @@ public class CellariumGui {
         //Adds Spreadsheet to mainPanel
         mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
         
+
+        
+        final Scrollbar scrollbarUpDown = new Scrollbar();
+        mainPanel.add(scrollbarUpDown, BorderLayout.EAST);
+        
+        final int colViewCount = spreadsheetView.getColumnCount();
+        final int colOrigin = spreadsheetView.getOriginCol();
+        final int colDimension = spreadsheetView.getSpreadsheetColDimension();
+        //final int 
+        Scrollbar scrollbarLeftRight = new Scrollbar(Scrollbar.HORIZONTAL,
+                                                            spreadsheetView.getOriginCol(),
+                                                            spreadsheetView.getColumnCount(),
+                                                            1, 
+                                                            spreadsheetView.getSpreadsheetColDimension()*2);
+        final Events event = new Events(spreadsheet, spreadsheetView);
+        scrollbarLeftRight.addAdjustmentListener(event);
+        //scrollbarLeftRight.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        mainPanel.add(scrollbarLeftRight, BorderLayout.SOUTH);
         
         //Set window dimensions
         frame.setPreferredSize(new Dimension(600, 600));

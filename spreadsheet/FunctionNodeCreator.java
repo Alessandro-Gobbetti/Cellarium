@@ -9,5 +9,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public abstract interface FunctionNodeCreator {
-    public Node create(ArrayList<Node> list);
+    
+    public abstract Node create(ArrayList<Node> list);
 }

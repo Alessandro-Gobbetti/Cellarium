@@ -122,6 +122,16 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return originCol;
     }
     
+    public int getSpreadsheetRowDimension() {
+        final int maxRow = spreadsheet.getMaxUsedCellRow();
+        return maxRow > rowCount ? maxRow : rowCount;
+    }
+    
+    public int getSpreadsheetColDimension() {
+        final int maxCol = spreadsheet.getMaxUsedCellCol();
+        return maxCol > columnCount ? maxCol : columnCount;
+    }
+    
     //Setter methods
     @Override
     public void setValueAt(final Object aValue, final int row, final int col) {
