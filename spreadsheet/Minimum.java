@@ -21,31 +21,8 @@ public class Minimum extends RangeOperation {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        double min = 0;
-        boolean input = false;
-               
-        final int beginRow = getChild().getMinRow();
-        final int beginCol = getChild().getMinCol();
-        final int endRow = getChild().getMaxRow();
-        final int endCol = getChild().getMaxCol();
-        
-        for (int row = beginRow; row <= endRow; row++) {
-            for (int col = beginCol; col <= endCol; col++) {
-                final CellValue value = spreadsheet.getOrCreate(row,col).eval();
-                final Cell cell = spreadsheet.get(row,col);
-                if (!value.isConvertibleToNumber()) {
-                    return new ErrorCellValue("#VALUE", "Expected a number");
-                } else if (!(cell == null || cell.eval() instanceof EmptyCellValue)) {
-                    if (!input) {
-                        input = true;
-                        min = value.asNumber();
-                    } else {
-                        min = Math.min(value.asNumber(), min);
-                    }
-                }
-            }
-        }
-        return new NumberCellValue(min);
+    public double computeNext(final double result, final double value) {
+        return Double.isNaN(result) ? value : Math.min(result, value);
     }
+
 }

@@ -22,22 +22,12 @@ public class Count extends RangeOperation {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        int count = 0;
-               
-        final int beginRow = getChild().getMinRow();
-        final int beginCol = getChild().getMinCol();
-        final int endRow = getChild().getMaxRow();
-        final int endCol = getChild().getMaxCol();
-        
-        for (int row = beginRow; row <= endRow; row++) {
-            for (int col = beginCol; col <= endCol; col++) {
-                final Cell cell = spreadsheet.get(row,col);
-                if (!(cell == null || cell.eval() instanceof EmptyCellValue  )) {
-                    count++;
-                }
-            }
+    public double computeNext(final double result, final double value) {
+        if (Double.isNaN(result)) {
+            return 1.0;
+        } else {
+            return result + 1.0;
         }
-        return new NumberCellValue(count);
     }
+
 }

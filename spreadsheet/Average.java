@@ -7,12 +7,15 @@ package spreadsheet;
  */
 public class Average extends RangeOperation {
     
+    private double currentCount;
+    
     /**
      * Create a new Average node.
      * @param child the range over which to calculate the average.
      */
     public Average(final CellReferenceRange child) {
         super(child);
+        currentCount = 0;
     }
     
     @Override
@@ -21,25 +24,17 @@ public class Average extends RangeOperation {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        int count = 0;
-        double sum = 0;
-               
-        final int beginRow = getChild().getMinRow();
-        final int beginCol = getChild().getMinCol();
-        final int endRow = getChild().getMaxRow();
-        final int endCol = getChild().getMaxCol();
-        
-        for (int row = beginRow; row <= endRow; row++) {
-            for (int col = beginCol; col <= endCol; col++) {
-                final CellValue value = spreadsheet.getOrCreate(row,col).eval();
-                if (!value.isConvertibleToNumber()) {
-                    return new ErrorCellValue("#VALUE", "Expected a number");
-                }
-                sum = sum + value.asNumber();
-                count++;
-            }
+    public double computeNext(final double result, final double value) {
+        currentCount++;
+        if (Double.isNaN(result)) {
+            return value;
+        } else {
+            return result + value;
         }
-        return new NumberCellValue(sum / count);
+    }
+    
+    @Override
+    public double computeResult(final double result) {
+        return result / currentCount;
     }
 }

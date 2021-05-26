@@ -21,23 +21,12 @@ public class Sum extends RangeOperation {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        double sum = 0;
-               
-        final int beginRow = getChild().getMinRow();
-        final int beginCol = getChild().getMinCol();
-        final int endRow = getChild().getMaxRow();
-        final int endCol = getChild().getMaxCol();
-        
-        for (int row = beginRow; row <= endRow; row++) {
-            for (int col = beginCol; col <= endCol; col++) {
-                final CellValue value = spreadsheet.getOrCreate(row,col).eval();
-                if (!value.isConvertibleToNumber()) {
-                    return new ErrorCellValue("#VALUE", "Expected a number");
-                }
-                sum = sum + value.asNumber();
-            }
+    public double computeNext(final double result, final double value) {
+        if (Double.isNaN(result)) {
+            return value;
+        } else {
+            return result + value;
         }
-        return new NumberCellValue(sum);
     }
+    
 }
