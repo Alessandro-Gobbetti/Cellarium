@@ -45,17 +45,19 @@ public abstract class RangeOperation extends Node {
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
         double result = Double.NaN;
-               
-        final int beginRow = getChild().getMinRow();
-        final int beginCol = getChild().getMinCol();
-        final int endRow = getChild().getMaxRow();
-        final int endCol = getChild().getMaxCol();
+        
+        final int beginRow = child.getMinRow();
+        final int beginCol = child.getMinCol();
+        final int endRow = child.getMaxRow();
+        final int endCol = child.getMaxCol();
         
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
                 final CellValue value = spreadsheet.getOrCreate(row,col).eval();
-                if (!value.isConvertibleToNumber()) {
-                    return new ErrorCellValue("#VALUE", "Expected a number");
+                if (useOnlyNumbers()) {
+                    if (!value.isConvertibleToNumber()) {
+                        return new ErrorCellValue("#VALUE", "Expected a number");
+                    }
                 }
                 result = computeNext(result, value);
             }
@@ -64,12 +66,23 @@ public abstract class RangeOperation extends Node {
     }
     
     /**
+     * Return True if this node works with numbers.
+     * 
+     * @return true if this node works with numbers.
+     */
+    protected abstract boolean useOnlyNumbers();
+    
+    /**
      * helper method to compute next result during evaluation.
+     * 
+     * @return the next result.
      */
     protected abstract double computeNext(final double result, final CellValue value);
     
     /**
      * helper method to compute the result of the evaluation.
+     * 
+     * @return the result of the evaluation.
      */
     protected double computeResult(final double result) {
         // implemented in subclasses if different

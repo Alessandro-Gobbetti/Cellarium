@@ -16,12 +16,17 @@ public class Minimum extends RangeOperation {
     }
     
     @Override
+    protected boolean useOnlyNumbers() { 
+        return true;
+    }
+    
+    @Override
     public String toString() {
         return "MIN(" + childToString() + ")";
     }
     
     @Override
-    public double computeNext(final double result, final CellValue value) {
+    protected double computeNext(final double result, final CellValue value) {
         return Double.isNaN(result) ? value.asNumber() : Math.min(result, value.asNumber());
     }
 

@@ -16,7 +16,12 @@ public class Maximum extends RangeOperation {
     }
     
     @Override
-    public double computeNext(final double result, final CellValue value) {
+    protected boolean useOnlyNumbers() { 
+        return true;
+    }
+    
+    @Override
+    protected double computeNext(final double result, final CellValue value) {
         return Double.isNaN(result) ? value.asNumber() : Math.max(result, value.asNumber());
     }
     

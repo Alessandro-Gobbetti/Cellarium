@@ -201,7 +201,7 @@ public class NodeTest {
         assertEquals(3, e.eval(s).asNumber(), 0.0000001);
         assertEquals("COUNT(A1:A4)", e.toString());
         
-        cA4.setFormula(p.parse("Hello"));
+        cA4.setFormula(p.parse("Hello!"));
         
         assertEquals(4, e.eval(s).asNumber(), 0.0000001);
     }
@@ -219,7 +219,7 @@ public class NodeTest {
         cA3.setFormula(p.parse("= A1 * A2"));
 
         Node e = new Sum(new CellReferenceRange(new CellReference(false, 0, false, 0),
-                                                    new CellReference(false, 2, false, 0)));
+                                                new CellReference(false, 2, false, 0)));
         assertEquals(175, e.eval(s).asNumber(), 0.0000001);
         assertEquals("SUM(A1:A3)", e.toString());
     }

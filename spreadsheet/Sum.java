@@ -16,12 +16,17 @@ public class Sum extends RangeOperation {
     }
     
     @Override
+    protected boolean useOnlyNumbers() { 
+        return true;
+    }
+    
+    @Override
     public String toString() {
         return "SUM(" + childToString() + ")";
     }
     
     @Override
-    public double computeNext(final double result, final CellValue value) {
+    protected double computeNext(final double result, final CellValue value) {
         if (Double.isNaN(result)) {
             return value.asNumber();
         } else {

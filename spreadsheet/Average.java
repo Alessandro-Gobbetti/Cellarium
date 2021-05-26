@@ -19,12 +19,17 @@ public class Average extends RangeOperation {
     }
     
     @Override
+    protected boolean useOnlyNumbers() { 
+        return true;
+    }
+    
+    @Override
     public String toString() {
         return "AVERAGE(" + childToString() + ")";
     }
     
     @Override
-    public double computeNext(final double result, final CellValue value) {
+    protected double computeNext(final double result, final CellValue value) {
         currentCount++;
         if (Double.isNaN(result)) {
             return value.asNumber();
@@ -34,7 +39,7 @@ public class Average extends RangeOperation {
     }
     
     @Override
-    public double computeResult(final double result) {
+    protected double computeResult(final double result) {
         return result / currentCount;
     }
 }
