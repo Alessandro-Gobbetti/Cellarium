@@ -182,4 +182,81 @@ public class NodeTest {
         assertEquals(58.333333333, e.eval(s).asNumber(), 0.0000001);
         assertEquals("AVERAGE(A1:A3)", e.toString());
     }
+    
+    @Test
+    public void testCount() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser();
+        Cell cA1 =  s.getOrCreate(0,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cA3 =  s.getOrCreate(2,0);
+        Cell cA4 =  s.getOrCreate(3,0);
+        
+        cA1.setFormula(p.parse("3"));
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+
+        Node e = new Count(new CellReferenceRange(new CellReference(false, 0, false, 0),
+                                                    new CellReference(false, 3, false, 0)));
+        assertEquals(3, e.eval(s).asNumber(), 0.0000001);
+        assertEquals("COUNT(A1:A4)", e.toString());
+        
+        cA4.setFormula(p.parse("Hello"));
+        
+        assertEquals(4, e.eval(s).asNumber(), 0.0000001);
+    }
+    
+    @Test
+    public void testSum() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser();
+        Cell cA1 =  s.getOrCreate(0,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cA3 =  s.getOrCreate(2,0);
+        
+        cA1.setFormula(p.parse("10"));
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+
+        Node e = new Sum(new CellReferenceRange(new CellReference(false, 0, false, 0),
+                                                    new CellReference(false, 2, false, 0)));
+        assertEquals(175, e.eval(s).asNumber(), 0.0000001);
+        assertEquals("SUM(A1:A3)", e.toString());
+    }
+    
+    @Test
+    public void testMaximum() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser();
+        Cell cA1 =  s.getOrCreate(0,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cA3 =  s.getOrCreate(2,0);
+        
+        cA1.setFormula(p.parse("-1"));
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+
+        Node e = new Maximum(new CellReferenceRange(new CellReference(false, 0, false, 0),
+                                                    new CellReference(false, 2, false, 0)));
+        assertEquals(4, e.eval(s).asNumber(), 0.0000001);
+        assertEquals("MAX(A1:A3)", e.toString());
+    }
+    
+    @Test
+    public void testMinimum() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser();
+        Cell cA1 =  s.getOrCreate(0,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cA3 =  s.getOrCreate(2,0);
+        
+        cA1.setFormula(p.parse("-2"));
+        cA2.setFormula(p.parse("= A1 - 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+
+        Node e = new Minimum(new CellReferenceRange(new CellReference(false, 0, false, 0),
+                                                    new CellReference(false, 2, false, 0)));
+        assertEquals(-7, e.eval(s).asNumber(), 0.0000001);
+        assertEquals("MIN(A1:A3)", e.toString());
+    }
 }
