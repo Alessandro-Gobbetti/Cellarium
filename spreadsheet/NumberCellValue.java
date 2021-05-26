@@ -31,6 +31,11 @@ public class NumberCellValue implements CellValue {
         return true;
     }
     
+    @Override
+    public boolean isError() {
+        return false;
+    }
+    
     /**
      * Returns the value of the Cell as Number (double).
      * @return numbervalue

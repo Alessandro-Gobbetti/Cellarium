@@ -79,13 +79,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     }
     
     // Getter methods.
-    /**
-     * Defines whether the Cell is a normal cell or it has to show 
-     * the index.
-     * @param row  the row of the Cell.
-     * @param col  the column of the Cell.
-     * @return the value of the Cell.
-     */
+    @Override
     public Object getValueAt(final int row, final int col) {
         String result = "";
         final int r = viewToSpreadsheetRow(row);
@@ -100,7 +94,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
             }
         } else {
             if (spreadsheet.exists(r, c)) {
-                final Cell cell = spreadsheet.getOrCreate(r, c);
+                final Cell cell = spreadsheet.get(r, c);
                 result = cell.eval().asString();
                 //result = "(" + r + "," + c + ")";
             }
@@ -108,6 +102,29 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return result;
     }
     
+    public String getFormulaAt(final int row, final int col) {
+        String result = "";
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        if (col > 0 && row > 0) {
+            result = spreadsheet.getFormula(r, c);
+        }
+        return result;
+    }
+    
+    public boolean isErrorAt(final int row, final int col) {
+        boolean result = false;
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        if (row > 0 && col > 0) {
+            if (spreadsheet.exists(r, c)) {
+                final Cell cell = spreadsheet.get(r, c);
+                result = cell.eval().isError();
+            }
+        }
+        return result;
+    }      
+            
     @Override
     public Class<?> getColumnClass(final int col) {
         return String.class;

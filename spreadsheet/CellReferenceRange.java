@@ -27,8 +27,15 @@ public class CellReferenceRange extends Node {
 
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        //FIXME
-        return begin.eval(spreadsheet);
+        final int beginRow = getMinRow();
+        final int beginCol = getMinCol();
+        final int endRow = getMaxRow();
+        final int endCol = getMaxCol();
+        if (beginRow == endRow && beginCol == endCol) {
+            return begin.eval(spreadsheet);
+        } else { 
+            return new ErrorCellValue("Err:Syntax", "Cannot evaluate a range");
+        }
     }
     
     @Override

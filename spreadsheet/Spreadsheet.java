@@ -196,8 +196,12 @@ public class Spreadsheet {
      * @return the formula of the Cell. 
      */
     public String getFormula(final int row, final int col) {
-        final Cell c = getOrCreate(row, col);
-        return c.getFormula();
+        String result = "";
+        if (exists(row, col)) {
+            final Cell c = get(row, col);
+            result = c.getFormula();
+        }
+        return result;
     }
     
     /**

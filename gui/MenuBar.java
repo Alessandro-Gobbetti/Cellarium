@@ -42,6 +42,7 @@ public class MenuBar extends JMenuBar {
         openItem.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
                 //Execute when button is pressed
+                
                 System.out.println("You clicked the button");
             }
         });  
@@ -51,7 +52,7 @@ public class MenuBar extends JMenuBar {
         final JMenuItem printItem = new JMenuItem("Print");
         fileMenu.add(printItem);
         final JMenuItem saveItem = new JMenuItem("Save");
-        editMenu.add(saveItem);
+        fileMenu.add(saveItem);
         final JMenuItem deliteAllItem = new JMenuItem("Delite All");
         editMenu.add(deliteAllItem);
         final JMenuItem helpItem = new JMenuItem("Cellarium Help");

@@ -78,6 +78,33 @@ public class CellReference extends Node {
         return result;
     }
     
+    /**
+     * Returns a cell index in A1 style.
+     * 
+     * @param rowIsConstant true if the row is constant: i.e. A$1
+     * @param row the row
+     * @param colIsConstant true if the column is constant: i.e. $A1 
+     * @param col the column
+     * 
+     * @return a cell index in A1 style.
+     */
+    public static String toA1(final boolean rowIsConstant, final int row,
+                              final boolean colIsConstant, final int col) {
+        String result = "";
+        if (colIsConstant) { 
+            result = result + "$";
+        }
+        result = result + toAlpha26(col);
+        if (rowIsConstant) { 
+            result = result + "$";
+        }
+        // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
+        // We also count row 0 as the first column.
+        result = result + (row + 1);
+        return result;
+    }
+    
+    
     @Override
     public boolean isConstant() {
         return false;
@@ -85,19 +112,20 @@ public class CellReference extends Node {
     
     @Override
     public String toString() {
-        String result = "";
-        if (colIsConstant) {
-            result = result + "$";
-        }
-        result = result + toAlpha26(col);
-        if (rowIsConstant) {
-            result = result + "$";
-        }
-        // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
-        // We also count row 0 as the first column.
-        final int alpha26Row = row + 1;
-        result = result + alpha26Row;
-        return result;
+        return toA1(rowIsConstant, row, colIsConstant, col);
+        // String result = "";
+        // if (colIsConstant) {
+            // result = result + "$";
+        // }
+        // result = result + toAlpha26(col);
+        // if (rowIsConstant) {
+            // result = result + "$";
+        // }
+        // // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
+        // // We also count row 0 as the first column.
+        // final int alpha26Row = row + 1;
+        // result = result + alpha26Row;
+        // return result;
     }
 
     /**

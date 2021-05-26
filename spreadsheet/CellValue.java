@@ -12,23 +12,29 @@ public interface CellValue {
      * Returns type of the Cell.
      * @return Type  of the Cell (e.g. NUMBER, EMPTY, STRING, ERROR).
      */
-    public CellType type();
+    public abstract CellType type();
     
     /**
      * Returns whether the Cell's value is convertible into a Number.
      * @return boolean
      */
-    public boolean isConvertibleToNumber();
+    public abstract boolean isConvertibleToNumber();
     
+    /**
+     * Returns true if the cell contains an error.
+     * @return true if the cell contains an error.
+     */
+    public abstract boolean isError();
+        
     /**
      * Returns the value of the Cell as Number (double).
      * @return numbervalue
      */
-    public double asNumber();
+    public abstract double asNumber();
     
     /**
      * Returns the value of the Cell as String.
      * @return numbervalue as String
      */
-    public String asString();
+    public abstract String asString();
 }

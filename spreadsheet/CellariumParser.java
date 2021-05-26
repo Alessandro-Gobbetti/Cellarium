@@ -98,7 +98,7 @@ public final class CellariumParser implements Parser {
             if (!expression.isError() && !currentTokenMatches(TokenType.END_OF_FILE)) {
                 return new Error("Err:Syntax", "Syntax error: garbage after the expression");
             }
-            return expression;
+            return new Assign(expression);
         } else if (currentTokenMatches(TokenType.LITERAL)) {
             final Node literal = new Literal(Double.parseDouble(lexer.getCurrentToken().getText()));
             lexer.fetchNextToken();
@@ -111,7 +111,6 @@ public final class CellariumParser implements Parser {
             return new Text(lexer.getText());
         }
     }
-    
     
     /**
      * Parse an expression.

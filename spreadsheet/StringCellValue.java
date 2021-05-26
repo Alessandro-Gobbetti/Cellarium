@@ -31,6 +31,11 @@ public class StringCellValue implements CellValue {
     }
     
     @Override
+    public boolean isError() {
+        return false;
+    }
+    
+    @Override
     public double asNumber() {
         return Double.NaN;
     }

@@ -35,7 +35,7 @@ public abstract class BinaryOperation extends Node {
     
     @Override
     public String toString() {
-        return "=" + leftChild.toString() + getOp() + rightChild.toString();
+        return "(" + leftChild.toString() + getOp() + rightChild.toString() + ")";
     }
     
     /**

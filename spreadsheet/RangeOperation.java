@@ -30,9 +30,6 @@ public abstract class RangeOperation extends Node {
     public boolean isConstant() {
         return child.isConstant();
     }
-
-    @Override
-    public abstract String toString();
     
     /**
      * Returns the child as a String.

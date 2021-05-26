@@ -25,6 +25,7 @@ public class Table extends JTable {
         setRowSelectionAllowed(true);
         setColumnSelectionAllowed(true);
         
+        setDefaultEditor(String.class, new SpreadsheetCellEditor(spreadsheetView));
         setDefaultRenderer(String.class, new SpreadsheetViewTableRenderer());
     }
     

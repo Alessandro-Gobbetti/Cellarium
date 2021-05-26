@@ -18,6 +18,11 @@ public class EmptyCellValue implements CellValue {
         return true;
     }
     
+    @Override
+    public boolean isError() {
+        return false;
+    }
+    
     /**
      * Returns zero for an empty Cell.
      * @return the Cell as Number (double).

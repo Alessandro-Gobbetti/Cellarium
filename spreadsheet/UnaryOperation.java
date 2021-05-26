@@ -31,11 +31,6 @@ public abstract class UnaryOperation extends Node {
     public boolean isConstant() {
         return child.isConstant();
     }
-
-    @Override
-    public String toString() {
-        return "=" + child.toString();
-    }
     
     /**
      * Returns the child as a String.

@@ -33,6 +33,11 @@ public class ErrorCellValue implements CellValue {
     }
     
     @Override
+    public boolean isError() {
+        return true;
+    }
+    
+    @Override
     public double asNumber() {
         return Double.NaN;
     }
