@@ -22,8 +22,11 @@ public class Count extends RangeOperation {
     }
     
     @Override
-    public double computeNext(final double result, final double value) {
-        if (Double.isNaN(result)) {
+    public double computeNext(final double result, final CellValue value) {
+        if (value instanceof EmptyCellValue) {
+            // do not increase the count
+            return result;
+        } else if (Double.isNaN(result)) {
             return 1.0;
         } else {
             return result + 1.0;

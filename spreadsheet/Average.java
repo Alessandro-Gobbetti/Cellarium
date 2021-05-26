@@ -24,12 +24,12 @@ public class Average extends RangeOperation {
     }
     
     @Override
-    public double computeNext(final double result, final double value) {
+    public double computeNext(final double result, final CellValue value) {
         currentCount++;
         if (Double.isNaN(result)) {
-            return value;
+            return value.asNumber();
         } else {
-            return result + value;
+            return result + value.asNumber();
         }
     }
     

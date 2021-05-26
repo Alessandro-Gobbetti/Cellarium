@@ -21,8 +21,8 @@ public class Minimum extends RangeOperation {
     }
     
     @Override
-    public double computeNext(final double result, final double value) {
-        return Double.isNaN(result) ? value : Math.min(result, value);
+    public double computeNext(final double result, final CellValue value) {
+        return Double.isNaN(result) ? value.asNumber() : Math.min(result, value.asNumber());
     }
 
 }

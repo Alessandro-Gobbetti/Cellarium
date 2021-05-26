@@ -57,7 +57,7 @@ public abstract class RangeOperation extends Node {
                 if (!value.isConvertibleToNumber()) {
                     return new ErrorCellValue("#VALUE", "Expected a number");
                 }
-                result = computeNext(result, value.asNumber());
+                result = computeNext(result, value);
             }
         }
         return new NumberCellValue(computeResult(result));
@@ -66,7 +66,7 @@ public abstract class RangeOperation extends Node {
     /**
      * helper method to compute next result during evaluation.
      */
-    protected abstract double computeNext(final double result, final double value);
+    protected abstract double computeNext(final double result, final CellValue value);
     
     /**
      * helper method to compute the result of the evaluation.
