@@ -1,6 +1,6 @@
 package tui;
 
-import spreadsheet.*;
+import spreadsheet.Spreadsheet;
 
 import java.util.HashMap;
 

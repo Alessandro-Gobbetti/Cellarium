@@ -1,7 +1,11 @@
 package tui;
 
-import spreadsheet.*;
-
+import spreadsheet.Cell;
+import spreadsheet.CellReference;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
+import spreadsheet.Text;
 
 /**
  * To Set a new cell value.

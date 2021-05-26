@@ -1,7 +1,5 @@
 package spreadsheet;
 
-import java.util.ArrayList;
-
 /**
  * A Sum is an AST node that 
  * corresponds to a literal value

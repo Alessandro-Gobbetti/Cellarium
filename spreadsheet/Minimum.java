@@ -1,7 +1,5 @@
 package spreadsheet;
 
-import java.util.ArrayList;
-
 /**
  * A Minimum is an AST node that 
  * corresponds to a literal value

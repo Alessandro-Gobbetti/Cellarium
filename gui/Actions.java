@@ -1,7 +1,5 @@
 package gui;
 
-import spreadsheet.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,16 +11,14 @@ import java.awt.event.ActionListener;
  */
 public class Actions implements ActionListener {
     
-    private Spreadsheet spreadsheet;
     private SpreadsheetViewTableModel spreadsheetView;
     
     /**
      * Constrctor of Actions.
-     * @param spreadsheet      the spreadsheet to compute on.
+     * 
      * @param spreadsheetView  the SpreadsheetViewTableModel reference object.
      */
-    public Actions(final Spreadsheet spreadsheet, final SpreadsheetViewTableModel spreadsheetView) {
-        this.spreadsheet = spreadsheet;
+    public Actions(final SpreadsheetViewTableModel spreadsheetView) {
         this.spreadsheetView = spreadsheetView;
     }
     

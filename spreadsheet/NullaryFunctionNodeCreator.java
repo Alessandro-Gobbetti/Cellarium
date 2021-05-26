@@ -11,11 +11,10 @@ import java.util.ArrayList;
 public abstract class NullaryFunctionNodeCreator implements FunctionNodeCreator {
     
     @Override
-    public Node create(ArrayList<Node> list) {
-        if (list.size() != 0) {
-            return new Error(
-                            "Err:Syntax" , "Expected no parameter, got " + list.size() + " parameters."
-                            );
+    public Node create(final ArrayList<Node> list) {
+        if (!list.isEmpty()) {
+            return new Error("Err:Syntax", 
+                             "Expected no parameter, got " + list.size() + " parameters.");
         } else { 
             return nullaryCreate();
         }
@@ -23,6 +22,8 @@ public abstract class NullaryFunctionNodeCreator implements FunctionNodeCreator 
     
     /**
      * Creates a new nullary function Node.
+     * 
+     * @return a new nullary node.
      */
     public abstract Node nullaryCreate();
 }

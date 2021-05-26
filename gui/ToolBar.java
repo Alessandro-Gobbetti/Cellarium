@@ -18,7 +18,6 @@ public class ToolBar extends JPanel {
      * Creates the a ToolBar for the Spreadsheet.
      * @param font     defines the font of the MenuBar.
      * @param actions  Actions object to be able to compute actions.
-     * @return JPanel  a new Toolbar with Buttons.
      */
     public ToolBar(final Font font, final Actions actions) {
         super();

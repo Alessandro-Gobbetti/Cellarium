@@ -15,6 +15,7 @@ public class LiteralNodeCreator extends NullaryFunctionNodeCreator {
      * @param value the value with which to create a Literal node.
      */
     public LiteralNodeCreator(final double value) {
+        super();
         this.value = value;
     }
     

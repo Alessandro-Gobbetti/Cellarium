@@ -1,13 +1,15 @@
 package gui;
 
-import spreadsheet.*;
+import spreadsheet.Spreadsheet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Scrollbar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import java.awt.Scrollbar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -69,7 +71,7 @@ public class CellariumGui {
         
         //ToolBar
         //Makes possible that actions are executed on the ToolBar
-        final Actions actions = new Actions(spreadsheet, spreadsheetView);
+        final Actions actions = new Actions(spreadsheetView);
         final ToolBar toolbar = new ToolBar(font, actions);
         //Adds ToolBar to TopPanel
         topPanel.add(toolbar);
@@ -93,7 +95,8 @@ public class CellariumGui {
 
         
         //ExpressionField
-        final JTextField expressionField = new JTextField(table.getSelectedCell(spreadsheet).getFormula()); // do something
+        final String currentFormula = table.getSelectedCell(spreadsheet).getFormula();
+        final JTextField expressionField = new JTextField(currentFormula);
         //Adds the expressionField to the topPanel
         topPanel.add(expressionField);
         
@@ -102,15 +105,15 @@ public class CellariumGui {
         
         
         // Srollbars
-        Scrollbar rowScrollbar = new Scrollbar(Scrollbar.VERTICAL);
-        final SpreadsheetScrollbarHandler rowScrollbarHandler = new SpreadsheetScrollbarHandler(spreadsheet, spreadsheetView,
-                                                                                                rowScrollbar, table);
+        final Scrollbar rowScrollbar = new Scrollbar(Scrollbar.VERTICAL);
+        final SpreadsheetScrollbarHandler rowScrollbarHandler =
+                new SpreadsheetScrollbarHandler(spreadsheetView, rowScrollbar, table);
         rowScrollbar.addAdjustmentListener(rowScrollbarHandler);
         mainPanel.add(rowScrollbar, BorderLayout.EAST);
         
-        Scrollbar colScrollbar = new Scrollbar(Scrollbar.HORIZONTAL);
-        final SpreadsheetScrollbarHandler colScrollbarHandler = new SpreadsheetScrollbarHandler(spreadsheet, spreadsheetView,
-                                                                                                colScrollbar, table);
+        final Scrollbar colScrollbar = new Scrollbar(Scrollbar.HORIZONTAL);
+        final SpreadsheetScrollbarHandler colScrollbarHandler =
+            new SpreadsheetScrollbarHandler(spreadsheetView, colScrollbar, table);
         colScrollbar.addAdjustmentListener(colScrollbarHandler);
         mainPanel.add(colScrollbar, BorderLayout.SOUTH);
         
@@ -118,14 +121,15 @@ public class CellariumGui {
         
         
         
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = spreadsheetView.viewToSpreadsheetRow(table.rowAtPoint(e.getPoint()));
-                int col = spreadsheetView.viewToSpreadsheetCol(table.columnAtPoint(e.getPoint()));
-                // = spreadsheet.getFormula(row,col);
-                
-                //JOptionPane.showMessageDialog(null," Value in the cell clicked :"+ " " +table.getValueAt(row,col).toString());
-                System.out.println(" Formula in the cell clicked :"+ " " +spreadsheet.getFormula(row,col));
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(final MouseEvent e) {
+                final int row = spreadsheetView.viewToSpreadsheetRow(
+                                    table.rowAtPoint(e.getPoint()));
+                final int col = spreadsheetView.viewToSpreadsheetCol(
+                                    table.columnAtPoint(e.getPoint()));
+                //FIXME
+                //currentFormula = spreadsheet.getFormula(row,col);
+                System.out.println("Formula in this cell: " + spreadsheet.getFormula(row,col));
             }
 
         });
@@ -147,24 +151,4 @@ public class CellariumGui {
         frame.setVisible(true);
     }
     
-    private void initHorizontalScrollbar(Scrollbar scrollbar, Table table) {
-        final int value = spreadsheetView.getOriginCol();
-        final int visible = table.getNumberOfVisibleCols();
-        final int minimum = 1;
-        final int maximum = value + visible + visible;
-        scrollbar.setValues(value, visible, minimum, maximum);
-    }
-    
-    private void setHorizontalScrollbar(Scrollbar scrollbar, Table table, int value) {
-        int visible = scrollbar.getVisibleAmount();
-        int minimum = 1;
-        int maximum = scrollbar.getMaximum();
-        if (value + visible > maximum) {
-            maximum = maximum + visible;
-        } else if (value + visible + visible < maximum) {
-            maximum = maximum - visible;
-        }
-        scrollbar.setValue(value);
-        scrollbar.setMaximum(maximum);
-    }
 }

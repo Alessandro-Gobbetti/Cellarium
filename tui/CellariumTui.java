@@ -1,8 +1,6 @@
 package tui;
 
- 
-
-import spreadsheet.*;
+import spreadsheet.Spreadsheet;
 
 import java.util.Scanner;
 
@@ -19,6 +17,12 @@ public class CellariumTui {
     private static final String ANSI_BOLD = "\033[0;1m";
     
     private static boolean terminate = false;
+    
+    /**
+     * Constructor for CellariumTui.
+     */
+    private CellariumTui() {
+    }
     
     /**
      * Main method to run a TUI version of Cellarium.

@@ -1,4 +1,5 @@
 package spreadsheet;
+
 import java.util.ArrayList;
 
 
@@ -19,13 +20,14 @@ public class CellReferenceRange extends Node {
      * @param end the last cell
      */
     public CellReferenceRange(final CellReference begin, final CellReference end) {
+        super();
         this.begin = begin;
         this.end = end;
     }
 
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {
-        //fixme
+        //FIXME
         return begin.eval(spreadsheet);
     }
     
@@ -41,10 +43,10 @@ public class CellReferenceRange extends Node {
     
     @Override
     public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        int beginRow = getMinRow();
-        int beginCol = getMinCol();
-        int endRow = getMaxRow();
-        int endCol = getMaxCol();
+        final int beginRow = getMinRow();
+        final int beginCol = getMinCol();
+        final int endRow = getMaxRow();
+        final int endCol = getMaxCol();
         
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
@@ -56,27 +58,47 @@ public class CellReferenceRange extends Node {
         }
     }
     
+    /**
+     * to get the minimum row in the range.
+     * 
+     * @return the minimum row in the range.
+     */
     public int getMinRow() {
-        int beginRow = begin.getRow(0);
-        int endRow = end.getRow(0);
+        final int beginRow = begin.getRow(0);
+        final int endRow = end.getRow(0);
         return beginRow < endRow ? beginRow : endRow;
     }
     
+    /**
+     * to get the maximum row in the range.
+     * 
+     * @return the maximum row in the range.
+     */
     public int getMaxRow() {
-        int beginRow = begin.getRow(0);
-        int endRow = end.getRow(0);
+        final int beginRow = begin.getRow(0);
+        final int endRow = end.getRow(0);
         return beginRow > endRow ? beginRow : endRow;
     }
     
+    /**
+     * to get the minimum column in the range.
+     * 
+     * @return the minimum column in the range.
+     */
     public int getMinCol() {
-        int beginCol = begin.getCol(0);
-        int endCol = end.getCol(0);
+        final int beginCol = begin.getCol(0);
+        final int endCol = end.getCol(0);
         return beginCol < endCol ? beginCol : endCol;
     }
     
+    /**
+     * to get the maximum column in the range.
+     * 
+     * @return the maximum column in the range.
+     */
     public int getMaxCol() {
-        int beginCol = begin.getCol(0);
-        int endCol = end.getCol(0);
+        final int beginCol = begin.getCol(0);
+        final int endCol = end.getCol(0);
         return beginCol > endCol ? beginCol : endCol;
     }
         

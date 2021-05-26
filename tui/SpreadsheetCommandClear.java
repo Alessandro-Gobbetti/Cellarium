@@ -1,8 +1,10 @@
 package tui;
 
-import spreadsheet.*;
-
 import lexer.TokenType;
+import spreadsheet.CellReference;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
 
 /**
  * To clear all the spreadsheet or just a cell.

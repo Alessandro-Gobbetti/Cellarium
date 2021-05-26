@@ -13,8 +13,8 @@ public abstract class UnaryRangeFunctionNodeCreator extends UnaryFunctionNodeCre
         if (parameter instanceof CellReferenceRange) {
             return unaryRangeCreate((CellReferenceRange)parameter);
         } else if (parameter instanceof CellReference) {
-            CellReference reference = (CellReference)parameter;
-            CellReferenceRange range = new CellReferenceRange(reference, reference);
+            final CellReference reference = (CellReference)parameter;
+            final CellReferenceRange range = new CellReferenceRange(reference, reference);
             return unaryRangeCreate(range);
         } else {
             return new Error("Err:Syntax", 
@@ -22,5 +22,11 @@ public abstract class UnaryRangeFunctionNodeCreator extends UnaryFunctionNodeCre
         } 
     }
     
-    public abstract Node unaryRangeCreate(CellReferenceRange parameter); 
+    /**
+     * Creates a unary range node.
+     * 
+     * @param parameter the range to create the node with.
+     * @return a new range node.
+     */
+    public abstract Node unaryRangeCreate(final CellReferenceRange parameter); 
 }

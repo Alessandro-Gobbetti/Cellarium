@@ -39,9 +39,17 @@ public class ErrorCellValue implements CellValue {
     
     /**
      * Rerurns the Error message for the Error Cell.
-     * @return errorValue the Error message.
+     * @return the Error message.
      */
     public String asString() {
         return code;
+    }
+    
+    /**
+     * Rerurns the Error detailed message for the Error Cell.
+     * @return the Error message.
+     */
+    public String getMessage() {
+        return text;
     }
 }

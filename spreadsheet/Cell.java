@@ -24,7 +24,9 @@ public class Cell {
     /**
      * Constructor for objects of class Cell.
      * 
-     * @param owner  the owner of the Cell.
+     * @param owner  the spreadsheet that contains the Cell.
+     * @param row the row of the cell.
+     * @param col the column of the cell.
      */
     public Cell(final Spreadsheet owner, final int row, final int col) {
         this.owner = owner;
@@ -46,17 +48,31 @@ public class Cell {
         setFormulaAndGetOutdatedCells(newFormula, null);
     }
     
-    public void setFormulaAndGetOutdatedCells(final Node newFormula, ArrayList<Cell> markedOutOfDate) {
+    /**
+     * To set the forumula of a cell and store in a list all the outdated cells.
+     * @param newFormula the formula to set.
+     * @param markedOutOfDate the list of outdated cells.
+     */
+    public void setFormulaAndGetOutdatedCells(final Node newFormula, 
+                                              final ArrayList<Cell> markedOutOfDate) {
         removeDependencies();
         formula = newFormula;
         addDependencies();
         markValueOutOfDate(markedOutOfDate);
     }
     
+    /**
+     * To get the row of the this cell.
+     * @return the row of the this cell.
+     */
     public int getRow() {
         return row;
     }
     
+    /**
+     * To get the column of the this cell.
+     * @return the column of the this cell.
+     */
     public int getCol() {
         return col;
     }
@@ -104,8 +120,10 @@ public class Cell {
     
     /**
      * Marks that the Cell and his Dependencies are not Updated.
+     * 
+     * @param markedOutOfDate a list of cells that are already marked out of date.
      */
-    public void markValueOutOfDate(ArrayList<Cell> markedOutOfDate) {
+    public void markValueOutOfDate(final ArrayList<Cell> markedOutOfDate) {
         if (isValueUpToDate) {
             if (markedOutOfDate != null) {
                 markedOutOfDate.add(this);
@@ -152,6 +170,10 @@ public class Cell {
         return formula.toString();
     }
     
+    /**
+     * Returns the number of cells depending on this.
+     * @return the number of cells depending on this.
+     */
     public int numberOfCellsDependingOnThis() {
         return cellDependingOnThis.size();
     }

@@ -232,7 +232,7 @@ public final class CellariumParser implements Parser {
             // produce Node
             return parseFunction();
         } else if (currentTokenMatches(TokenType.CELLREFERENCE)) {
-            Node reference = parseCellReference();
+            final Node reference = parseCellReference();
             if (reference.isError()) {
                 return reference;
             }
@@ -241,7 +241,7 @@ public final class CellariumParser implements Parser {
             } else {
                 // skip the colon
                 lexer.fetchNextToken();
-                Node secondReference = parseCellReference();
+                final Node secondReference = parseCellReference();
                 if (secondReference.isError()) {
                     return secondReference;
                 }
@@ -358,7 +358,7 @@ public final class CellariumParser implements Parser {
         final ArrayList<Node> parameters = parseParameters();
         if (parameters == null) {
             return new Error("Err:Syntax", "Parse parameters error");
-        } else if (parameters.size() > 0 && parameters.get(0).isError()) {
+        } else if (!parameters.isEmpty() && parameters.get(0).isError()) {
             return parameters.get(0);
         } else if (!currentTokenMatches(TokenType.CLOSED_PAREN)) {
             return new Error("Err:Syntax",

@@ -58,6 +58,12 @@ public abstract class UnaryOperation extends Node {
         }
     }
     
+    /**
+     * Compute the value of a cell.
+     * 
+     * @param child the double to compute the result with.
+     * @return the new value of a cell.
+     */
     public abstract CellValue computeUnaryFromNumber(final double child);
     
     @Override

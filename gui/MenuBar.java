@@ -1,14 +1,14 @@
 package gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
-import java.awt.event.ActionListener;
 
 /**
  * The class MenuBar creates the MenuBar for the GUI of the Spreadsheet.
@@ -40,9 +40,9 @@ public class MenuBar extends JMenuBar {
         final JMenuItem openItem = new JMenuItem("Open");
         openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
         openItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            //Execute when button is pressed
-            System.out.println("You clicked the button");
+            public void actionPerformed(final ActionEvent e) {
+                //Execute when button is pressed
+                System.out.println("You clicked the button");
             }
         });  
         fileMenu.add(openItem);

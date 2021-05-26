@@ -1,6 +1,6 @@
 package tui;
 
-import spreadsheet.*;
+import spreadsheet.Spreadsheet;
 
 /**
  * To print a help message for all commands or just for one.

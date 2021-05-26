@@ -1,9 +1,9 @@
 package gui;
 
-import spreadsheet.Spreadsheet;
 import spreadsheet.Cell;
-import java.awt.Rectangle;
+import spreadsheet.Spreadsheet;
 
+import java.awt.Rectangle;
 import javax.swing.JTable;
 
 /**
@@ -15,12 +15,11 @@ import javax.swing.JTable;
 public class Table extends JTable {
     
     /**
-     * Creates the a ToolBar for the Spreadsheet.
-     * @param spreadsheetView  to handle the table.
-     * @return JTable          the Table of the spreadsheet.
+     * Creates the a Table.
+     * @param spreadsheetView  the model of the visible table.
      */
     public Table(final SpreadsheetViewTableModel spreadsheetView) {
-        //Table 
+        //Table
         super(spreadsheetView);
         //Enables selection of Cells
         setRowSelectionAllowed(true);
@@ -29,7 +28,14 @@ public class Table extends JTable {
         setDefaultRenderer(String.class, new SpreadsheetViewTableRenderer());
     }
     
-    public Cell getSelectedCell(Spreadsheet spreadsheet) {
+    /**
+     * To get the selectedcell.
+     * 
+     * @param spreadsheet the spreadsheet.
+     * 
+     * @return the selected cell.
+     */
+    public Cell getSelectedCell(final Spreadsheet spreadsheet) {
         final int selectedRow = getSelectedRow();
         final int selectedCol = getSelectedColumn();
         if (selectedRow < 0 || selectedCol < 0) {
@@ -40,6 +46,8 @@ public class Table extends JTable {
     
     /**
      * To get the index of first column displayed.
+     * 
+     * @return the index of first column displayed.
      */
     public int getFirstVisibleRow() {
         final Rectangle vr = getVisibleRect();
@@ -48,6 +56,8 @@ public class Table extends JTable {
     
     /**
      * To get the index of first column displayed.
+     * 
+     * @return the index of first column displayed.
      */
     public int getFirstVisibleCol() {
         final Rectangle vr = getVisibleRect();
@@ -56,6 +66,8 @@ public class Table extends JTable {
     
     /**
      * To get the index of last row displayed.
+     * 
+     * @return the index of last row displayed.
      */
     public int getLastVisibleRow() {
         final Rectangle vr = getVisibleRect();
@@ -65,6 +77,8 @@ public class Table extends JTable {
     
     /**
      * To get the index of last column displayed.
+     * 
+     * @return the index of last column displayed.
      */
     public int getLastVisibleCol() {
         final Rectangle vr = getVisibleRect();
@@ -74,6 +88,8 @@ public class Table extends JTable {
     
     /**
      * To get the number of rows displayed.
+     * 
+     * @return the number of rows displayed.
      */
     public int getNumberOfVisibleRows() {
         return getLastVisibleRow() - getFirstVisibleRow() + 1;
@@ -81,6 +97,8 @@ public class Table extends JTable {
     
     /**
      * To get the number of columns displayed.
+     * 
+     * @return the number of columns displayed.
      */
     public int getNumberOfVisibleCols() {
         return getLastVisibleCol() - getFirstVisibleCol() + 1;

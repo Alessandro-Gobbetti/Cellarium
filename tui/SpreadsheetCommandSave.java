@@ -1,8 +1,10 @@
 package tui;
 
-import spreadsheet.*;
-
 import lexer.TokenType;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
+import spreadsheet.Text;
 
 /**
  * To save the spreadsheet into a csv file.

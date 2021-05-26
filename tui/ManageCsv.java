@@ -1,6 +1,9 @@
 package tui;
 
-import spreadsheet.*;
+import spreadsheet.Cell;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,6 +14,12 @@ import java.io.IOException;
  * To save the spreadsheet into a csv file.
  */
 public class ManageCsv {
+    
+    /**
+     * Constructor for ManageCsv objects.
+     */
+    private ManageCsv() {
+    }
     
     /**
      * Generate a csv file to save into the spreadsheet.

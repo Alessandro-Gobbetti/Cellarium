@@ -40,6 +40,7 @@ public abstract class BinaryOperation extends Node {
     
     /**
      * To compute the result of a binary operation.
+     * 
      * @param left  the left operand
      * @param right  the right operand
      * @return the result of a binary operation
@@ -52,7 +53,15 @@ public abstract class BinaryOperation extends Node {
         }
     }
     
-    public abstract CellValue computeBinaryFromNumbers(final double leftValue, final double rightValue);
+    /**
+     * Compute the value of a cell given two numbers.
+     * 
+     * @param leftValue the first opernad to compute the result with.
+     * @param rightValue the second operand to compute the result with.
+     * @return the new CellValue of the cell.
+     */
+    public abstract CellValue computeBinaryFromNumbers(final double leftValue, 
+                                                       final double rightValue);
     
     @Override
     public CellValue eval(final Spreadsheet spreadsheet) {

@@ -1,7 +1,7 @@
 package tui;
 
-import spreadsheet.*;
-
+import spreadsheet.CellReference;
+import spreadsheet.Spreadsheet;
 
 /**
  * To print a spreadsheet on terminal.
@@ -14,6 +14,12 @@ public class PrintSpreadsheet {
     
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
+    
+    /**
+     * Constructor for PrintSpreadsheet.
+     */
+    private PrintSpreadsheet() {
+    }
     
     /**
      * To print a spreadsheet on terminal.

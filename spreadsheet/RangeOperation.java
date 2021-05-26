@@ -10,8 +10,8 @@ public abstract class RangeOperation extends Node {
     private final CellReferenceRange child;
     
     /**
-     * Create a new IntLiteral node.
-     * @param value the integer value this node evaluates to
+     * Create a new RangeOperation node.
+     * @param child the range this node evaluates to.
      */
     public RangeOperation(final CellReferenceRange child) {
         super();

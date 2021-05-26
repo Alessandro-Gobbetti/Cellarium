@@ -1,4 +1,5 @@
 package spreadsheet;
+
 /**
  * Write a description of class EmptyCellValue here.
  *

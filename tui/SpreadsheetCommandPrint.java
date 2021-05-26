@@ -1,8 +1,11 @@
 package tui;
 
-import spreadsheet.*;
-
 import lexer.TokenType;
+import spreadsheet.Cell;
+import spreadsheet.CellReference;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
 
 /**
  * To print a spreadsheet or just a cell. 

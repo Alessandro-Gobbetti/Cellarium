@@ -1,6 +1,10 @@
 package gui;
 
-import spreadsheet.*;
+import spreadsheet.Cell;
+import spreadsheet.CellReference;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -33,29 +37,48 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         columnCount = 30;
         this.spreadsheet = spreadsheet;
     }
-
-    public int viewToSpreadsheetRow(final int row) {
-        return row - 2 + originRow;
-    }
-    
-    public int viewToSpreadsheetCol(final int col) {
-        return col - 2 + originCol;
-    }
-    
-    public int spreadsheetToViewRow(final int row) {
-        return row + 2 - originRow;
-    }
-    
-    public int spreadsheetToViewCol(final int col) {
-        return col + 2 - originCol;
-    }
     
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex) {
         return rowIndex > 0 && columnIndex > 0;
     }
     
-    //Getter methods
+    //Setter methods
+    @Override
+    public void setValueAt(final Object aValue, final int row, final int col) {
+        final String sourceCode = (String)aValue;
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        
+        final CellariumParser parser = new CellariumParser();
+        parser.initLexer(sourceCode);
+        // parse the new content of the cell
+        final Node content = parser.parseCell();
+        
+        final Cell cell = spreadsheet.getOrCreate(r, c);
+        final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
+        cell.setFormulaAndGetOutdatedCells(content, markedOutOfDate);
+        //fireTableDataChanged(); //to update all the table cells.
+        for (final Cell outdatedCell : markedOutOfDate) {
+            final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
+            final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
+            fireTableCellUpdated(outdatedRow, outdatedCol);
+        }
+    }
+    
+    /**
+     * Cheanges the origin Cell and updates the table.
+     * 
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     */
+    public void setOrigin(final int row, final int col) {
+        originRow = row;
+        originCol = col;
+        fireTableDataChanged();
+    }
+    
+    // Getter methods.
     /**
      * Defines whether the Cell is a normal cell or it has to show 
      * the index.
@@ -122,48 +145,64 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return originCol;
     }
     
+    /**
+     * Return the row dimension of the spreadsheet.
+     * @return the row dimension of the spreadsheet.
+     */
     public int getSpreadsheetRowDimension() {
         final int maxRow = spreadsheet.getMaxUsedCellRow();
         return maxRow > rowCount ? maxRow : rowCount;
     }
     
+    /**
+     * Return the column dimension of the spreadsheet.
+     * @return the column dimension of the spreadsheet.
+     */
     public int getSpreadsheetColDimension() {
         final int maxCol = spreadsheet.getMaxUsedCellCol();
         return maxCol > columnCount ? maxCol : columnCount;
     }
     
-    //Setter methods
-    @Override
-    public void setValueAt(final Object aValue, final int row, final int col) {
-        final String sourceCode = (String)aValue;
-        final int r = viewToSpreadsheetRow(row);
-        final int c = viewToSpreadsheetCol(col);
-        
-        final CellariumParser parser = new CellariumParser();
-        parser.initLexer(sourceCode);
-        // parse the new content of the cell
-        final Node content = parser.parseCell();
-        
-        final Cell cell = spreadsheet.getOrCreate(r, c);
-        final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
-        cell.setFormulaAndGetOutdatedCells(content, markedOutOfDate);
-        //fireTableDataChanged(); //to update all the table cells.
-        for (final Cell outdatedCell : markedOutOfDate) {
-            final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
-            final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
-            fireTableCellUpdated(outdatedRow, outdatedCol);
-        }
+    
+    
+    // To conver from view to spreadsheet model and vice-versa.
+    /**
+     * Convert view row index to spreadsheet row index.
+     * 
+     * @param row the row to covert.
+     * @return the converted row index.
+     */
+    public int viewToSpreadsheetRow(final int row) {
+        return row - 2 + originRow;
     }
     
     /**
-     * Cheanges the origin Cell and updates the table.
-     * @param row  the row of the Cell.
-     * @param col  the column of the Cell.
+     * Convert view column index to spreadsheet column index.
+     *  
+     * @param col the column to covert.
+     * @return the converted column index.
      */
-    public void setOrigin(final int row, final int col) {
-        originRow = row;
-        originCol = col;
-        fireTableDataChanged();
+    public int viewToSpreadsheetCol(final int col) {
+        return col - 2 + originCol;
     }
     
+    /**
+     * Convert a spreadsheet row index to view row index.
+     *  
+     * @param row the row to covert.
+     * @return the converted row index.
+     */
+    public int spreadsheetToViewRow(final int row) {
+        return row + 2 - originRow;
+    }
+    
+    /**
+     * Convert a spreadsheet column index to view column index.
+     *  
+     * @param col the column to covert.
+     * @return the converted column index.
+     */
+    public int spreadsheetToViewCol(final int col) {
+        return col + 2 - originCol;
+    }
 }

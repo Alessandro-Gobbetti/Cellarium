@@ -10,5 +10,12 @@ import java.util.ArrayList;
  */
 public abstract interface FunctionNodeCreator {
     
-    public abstract Node create(ArrayList<Node> list);
+    /**
+     * To create a node from a list of nodes.
+     * This can also support funtions that requires an unknown number of parameters.
+     * 
+     * @param list the list of nodes.
+     * @return a new node.
+     */
+    public abstract Node create(final ArrayList<Node> list);
 }
