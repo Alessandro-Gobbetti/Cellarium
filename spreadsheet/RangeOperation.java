@@ -54,10 +54,8 @@ public abstract class RangeOperation extends Node {
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
                 final CellValue value = spreadsheet.getOrCreate(row,col).eval();
-                if (useOnlyNumbers()) {
-                    if (!value.isConvertibleToNumber()) {
-                        return new ErrorCellValue("#VALUE", "Expected a number");
-                    }
+                if (useOnlyNumbers() && !value.isConvertibleToNumber()) {
+                    return new ErrorCellValue("#VALUE", "Expected a number");
                 }
                 result = computeNext(result, value);
             }
