@@ -44,6 +44,6 @@ public class SpreadsheetCommandSave implements SpreadsheetCommand {
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + " FILE-PATH: save the spreadsheet into the given directory.";
+        return commandName + " FILE-PATH: save the spreadsheet as csv into the given directory.";
     }
 }

@@ -123,7 +123,7 @@ public class SpreadsheetCommandInterpreterTest {
         String expectedMessage = "Save the spreadsheet ";
         assertEquals(expectedMessage, errorMessage);
         String longErrorMessage = saveInterpreter.helpLong("SAVE");
-        String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet in csv into the given directory.";
+        String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet as csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
     }
     
