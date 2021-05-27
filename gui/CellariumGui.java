@@ -6,8 +6,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Scrollbar;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,9 +54,7 @@ public class CellariumGui {
         
         //Menu Bar 
         final MenuBar menubar = new MenuBar(font);
-        //Adds MenuBar to frame
         frame.setJMenuBar(menubar);
-        
         
         //MainPanel
         final JPanel mainPanel = new JPanel();
@@ -106,22 +102,7 @@ public class CellariumGui {
             new SpreadsheetMouseHandler(spreadsheetView, terminal, table);
             
         table.addMouseListener(spreadsheetMouseHandler);
-        // table.addMouseListener(new MouseAdapter() {
-            // public void mouseClicked(final MouseEvent e) {
-                // // to force repainting the row 0 to update selected column.
-                // CellariumGui.this.spreadsheetView.fireTableRowsUpdated(0,0);
-                // final int row = spreadsheetView.viewToSpreadsheetRow(
-                                    // table.rowAtPoint(e.getPoint()));
-                // final int col = spreadsheetView.viewToSpreadsheetCol(
-                                    // table.columnAtPoint(e.getPoint()));
-                // //FIXME
-                // //CellariumGui.this.currentFormula = spreadsheet.getFormula(row,col);
-                
-                // System.out.println("Formula in this cell: " + spreadsheet.getFormula(row,col));
-            // }
-
-        // });
-        
+               
         
         
         // Srollbars
@@ -136,14 +117,6 @@ public class CellariumGui {
             new SpreadsheetScrollbarHandler(spreadsheetView, colScrollbar, table);
         colScrollbar.addAdjustmentListener(colScrollbarHandler);
         mainPanel.add(colScrollbar, BorderLayout.SOUTH);
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         

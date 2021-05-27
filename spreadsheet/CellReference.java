@@ -113,19 +113,6 @@ public class CellReference extends Node {
     @Override
     public String toString() {
         return toA1(rowIsConstant, row, colIsConstant, col);
-        // String result = "";
-        // if (colIsConstant) {
-            // result = result + "$";
-        // }
-        // result = result + toAlpha26(col);
-        // if (rowIsConstant) {
-            // result = result + "$";
-        // }
-        // // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
-        // // We also count row 0 as the first column.
-        // final int alpha26Row = row + 1;
-        // result = result + alpha26Row;
-        // return result;
     }
 
     /**

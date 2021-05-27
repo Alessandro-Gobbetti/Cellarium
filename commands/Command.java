@@ -7,10 +7,14 @@ package commands;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Command {
+public abstract interface Command {
     
-    exeute
-    unexecute
-    reexecute
-    isUnexecutable
+
+    public abstract void execute();
+    
+    public abstract void unexecute();
+    public abstract void reexecute();
+    
+    public abstract boolean isUnexecutable();
+    //...
 }

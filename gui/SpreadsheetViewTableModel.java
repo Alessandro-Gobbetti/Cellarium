@@ -102,6 +102,13 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return result;
     }
     
+    /**
+     * To get the formula in a specific cell.
+     * 
+     * @param row the row to look at
+     * @param col the column to look at
+     * @return the formula in the cell.
+     */
     public String getFormulaAt(final int row, final int col) {
         String result = "";
         final int r = viewToSpreadsheetRow(row);
@@ -112,6 +119,13 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return result;
     }
     
+    /**
+     * True if the cell contains an error, false otherwise.
+     * 
+     * @param row the row to look at
+     * @param col the column to look at
+     * @return true if the cell contains an error, false otherwise.
+     */
     public boolean isErrorAt(final int row, final int col) {
         boolean result = false;
         final int r = viewToSpreadsheetRow(row);

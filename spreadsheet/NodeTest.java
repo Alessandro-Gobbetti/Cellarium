@@ -30,28 +30,28 @@ public class NodeTest {
     public void testAddition() {
         Node e = new Addition(new Literal(5.0), new Literal(6.0));
         assertTrue(e.isConstant());
-        assertEquals("=5.0+6.0", e.toString());
+        assertEquals("(5.0+6.0)", e.toString());
     }
 
     @Test
     public void testSubtraction() {
         Node e = new Subtraction(new Literal(5.0), new Literal(6.0));
         assertTrue(e.isConstant());
-        assertEquals("=5.0-6.0", e.toString());
+        assertEquals("(5.0-6.0)", e.toString());
     }
     
     @Test
     public void testMultiplication() {
         Node e = new Multiplication(new Literal(5.0), new Literal(6.0));
         assertTrue(e.isConstant());
-        assertEquals("=5.0*6.0", e.toString());
+        assertEquals("(5.0*6.0)", e.toString());
     }
     
     @Test
     public void testDivision() {
         Node e = new Division(new Literal(5.0), new Literal(6.0));
         assertTrue(e.isConstant());
-        assertEquals("=5.0/6.0", e.toString());
+        assertEquals("(5.0/6.0)", e.toString());
     }
     
     @Test

@@ -1,16 +1,12 @@
 package gui;
 
-import spreadsheet.CellReference;
-
 import java.awt.Color;
-import javax.swing.DefaultCellEditor;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
+import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.AbstractCellEditor;
-import java.util.EventObject;
-import java.awt.event.MouseEvent;
-
 import javax.swing.table.TableCellEditor;
 
 /**
@@ -24,29 +20,41 @@ public class SpreadsheetCellEditor extends AbstractCellEditor implements TableCe
     private JTextField textfield;
     private SpreadsheetViewTableModel spreadsheetView;
     
+    /**
+     * Constructor for SpreadsheetCellEditor.
+     * 
+     * @param spreadsheetView the view table model
+     */
     public SpreadsheetCellEditor(final SpreadsheetViewTableModel spreadsheetView) {
+        super();
         textfield = new JTextField();
         this.spreadsheetView = spreadsheetView;
     }
     
-    public Object getCellEditorValue () {
+    @Override
+    public Object getCellEditorValue() {
         return textfield.getText();
     }
     
     // to start editing only when clicked twice.
     @Override
-    public boolean isCellEditable(EventObject aAnEvent) {
+    public boolean isCellEditable(final EventObject aAnEvent) {
         boolean cellEditable = super.isCellEditable(aAnEvent);
 
         if (cellEditable && aAnEvent instanceof MouseEvent) {
-        cellEditable = ((MouseEvent) aAnEvent).getClickCount() == 2;
+            cellEditable = ((MouseEvent) aAnEvent).getClickCount() == 2;
         }
-
+        
         return cellEditable;
     }
     
-    public Component getTableCellEditorComponent(JTable table, Object value,
-                                                 boolean isSelected, int viewRow, int viewCol) {
+    /**
+     * To get the formula instead of the value when starting editing a cell.
+     */
+    @Override
+    public Component getTableCellEditorComponent(final JTable table, final Object value,
+                                                 final boolean isSelected,
+                                                 final int viewRow, final int viewCol) {
         assert viewRow > 0;
         assert viewCol > 0;
         // to print the formula inside the cell when starting editing

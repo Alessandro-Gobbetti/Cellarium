@@ -34,7 +34,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Literal(12);
+        final Node expectedRoot = new Assign(new Literal(12));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -62,7 +62,7 @@ public class CellariumParserTest {
         // code under test
         Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        Node expectedRoot = new Negation(new Literal(11));
+        Node expectedRoot = new Assign(new Negation(new Literal(11)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
         // test input
@@ -70,7 +70,7 @@ public class CellariumParserTest {
         // code under test
         actualRoot = parser.parse(sourceCode);
         // expected tree
-        expectedRoot = new Negation(new Literal(1));
+        expectedRoot = new Assign(new Negation(new Literal(1)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -84,7 +84,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Literal(11);
+        final Node expectedRoot = new Assign(new Literal(11));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -98,7 +98,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Addition(new Literal(12), new Literal(2));
+        final Node expectedRoot = new Assign(new Addition(new Literal(12), new Literal(2)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -112,7 +112,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Subtraction(new Literal(12), new Literal(2));
+        final Node expectedRoot = new Assign(new Subtraction(new Literal(12), new Literal(2)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -126,7 +126,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Multiplication(new Literal(12), new Literal(2));
+        final Node expectedRoot = new Assign(new Multiplication(new Literal(12), new Literal(2)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -140,7 +140,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Division(new Literal(12), new Literal(2));
+        final Node expectedRoot = new Assign(new Division(new Literal(12), new Literal(2)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -154,7 +154,7 @@ public class CellariumParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Node expectedRoot = new Literal(12);
+        final Node expectedRoot = new Assign(new Literal(12));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -183,7 +183,7 @@ public class CellariumParserTest {
         // code under test
         Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        Node expectedRoot = new CellReference(false, 0, true, 0);
+        Node expectedRoot = new Assign(new CellReference(false, 0, true, 0));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
         // test input
@@ -191,7 +191,7 @@ public class CellariumParserTest {
         // code under test
         actualRoot = parser.parse(sourceCode);
         // expected tree
-        expectedRoot = new CellReference(true, 122, true, 27);
+        expectedRoot = new Assign(new CellReference(true, 122, true, 27));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }

@@ -95,7 +95,9 @@ public final class CellariumParser implements Parser {
                 lexer.fetchNextToken();
             }
             final Node expression = parseExpression();
-            if (!expression.isError() && !currentTokenMatches(TokenType.END_OF_FILE)) {
+            if (expression.isError()) {
+                return expression;
+            } else if (!currentTokenMatches(TokenType.END_OF_FILE)) {
                 return new Error("Err:Syntax", "Syntax error: garbage after the expression");
             }
             return new Assign(expression);

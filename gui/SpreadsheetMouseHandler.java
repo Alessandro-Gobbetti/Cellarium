@@ -19,14 +19,26 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
     private JTextField terminal;
     private Table table;
     
+    /**
+     * Constructor for SpreadsheetMouseHandler.
+     * 
+     * @param spreadsheetView the table model.
+     * @param terminal the textfield
+     * @param table the table
+     */
     public SpreadsheetMouseHandler(final SpreadsheetViewTableModel spreadsheetView,
                                    final JTextField terminal,
                                    final Table table) {
-       this.spreadsheetView = spreadsheetView;
-       this.terminal = terminal;
-       this.table = table;
+        super();
+        this.spreadsheetView = spreadsheetView;
+        this.terminal = terminal;
+        this.table = table;
     }
     
+    /**
+     * This method read the formula stored into the clicked cell and 
+     * write it into the terminal.
+     */
     @Override
     public void mouseClicked(final MouseEvent e) {
         final int viewRow = table.rowAtPoint(e.getPoint());
@@ -40,7 +52,7 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
             final int col = spreadsheetView.viewToSpreadsheetCol(viewCol);
             final String formula = spreadsheetView.getFormulaAt(viewRow, viewCol);
             String command;
-            if(spreadsheetView.isErrorAt(viewRow, viewCol)) {
+            if (spreadsheetView.isErrorAt(viewRow, viewCol)) {
                 command = formula;
                 terminal.setForeground(Color.RED);
             } else {
