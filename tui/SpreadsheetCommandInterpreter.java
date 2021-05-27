@@ -28,6 +28,8 @@ public class SpreadsheetCommandInterpreter {
                 put("CLEAR", new SpreadsheetCommandClear());
                 put("SAVE", new SpreadsheetCommandSave());
                 put("OPEN", new SpreadsheetCommandOpen());
+                put("IMPORT", new SpreadsheetCommandImport());
+                put("EXPORT", new SpreadsheetCommandExport());
                 put("EXIT", new SpreadsheetCommandExit());
                 put("HELP", new SpreadsheetCommandHelp(SpreadsheetCommandInterpreter.this));
             }

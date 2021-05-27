@@ -7,19 +7,19 @@ import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
 
 /**
- * To save the spreadsheet into a Cellarium file.
+ * To import a csv file as a spreadsheet.
  * 
  * <p>
- * SAVE         to save the spreadsheet into a Cellarium file
+ * OPEN         to import a csv file as a spreadsheet.
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandSave implements SpreadsheetCommand {
+public class SpreadsheetCommandImport implements SpreadsheetCommand {
 
     @Override
-    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
+    public boolean parseAndExecute(final String sourceCode,final Spreadsheet spreadsheet) {
         final CellariumParser parser = new CellariumParser();
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
@@ -32,18 +32,18 @@ public class SpreadsheetCommandSave implements SpreadsheetCommand {
                 System.out.println(filePathName);
                 return false;
             }
-            ManageCsv.Save(filePathName, spreadsheet);
+            ManageCsv.openFromCsv(filePathName, spreadsheet);
         }
         return true;
     }
     
     @Override
     public String helpShort() {
-        return "Save the spreadsheet ";
+        return "Import a spreadsheet ";
     }
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + " FILE-PATH: save the spreadsheet into the given directory.";
+        return commandName + " FILE-PATH: import the spreadsheet from a csv file.";
     }
 }

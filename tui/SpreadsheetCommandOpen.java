@@ -7,10 +7,10 @@ import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
 
 /**
- * To open a csv file as a spreadsheet.
+ * To open a cellarium file as a spreadsheet.
  * 
  * <p>
- * OPEN         to open a csv file as a spreadsheet.
+ * OPEN         to open a cellarium file as a spreadsheet.
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
@@ -32,7 +32,7 @@ public class SpreadsheetCommandOpen implements SpreadsheetCommand {
                 System.out.println(filePathName);
                 return false;
             }
-            ManageCsv.openFromCsv(filePathName, spreadsheet);
+            ManageCsv.open(filePathName, spreadsheet);
         }
         return true;
     }

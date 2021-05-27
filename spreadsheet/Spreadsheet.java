@@ -71,6 +71,14 @@ public class Spreadsheet {
     }
     
     /**
+     * Returns the hashmap where all the existing cells are stored.
+     * @return the hashmap where all the existing cells are stored.
+     */
+    public HashMap<Integer,Cell> getCellMap() {
+        return cellMap;
+    }
+    
+    /**
      * Removes a certain Cell.
      * @param  row  the row of the Cell.
      * @param  col  the column of the Cell.

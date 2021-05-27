@@ -7,16 +7,16 @@ import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
 
 /**
- * To save the spreadsheet into a Cellarium file.
+ * To export the spreadsheet into a csv file.
  * 
  * <p>
- * SAVE         to save the spreadsheet into a Cellarium file
+ * SAVE         to export the spreadsheet into a csv file
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandSave implements SpreadsheetCommand {
+public class SpreadsheetCommandExport implements SpreadsheetCommand {
 
     @Override
     public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
@@ -32,18 +32,18 @@ public class SpreadsheetCommandSave implements SpreadsheetCommand {
                 System.out.println(filePathName);
                 return false;
             }
-            ManageCsv.Save(filePathName, spreadsheet);
+            ManageCsv.generateCsvFile(filePathName, spreadsheet);
         }
         return true;
     }
     
     @Override
     public String helpShort() {
-        return "Save the spreadsheet ";
+        return "Export the spreadsheet ";
     }
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + " FILE-PATH: save the spreadsheet into the given directory.";
+        return commandName + " FILE-PATH: export the spreadsheet in csv into the given directory.";
     }
 }
