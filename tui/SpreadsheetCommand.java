@@ -1,5 +1,6 @@
 package tui;
 
+import commands.Command;
 import spreadsheet.Spreadsheet;
 
 /**

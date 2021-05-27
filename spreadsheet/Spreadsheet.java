@@ -91,6 +91,10 @@ public class Spreadsheet {
         updateMaxCol(col);
     }
     
+    /**
+     * To update the max row.
+     * @param newRow the new row.
+     */
     private void updateMaxRow(final int newRow) {
         if (newRow == maxUsedCellRow) {
             int resultRow = 0;
@@ -105,6 +109,10 @@ public class Spreadsheet {
         }
     }
 
+    /**
+     * To update the max column.
+     * @param newCol the new column.
+     */
     private void updateMaxCol(final int newCol) {
         if (newCol == maxUsedCellCol) {
             int resultCol = 0;
