@@ -25,7 +25,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
 
     private String sourceCode;
     private Spreadsheet spreadsheet;
-    private HashMap<Cell, Node> stateSaved;
+    private HashMap<Integer, Node> stateSaved;
     
 
     /**
@@ -35,6 +35,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
         super();
         this.sourceCode = sourceCode;
         this.spreadsheet = spreadsheet;
+        this.stateSaved = new HashMap<Integer, Node>();
     }
     
     @Override
@@ -51,7 +52,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
                 final int row = spreadsheet.rowFromIndex(index);
                 final int col = spreadsheet.colFromIndex(index);
                 final Cell cell = spreadsheet.get(row, col);
-                stateSaved.put(cell, cell.getFormulaNode());
+                stateSaved.put(index, cell.getFormulaNode());
             }
             spreadsheet.clear();
             setLastOperationOk();
@@ -66,9 +67,11 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
                 setLastOperationStatus(false, true, "Reached end of file wile parsing");
                 return;
             }
-            final Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), 
-                                                      cellReference.getCol(0));
-            stateSaved.put(cell, cell.getFormulaNode());
+            final int row = cellReference.getRow(0);
+            final int col = cellReference.getRow(0);
+            final int index = spreadsheet.indexFromRowCol(row, col);
+            final Cell cell = spreadsheet.getOrCreate(row, col);
+            stateSaved.put(index, cell.getFormulaNode());
             spreadsheet.remove(cellReference.getRow(0), cellReference.getCol(0));
             setLastOperationOk();
         }
@@ -77,8 +80,11 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
     
     @Override
     public void undo() {
-        for (Cell cell : stateSaved.keySet()) {
-            cell.setFormula(stateSaved.get(cell));
+        for (int index : stateSaved.keySet()) {
+            final int row = spreadsheet.rowFromIndex(index);
+            final int col = spreadsheet.colFromIndex(index);
+            final Cell cell = spreadsheet.getOrCreate(row, col);
+            cell.setFormula(stateSaved.get(index));
         }
     }
     
