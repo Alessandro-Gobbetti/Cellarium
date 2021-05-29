@@ -26,13 +26,17 @@ import java.util.HashMap;
  */
 public final class CellariumParser implements Parser {
     
+    private Spreadsheet spreadsheet;
     private LexicalAnalyzer lexer;
     private HashMap<String, FunctionNodeCreator> functionMap;
     
     /**
      * Constructor for CellariumParser. To initialize a map with all functions.
+     * 
+     * @param spreadsheet the spreadsheet this parser will work on.
      */
-    public CellariumParser() {
+    public CellariumParser(final Spreadsheet spreadsheet) {
+        this.spreadsheet = spreadsheet;
         functionMap = new HashMap<String, FunctionNodeCreator>() 
         {
             {
@@ -342,7 +346,7 @@ public final class CellariumParser implements Parser {
                                          + " row: '" + rowString + "' -> " + row
                                          + " col: '" + colString + "' -> " + col);
         }
-        return new CellReference(rowIsConstant, row, colIsConstant, col);
+        return new CellReference(spreadsheet, rowIsConstant, row, colIsConstant, col);
     }
 
     private Node parseFunction() {

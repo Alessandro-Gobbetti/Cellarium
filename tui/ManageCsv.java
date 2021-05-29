@@ -87,7 +87,7 @@ public class ManageCsv {
      * @param spreadsheet the actual spreadsheet.
      */
     public static void openFromCsv(final String pathFileName, final Spreadsheet spreadsheet) {
-        final CellariumParser parser = new CellariumParser();
+        final CellariumParser parser = new CellariumParser(spreadsheet);
         try {
             // To read a file line by line
             final BufferedReader csvReader = new BufferedReader(new FileReader(pathFileName));
@@ -131,7 +131,7 @@ public class ManageCsv {
      * @param spreadsheet the actual spreadsheet.
      */
     public static void open(final String pathFileName, final Spreadsheet spreadsheet) {
-        final CellariumParser parser = new CellariumParser();
+        final CellariumParser parser = new CellariumParser(spreadsheet);
         try {
             // To read a file line by line
             final BufferedReader csvReader = new BufferedReader(new FileReader(pathFileName));

@@ -62,12 +62,12 @@ public abstract class UnaryOperation extends Node {
     public abstract CellValue computeUnaryFromNumber(final double child);
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        return computeUnary(child.eval(spreadsheet));
+    public CellValue eval() {
+        return computeUnary(child.eval());
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        child.addDependencies(spreadsheet, list);
+    public void addDependencies(final ArrayList<Cell> list) {
+        child.addDependencies(list);
     }
 }

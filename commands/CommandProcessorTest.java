@@ -16,21 +16,22 @@ public class CommandProcessorTest {
     @Test
     public void executeTest() {
         final CommandProcessor commandprocessor = new CommandProcessor();
-        final CommandPippoAppend pippoAppend = new CommandPippoAppend("Hello");
-        commandprocessor.execute(pippoAppend);
-        assertEquals("Hellopippo", pippoAppend.getString());
-        commandprocessor.unexecute();
-        assertEquals("Hello", pippoAppend.getString());
-        commandprocessor.unexecute();
-        assertEquals("Hello", pippoAppend.getString());
-        commandprocessor.reexecute();
-        assertEquals("Hellopippo", pippoAppend.getString());
-        commandprocessor.execute(pippoAppend);
-        commandprocessor.execute(pippoAppend);
-        assertEquals("Hellopippopippopippo", pippoAppend.getString());
-        commandprocessor.reexecute();
-        assertEquals("Hellopippopippopippo", pippoAppend.getString());
-        commandprocessor.unexecute();
-        assertEquals("Hellopippopippo", pippoAppend.getString());
+        String[] s =  new String[]{"Hello"};
+        final CommandPippoAppend pippoAppend = new CommandPippoAppend(s);
+        commandprocessor.doCommand(pippoAppend);
+        assertEquals("Hellopippo", s[0]);
+        commandprocessor.undoLastCommand();
+        assertEquals("Hello", s[0]);
+        commandprocessor.undoLastCommand();
+        assertEquals("Hello", s[0]);
+        commandprocessor.redoLastCommand();
+        assertEquals("Hellopippo", s[0]);
+        commandprocessor.doCommand(pippoAppend);
+        commandprocessor.doCommand(pippoAppend);
+        assertEquals("Hellopippopippopippo", s[0]);
+        commandprocessor.redoLastCommand();
+        assertEquals("Hellopippopippopippo", s[0]);
+        commandprocessor.undoLastCommand();
+        assertEquals("Hellopippopippo", s[0]);
     }
 }

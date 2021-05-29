@@ -20,8 +20,8 @@ public class SpreadsheetTest {
         Cell c13 =  s.getOrCreate(1,3);
         
         c11.setFormula(new Literal(10.0));
-        c12.setFormula(new Addition(new Literal(5.0), new CellReference(false, 1, false, 1)));
-        c13.setFormula(new Multiplication(new CellReference(false, 1, false, 1), new CellReference(false, 1, false, 2)));
+        c12.setFormula(new Addition(new Literal(5.0), new CellReference(s, false, 1, false, 1)));
+        c13.setFormula(new Multiplication(new CellReference(s, false, 1, false, 1), new CellReference(s, false, 1, false, 2)));
 
         assertEquals(150, s.getValue(1,3).asNumber(), 0.0);
         c11.setFormula(new Literal(20.0));
@@ -65,7 +65,7 @@ public class SpreadsheetTest {
     @Test
     public void TestParsedSpreadsheet() {
         Spreadsheet s = new Spreadsheet();
-        Parser p = new CellariumParser();
+        Parser p = new CellariumParser(s);
         Cell cA1 =  s.getOrCreate(0,0);
         Cell cA2 =  s.getOrCreate(1,0);
         Cell cA3 =  s.getOrCreate(2,0);

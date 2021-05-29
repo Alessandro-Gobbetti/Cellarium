@@ -1,5 +1,6 @@
 package tui;
 
+import commands.NotUndoableNotStateChangingCommand;
 import spreadsheet.Spreadsheet;
 
 /**
@@ -13,21 +14,32 @@ import spreadsheet.Spreadsheet;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandHelp implements SpreadsheetCommand {
+public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
 
     private SpreadsheetCommandInterpreter interpreter;
+    private String sourceCode;
+    private Spreadsheet spreadsheet;
     
     /**
      * Constructor for SpreadsheetCommandHelp.
      * @param interpreter the interpreter
      */
-    public SpreadsheetCommandHelp(final SpreadsheetCommandInterpreter interpreter) {
+    public TuiCommandHelp(final SpreadsheetCommandInterpreter interpreter,
+                          final String sourceCode,
+                          final Spreadsheet spreadsheet) {
         super();
         this.interpreter = interpreter;
+        this.sourceCode = sourceCode;
+        this.spreadsheet = spreadsheet;
     }
     
     @Override
-    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
+    public String getName() {
+        return "Help";
+    }
+    
+    @Override
+    public void doit() {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
         if ("".equals(trimmedSourceCode)) {
@@ -35,17 +47,7 @@ public class SpreadsheetCommandHelp implements SpreadsheetCommand {
         } else {
             interpreter.helpCommand(trimmedSourceCode);
         }
-        return true;
+        setLastOperationOk();
     }
     
-    @Override
-    public String helpShort() {
-        return "print the list of commands or their detailed help";
-    }
-    
-    @Override
-    public String helpLong(final String commandName) {
-        return commandName + ": print all the commands and a little descriction for each of them.\n"
-               + commandName + " command: print a detailed description of the command.";
-    }
 }

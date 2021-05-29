@@ -7,35 +7,33 @@ package commands;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class CommandPippoAppend implements Command {
+public class CommandPippoAppend extends UndoableStateChangingCommand {
     
-    private String currentString;
+    private String[] currentString;
     
-    public CommandPippoAppend(final String currentString) {
+    public CommandPippoAppend(final String[] currentString) {
+        super();
         this.currentString = currentString;
     }
     
     @Override
-    public void execute() {
-        currentString = currentString + "pippo";
+    public String getName() {
+        return "CommandPippoAppend";
     }
     
     @Override
-    public void unexecute() {
-        currentString = currentString.substring(0, currentString.length() - 5);
+    public void doit() {
+        currentString[0] = currentString[0] + "pippo";
     }
     
     @Override
-    public void reexecute() {
-        execute();
+    public void undo() {
+        currentString[0] = currentString[0].substring(0, currentString[0].length() - 5);
     }
     
     @Override
-    public boolean isUnexecutable() {
-        return true;
+    public void redo() {
+        doit();
     }
     
-    public String getString() {
-        return currentString;
-    }
 }

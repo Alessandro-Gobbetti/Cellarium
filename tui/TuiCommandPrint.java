@@ -1,5 +1,6 @@
 package tui;
 
+import commands.NotUndoableNotStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.Cell;
 import spreadsheet.CellReference;
@@ -18,38 +19,48 @@ import spreadsheet.Spreadsheet;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandPrint implements SpreadsheetCommand {
-
+public class TuiCommandPrint extends NotUndoableNotStateChangingCommand {
+    
+    private String sourceCode;
+    private Spreadsheet spreadsheet;
+    
+    /**
+     * Creator for TuiCommandOpen.
+     */
+    public TuiCommandPrint(final String sourceCode, final Spreadsheet spreadsheet) {
+        super();
+        this.sourceCode = sourceCode;
+        this.spreadsheet = spreadsheet;
+    }
+    
     @Override
-    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
-        final CellariumParser parser = new CellariumParser();
+    public String getName() {
+        return "Print";
+    }
+    
+    @Override
+    public void doit() {
+        final CellariumParser parser = new CellariumParser(spreadsheet);
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             PrintSpreadsheet.print(spreadsheet);
+            setLastOperationOk();
         } else {
             final Node node = parser.parseCellReference();
             if (!(node instanceof CellReference)) {
-                return false;
+                setLastOperationStatus(false, true, "Invalid CellName");
+                return;
             }
             final CellReference cellReference = (CellReference) node;
             if (!parser.currentTokenMatches(TokenType.END_OF_FILE)) {
-                return false;
+                setLastOperationStatus(false, true, "Reached end of file while parsing");
+                return;
             }
             final Cell cell = spreadsheet.getOrCreate(cellReference.getRow(0), 
                                                       cellReference.getCol(0));
             System.out.println(cell.eval().asString());
+            setLastOperationOk();
         }
-        return true;
     }
     
-    @Override
-    public String helpShort() {
-        return "Print the spreadsheet or a cell";
-    }
-    
-    @Override
-    public String helpLong(final String commandName) {
-        return commandName + ": print the entire spreadsheet.\n"
-               + commandName + " reference: print the reference cell content.";
-    }
 }

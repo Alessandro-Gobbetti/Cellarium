@@ -4,12 +4,12 @@ import commands.Command;
 import spreadsheet.Spreadsheet;
 
 /**
- * Interface for Spreadsheet commands.
+ * This is a factory for tui commands.
  *
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public abstract interface SpreadsheetCommand {
+public abstract interface TuiCommandFactory {
 
     /**
      * Parse and execute a command on a given spreadsheet.
@@ -18,7 +18,7 @@ public abstract interface SpreadsheetCommand {
      * @param input the command and parameters to parse and execute
      * @return true if there are no errors during parsing and execution, otherwise return false.
      */
-    public abstract boolean parseAndExecute(String input, Spreadsheet spreadsheet);
+    public abstract Command getCommand(String input, Spreadsheet spreadsheet);
     
     /**
      * Return a short description for the command.

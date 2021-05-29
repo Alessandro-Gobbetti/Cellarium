@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class CellReferenceRange extends Node {
-    // instance variables - replace the example below with your own
+    
     private CellReference begin;
     private CellReference end;
 
@@ -26,13 +26,13 @@ public class CellReferenceRange extends Node {
     }
 
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
+    public CellValue eval() {
         final int beginRow = getMinRow();
         final int beginCol = getMinCol();
         final int endRow = getMaxRow();
         final int endCol = getMaxCol();
         if (beginRow == endRow && beginCol == endCol) {
-            return begin.eval(spreadsheet);
+            return begin.eval();
         } else { 
             return new ErrorCellValue("Err:Syntax", "Cannot evaluate a range");
         }
@@ -49,7 +49,7 @@ public class CellReferenceRange extends Node {
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+    public void addDependencies(final ArrayList<Cell> list) {
         final int beginRow = getMinRow();
         final int beginCol = getMinCol();
         final int endRow = getMaxRow();
@@ -57,12 +57,21 @@ public class CellReferenceRange extends Node {
         
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
-                final Cell cell = spreadsheet.getOrCreate(row,col);
+                final Cell cell = getSpreadsheet().getOrCreate(row,col);
                 if (!list.contains(cell)) {
                     list.add(cell);
                 }
             }
         }
+    }
+    
+    /**
+     * To get the spreadsheet connected to this cells.
+     * 
+     * @return the spreadsheet connected to this cells.
+     */
+    public Spreadsheet getSpreadsheet() {
+        return begin.getSpreadsheet();
     }
     
     /**

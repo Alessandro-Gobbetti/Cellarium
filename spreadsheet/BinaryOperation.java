@@ -64,13 +64,13 @@ public abstract class BinaryOperation extends Node {
                                                        final double rightValue);
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
-        return computeBinary(leftChild.eval(spreadsheet), rightChild.eval(spreadsheet));
+    public CellValue eval() {
+        return computeBinary(leftChild.eval(), rightChild.eval());
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        leftChild.addDependencies(spreadsheet, list);
-        rightChild.addDependencies(spreadsheet, list);
+    public void addDependencies(final ArrayList<Cell> list) {
+        leftChild.addDependencies(list);
+        rightChild.addDependencies(list);
     }
 }

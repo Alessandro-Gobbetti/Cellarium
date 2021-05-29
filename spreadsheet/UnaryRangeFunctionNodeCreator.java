@@ -7,6 +7,7 @@ package spreadsheet;
  * @version 1.0
  */
 public abstract class UnaryRangeFunctionNodeCreator extends UnaryFunctionNodeCreator {
+    
     // check if instance node of CellReference or Range...
     @Override
     public Node unaryCreate(final Node parameter) {

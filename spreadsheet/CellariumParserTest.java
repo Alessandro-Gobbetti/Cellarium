@@ -28,7 +28,8 @@ public class CellariumParserTest {
     @Test
     public void testLiteral() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "= 12";
         // code under test
@@ -42,7 +43,8 @@ public class CellariumParserTest {
     @Test
     public void testText() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "Hello World!";
         // code under test
@@ -56,7 +58,8 @@ public class CellariumParserTest {
     @Test
     public void testNegation() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         String sourceCode = "=-11";
         // code under test
@@ -78,7 +81,8 @@ public class CellariumParserTest {
     @Test
     public void testUnaryPlus() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "=+11";
         // code under test
@@ -92,7 +96,8 @@ public class CellariumParserTest {
     @Test
     public void testAddition() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "=12+2";
         // code under test
@@ -106,7 +111,8 @@ public class CellariumParserTest {
     @Test
     public void testSubtraction() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "=12-2";
         // code under test
@@ -120,7 +126,8 @@ public class CellariumParserTest {
     @Test
     public void testMultiplication() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "=12*2";
         // code under test
@@ -134,7 +141,8 @@ public class CellariumParserTest {
     @Test
     public void testDivision() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "= 12/2";
         // code under test
@@ -148,7 +156,8 @@ public class CellariumParserTest {
     @Test
     public void testParentheses() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         final String sourceCode = "= (12)";
         // code under test
@@ -162,7 +171,8 @@ public class CellariumParserTest {
     @Test
     public void testErrors() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // assertions
         assertTrue(parser.parse("= +-1").isError());
         assertTrue(parser.parse("= 1-").isError());
@@ -177,13 +187,14 @@ public class CellariumParserTest {
     @Test
     public void testCellReference() {
         // setup
-        final Parser parser = new CellariumParser();
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
         // test input
         String sourceCode = "= $A1";
         // code under test
         Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        Node expectedRoot = new Assign(new CellReference(false, 0, true, 0));
+        Node expectedRoot = new Assign(new CellReference(s, false, 0, true, 0));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
         // test input
@@ -191,7 +202,7 @@ public class CellariumParserTest {
         // code under test
         actualRoot = parser.parse(sourceCode);
         // expected tree
-        expectedRoot = new Assign(new CellReference(true, 122, true, 27));
+        expectedRoot = new Assign(new CellReference(s, true, 122, true, 27));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }

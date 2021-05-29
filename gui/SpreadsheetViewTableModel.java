@@ -50,7 +50,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         final int r = viewToSpreadsheetRow(row);
         final int c = viewToSpreadsheetCol(col);
         
-        final CellariumParser parser = new CellariumParser();
+        final CellariumParser parser = new CellariumParser(spreadsheet);
         parser.initLexer(sourceCode);
         // parse the new content of the cell
         final Node content = parser.parseCell();

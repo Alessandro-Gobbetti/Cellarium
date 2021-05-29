@@ -38,10 +38,10 @@ public class CellariumTui {
         while (!terminate) {
             System.out.print(ANSI_BOLD + ANSI_RED + "Cellarium> " + ANSI_RESET);
             final String command = scanner.nextLine();
-            final boolean success = interpreter.parseAndExecute(command, spreadsheet);
-            if (!success) {
-                System.out.println("Please insert a valid command");
-            }
+            interpreter.parseAndExecute(command, spreadsheet);
+            // if (!success) {
+                // System.out.println("Please insert a valid command");
+            // }
         }
     }
     

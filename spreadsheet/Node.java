@@ -37,7 +37,7 @@ public abstract class Node {
      * @param spreadsheet  the spreadsheet.
      * @return a double, the result of the computation
      */
-    public abstract CellValue eval(final Spreadsheet spreadsheet);
+    public abstract CellValue eval();
     
     /**
      * Changes the Dependecies.
@@ -47,16 +47,16 @@ public abstract class Node {
      * @param  spreadsheet  the spreadsheet in which the cell is situated.
      * @param  list  the ArrayList with the current dependecies.
      */
-    public abstract void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list);
+    public abstract void addDependencies(final ArrayList<Cell> list);
     
     /**
      * Returns type of the Cell.
      * @param  spreadsheet  the spreadsheet in which the cell is situated.
      * @return the new ArrayList with the Cells who depend from this one.
      */
-    public ArrayList<Cell> dependencies(final Spreadsheet spreadsheet) {
+    public ArrayList<Cell> dependencies() {
         final ArrayList<Cell> result = new ArrayList<Cell>();
-        addDependencies(spreadsheet, result);
+        addDependencies(result);
         return result;
     }
 }

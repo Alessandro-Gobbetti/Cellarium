@@ -32,12 +32,12 @@ public class Literal extends Node {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
+    public CellValue eval() {
         return new NumberCellValue(value);
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+    public void addDependencies(final ArrayList<Cell> list) {
         //FIXME
     }
 }

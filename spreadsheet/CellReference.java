@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * @version 2021.05.12
  */
 public class CellReference extends Node {
+    
+    private Spreadsheet spreadsheet;
     private boolean rowIsConstant;
     private int row;
     private boolean colIsConstant;
@@ -21,9 +23,11 @@ public class CellReference extends Node {
      * @param colIsConstant true if the column is constant: i.e. $A1 
      * @param col the column to look at
      */
-    public CellReference(final boolean rowIsConstant, final int row,
+    public CellReference(final Spreadsheet spreadsheet,
+                         final boolean rowIsConstant, final int row,
                          final boolean colIsConstant, final int col) {
         super();
+        this.spreadsheet = spreadsheet;
         this.rowIsConstant = rowIsConstant;
         this.row = row;
         this.colIsConstant = colIsConstant;
@@ -116,6 +120,15 @@ public class CellReference extends Node {
     }
 
     /**
+     * To get the spreadsheet connected to this cell.
+     * 
+     * @return the spreadsheet connected to this cell.
+     */
+    public Spreadsheet getSpreadsheet() {
+        return spreadsheet;
+    }
+    
+    /**
      * To get the reference row.
      * @param baseRow the row of the given cell
      * @return the row we are looking for
@@ -134,12 +147,12 @@ public class CellReference extends Node {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
+    public CellValue eval() {
         return spreadsheet.getValue(row, col);
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+    public void addDependencies(final ArrayList<Cell> list) {
         final Cell cell = spreadsheet.getOrCreate(row,col);
         if (!list.contains(cell)) {
             list.add(cell);

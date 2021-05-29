@@ -1,25 +1,21 @@
 package tui;
 
+import commands.Command;
 import spreadsheet.Spreadsheet;
 
 /**
- * To quit the program.
- * 
- * <p>
- * EXIT             to quit the program.
- * </p>
+ * This is a factory for tui commands.
  *
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandExit implements SpreadsheetCommand {
+public class TuiCommandExitFactory implements TuiCommandFactory {
 
     @Override
-    public boolean parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
-        CellariumTui.setTerminated(true);
-        return true;
+    public Command getCommand(String input, Spreadsheet spreadsheet) {
+        return new TuiCommandExit(input, spreadsheet);
     }
-
+    
     @Override
     public String helpShort() {
         return "quit Cellarium";

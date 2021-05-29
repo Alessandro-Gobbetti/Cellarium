@@ -82,7 +82,7 @@ public class Cell {
      */
     public void addDependencies() {
         if (formula != null) {
-            for (final Cell cell: formula.dependencies(owner)) {
+            for (final Cell cell: formula.dependencies()) {
                 cell.addCellDependingOnThis(this);
             }
         }
@@ -93,7 +93,7 @@ public class Cell {
      */
     public void removeDependencies() {
         if (formula != null) {
-            for (final Cell cell: formula.dependencies(owner)) {
+            for (final Cell cell: formula.dependencies()) {
                 cell.removeCellDependingOnThis(this);
             }
         }
@@ -149,7 +149,7 @@ public class Cell {
                 if (formula == null) {
                     value = new EmptyCellValue();
                 } else {
-                    value = formula.eval(owner);
+                    value = formula.eval();
                 }
                 isValueUpToDate = true;
             }
@@ -168,6 +168,14 @@ public class Cell {
             return "";
         }
         return formula.toString();
+    }
+    
+    /**
+     * Return the formula as nodes.
+     * @return the formula as nodes.
+     */
+    public Node getFormulaNode() {
+        return formula;
     }
     
     /**

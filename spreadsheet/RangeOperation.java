@@ -40,7 +40,7 @@ public abstract class RangeOperation extends Node {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
+    public CellValue eval() {
         double result = Double.NaN;
         
         final int beginRow = child.getMinRow();
@@ -50,7 +50,7 @@ public abstract class RangeOperation extends Node {
         
         for (int row = beginRow; row <= endRow; row++) {
             for (int col = beginCol; col <= endCol; col++) {
-                final CellValue value = spreadsheet.getOrCreate(row,col).eval();
+                final CellValue value = child.getSpreadsheet().getOrCreate(row,col).eval();
                 if (useOnlyNumbers() && !value.isConvertibleToNumber()) {
                     return new ErrorCellValue("#VALUE", "Expected a number");
                 }
@@ -85,7 +85,7 @@ public abstract class RangeOperation extends Node {
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
-        child.addDependencies(spreadsheet, list);
+    public void addDependencies(final ArrayList<Cell> list) {
+        child.addDependencies(list);
     }
 }

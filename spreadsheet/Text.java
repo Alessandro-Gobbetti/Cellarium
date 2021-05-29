@@ -32,7 +32,7 @@ public class Text extends Node {
     }
     
     @Override
-    public CellValue eval(final Spreadsheet spreadsheet) {
+    public CellValue eval() {
         if (text == null || "".equals(text.trim())) {
             return new EmptyCellValue();
         } else {
@@ -41,7 +41,7 @@ public class Text extends Node {
     }
     
     @Override
-    public void addDependencies(final Spreadsheet spreadsheet, final ArrayList<Cell> list) {
+    public void addDependencies(final ArrayList<Cell> list) {
         // no dependencies.
     }
 }
