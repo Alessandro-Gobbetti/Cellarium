@@ -15,7 +15,7 @@ public class Assign extends UnaryOperation {
 
     @Override
     public String toString() {
-        return "=" + childToString();
+        return "= " + childToString();
     }
     
     @Override

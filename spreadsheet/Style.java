@@ -3,8 +3,8 @@ package spreadsheet;
 /**
  * Write a description of class Style here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Style {
     

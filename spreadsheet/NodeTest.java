@@ -18,6 +18,28 @@ public class NodeTest {
         assertTrue(e.isConstant());
         assertEquals("5.0", e.toString());
     }
+    
+    @Test
+    public void testError() {
+        Node e = new Error("#DIV/0!", "Division by zero.");
+        assertTrue(e.isConstant());
+        assertTrue(e.isError());
+        assertEquals("Division by zero.", e.toString());
+        assertEquals("#DIV/0!", e.eval().asString());
+    }
+    
+    @Test
+    public void testText() {
+        Node e = new Text("Oki Doki.");
+        Node f = new Text(null);
+        Node g = new Text("");
+        assertTrue(e.isConstant());
+        assertFalse(e.isError());
+        assertEquals("Oki Doki.", e.toString());
+        assertEquals("Oki Doki.", e.eval().asString());
+        assertEquals("", f.eval().asString());
+        assertEquals("", g.eval().asString());
+    }
 
     @Test
     public void testNegation() {
@@ -93,8 +115,11 @@ public class NodeTest {
         Spreadsheet s = new Spreadsheet();
         Node e = new Division(new Literal(6.0), new Literal(3.0));
         Node a = new Division(new Literal(22.5), new Literal(3.0));
+        Node b = new Division(new Literal(3.0), new Literal(0.0));
         assertEquals(2.0, e.eval().asNumber(), 0.0);
         assertEquals(7.5, a.eval().asNumber(), 0.0);
+        assertEquals(Double.NaN, b.eval().asNumber(), 0.0);
+        assertEquals("#DIV/0!", b.eval().asString());
     }
     
     @Test 
@@ -117,6 +142,7 @@ public class NodeTest {
         assertEquals(-0.80115263573383, a.eval().asNumber(), 0.0000000001);
         assertEquals(0.0, i.eval().asNumber(), 0.0);
         assertEquals(0.80115263573383, j.eval().asNumber(), 0.0000000001);
+        assertEquals("sin(90.0)", e.toString());
     }
     
     @Test
@@ -130,6 +156,7 @@ public class NodeTest {
         assertEquals(-0.598460069057858, a.eval().asNumber(), 0.0000000001);
         assertEquals(1.0, i.eval().asNumber(), 0.0);
         assertEquals(-0.598460069057858, j.eval().asNumber(), 0.0000000001);
+        assertEquals("cos(90.0)", e.toString());
     }
     
     @Test
@@ -148,10 +175,12 @@ public class NodeTest {
         Spreadsheet s = new Spreadsheet();
         Node e = new SquareRoot(new Literal(9.0));
         Node a = new SquareRoot(new Literal(5.0));
-        Node i = new SquareRoot(new Literal(0.0));
+        Node i = new SquareRoot(new Negation(new Literal(2.0)));
         assertEquals(3.0, e.eval().asNumber(), 0.0);
         assertEquals(2.23606797749979, a.eval().asNumber(), 0.000000000001);
-        assertEquals(0.0, i.eval().asNumber(), 0.0);
+        assertEquals(Double.NaN, i.eval().asNumber(), 0.00000001);
+        assertEquals("#SQRT(NEG)", i.eval().asString());
+        assertEquals("sqrt(9.0)", e.toString());
     }
     
     @Test
@@ -163,6 +192,24 @@ public class NodeTest {
         assertEquals("C$2", c.toString());
         assertEquals(1, c.getRow(1), 0.0);
         assertEquals(3, c.getCol(1), 0.0);
+    }
+    
+    @Test
+    public void testCellReferenceRange() {
+        Spreadsheet s = new Spreadsheet();
+        CellReferenceRange range1 = new CellReferenceRange(new CellReference(s, false, 0, false, 0),
+                                                        new CellReference(s, false, 0, false, 0));
+        Parser p = new CellariumParser(s);
+        Cell cA1 =  s.getOrCreate(0,0);
+        cA1.setFormula(p.parse("10"));
+        
+        assertEquals(10.0, range1.eval().asNumber(), 0.00000001);
+        
+        CellReferenceRange range2 = new CellReferenceRange(new CellReference(s, false, 3, false, 1),
+                                                        new CellReference(s, false, 0, false, 0));
+                                                        
+        assertEquals("Err:Syntax", range2.eval().asString());
+        assertFalse(range1.isConstant());
     }
     
     @Test
@@ -192,12 +239,19 @@ public class NodeTest {
         Cell cA3 =  s.getOrCreate(2,0);
         Cell cA4 =  s.getOrCreate(3,0);
         
-        cA1.setFormula(p.parse("3"));
-        cA2.setFormula(p.parse("= A1 + 5.0"));
-        cA3.setFormula(p.parse("= A1 * A2"));
-
         Node e = new Count(new CellReferenceRange(new CellReference(s, false, 0, false, 0),
                                                   new CellReference(s, false, 3, false, 0)));
+        
+        //EMPTY
+        assertEquals(0, e.eval().asNumber(), 0.0000001);
+                                                  
+        cA1.setFormula(p.parse("3"));                                          
+        //ONE
+        assertEquals(1, e.eval().asNumber(), 0.0000001);
+        
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cA3.setFormula(p.parse("= A1 * A2"));
+        //THREE
         assertEquals(3, e.eval().asNumber(), 0.0000001);
         assertEquals("COUNT(A1:A4)", e.toString());
         
@@ -258,5 +312,12 @@ public class NodeTest {
                                                     new CellReference(s, false, 2, false, 0)));
         assertEquals(-7, e.eval().asNumber(), 0.0000001);
         assertEquals("MIN(A1:A3)", e.toString());
+    }
+    
+    @Test
+    public void testAssign() {
+        Node a = new Assign(new Literal(3.0));
+        assertEquals("= 3.0", a.toString());
+        assertEquals(3.0, a.eval().asNumber(), 0.0000001);
     }
 }

@@ -34,7 +34,6 @@ public abstract class Node {
     /**
      * Evaluates a certain computation of a Node.
      * 
-     * @param spreadsheet  the spreadsheet.
      * @return a double, the result of the computation
      */
     public abstract CellValue eval();
@@ -44,14 +43,13 @@ public abstract class Node {
      * By default there are no dependencies, 
      * the subclasses that introduces dependencies must override.
      * 
-     * @param  spreadsheet  the spreadsheet in which the cell is situated.
      * @param  list  the ArrayList with the current dependecies.
      */
     public abstract void addDependencies(final ArrayList<Cell> list);
     
     /**
      * Returns type of the Cell.
-     * @param  spreadsheet  the spreadsheet in which the cell is situated.
+     * 
      * @return the new ArrayList with the Cells who depend from this one.
      */
     public ArrayList<Cell> dependencies() {

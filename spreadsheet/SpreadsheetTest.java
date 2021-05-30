@@ -8,8 +8,8 @@ import org.junit.Test;
 /**
  * The test class SpreadsheetTest.
  *
- * @author  (Alessandro Gobbetti & Laurenz Ebi)
- * @version (1.0)
+ * @author  Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetTest {
     @Test

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class UnaryNodeCreator here.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public abstract class UnaryFunctionNodeCreator implements FunctionNodeCreator {

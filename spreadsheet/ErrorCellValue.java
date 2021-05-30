@@ -3,8 +3,8 @@ package spreadsheet;
 /**
  * Write a description of class ErrorCellValue here.
  *
- * @author (Alessandro Gobbetti & Laurenz Ebi)
- * @version (1.0)
+ * @author Alessandro Gobbetti & Laurenz Ebi
+ * @version 1.0
  */
 public class ErrorCellValue implements CellValue {
     

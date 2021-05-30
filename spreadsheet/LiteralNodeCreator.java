@@ -3,7 +3,7 @@ package spreadsheet;
 /**
  * Write a description of class SinNodeCreator here.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class LiteralNodeCreator extends NullaryFunctionNodeCreator {
