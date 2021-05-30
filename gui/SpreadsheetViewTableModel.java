@@ -46,6 +46,18 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     }
     
     //Setter methods
+    /**
+     * Cheanges the origin Cell and updates the table.
+     * 
+     * @param row  the row of the Cell.
+     * @param col  the column of the Cell.
+     */
+    public void setOrigin(final int row, final int col) {
+        originRow = row;
+        originCol = col;
+        fireTableDataChanged();
+    }
+    
     @Override
     public void setValueAt(final Object aValue, final int row, final int col) {
         final String sourceCode = (String)aValue;
@@ -71,37 +83,20 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return result;
     }
     
-    
-    
-    public void directSetValueAt(final String sourceCode, final int row, final int col) {
-        final int r = viewToSpreadsheetRow(row);
-        final int c = viewToSpreadsheetCol(col);
-        
-        final CellariumParser parser = new CellariumParser(spreadsheet);
-        parser.initLexer(sourceCode);
-        // parse the new content of the cell
-        final Node content = parser.parseCell();
-        
-        final Cell cell = spreadsheet.getOrCreate(r, c);
-        final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
-        cell.setFormulaAndGetOutdatedCells(content, markedOutOfDate);
-        //fireTableDataChanged(); //to update all the table cells.
-        for (final Cell outdatedCell : markedOutOfDate) {
-            final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
-            final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
-            fireTableCellUpdated(outdatedRow, outdatedCol);
-        }
+    /**
+     * To clear a cell.
+     */
+    public Node getSpreadsheetOldAndRemoveAt(final int row, final int col) {
+        final Node result = getSpreadsheetOldAndSetNewAt(null, row, col);
+        spreadsheet.remove(row, col);
+        return result;
     }
     
     /**
-     * Cheanges the origin Cell and updates the table.
-     * 
-     * @param row  the row of the Cell.
-     * @param col  the column of the Cell.
+     * To clear the spreadsheet.
      */
-    public void setOrigin(final int row, final int col) {
-        originRow = row;
-        originCol = col;
+    public void clear() {
+        spreadsheet.clear();
         fireTableDataChanged();
     }
     

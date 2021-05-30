@@ -73,20 +73,16 @@ public class GuiCommandSet extends UndoableStateChangingCommand {
         if(stateChangedCellReference == null) {
             setLastOperationStatus(false, true, "Missing reference");
         } else {
-            stateSavedFormula = spreadsheetView.getSpreadsheetOldAndSetNewAt(stateSavedFormula, stateChangedCellReference.getRow(0), 
-                                                                                                stateChangedCellReference.getCol(0));
-            // final Cell cell = spreadsheet.getOrCreate(stateChangedCellReference.getRow(0), 
-                                                       // stateChangedCellReference.getCol(0));
-            // final Node content = stateSavedFormula;
-            // stateSavedFormula = cell.getFormulaNode();
-            // cell.setFormula(content);
+            stateSavedFormula = spreadsheetView.getSpreadsheetOldAndSetNewAt(stateSavedFormula,
+                                                                             stateChangedCellReference.getRow(0), 
+                                                                             stateChangedCellReference.getCol(0));
+            
             setLastOperationOk();
         }
     }
     
     @Override
     public void redo() {
-        // redo undo the undo :-)
         undo();
     }
 }

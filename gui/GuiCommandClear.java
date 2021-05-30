@@ -1,4 +1,4 @@
-package tui;
+package gui;
 
 import commands.UndoableStateChangingCommand;
 import lexer.TokenType;
@@ -7,34 +7,29 @@ import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
-
+import spreadsheet.Text;
 import java.util.HashMap;
 
 /**
- * To clear all the spreadsheet or just a cell.
- * 
- * </p>
- * CLEAR         to clear all the spreadsheet
- * CLEAR A1      to clear a cell only
- * </p>
- * 
- * @author Alessandro Gobbetti & Laurenz Ebi
- * @version 1.0
+ * Write a description of class guiCommandSet here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
  */
-public class TuiCommandClear extends UndoableStateChangingCommand {
-
+public class GuiCommandClear extends UndoableStateChangingCommand {
+    
     private String sourceCode;
-    private Spreadsheet spreadsheet;
+    private SpreadsheetViewTableModel spreadsheetView;
     private HashMap<Integer, Node> stateSaved;
     
 
     /**
      * Creator for TuiCommandSet.
      */
-    public TuiCommandClear(final String sourceCode, final Spreadsheet spreadsheet) {
+    public GuiCommandClear(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
-        this.spreadsheet = spreadsheet;
+        this.spreadsheetView = spreadsheetView;
         this.stateSaved = new HashMap<Integer, Node>();
     }
     
@@ -45,9 +40,10 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
 
     @Override
     public void doit() {
-        final CellariumParser parser = new CellariumParser(spreadsheet);
+        final CellariumParser parser = new CellariumParser(spreadsheetView.getSpreadsheet());
         parser.initLexer(sourceCode);
         stateSaved.clear();
+        final Spreadsheet spreadsheet = spreadsheetView.getSpreadsheet();
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             for (final int index: spreadsheet.getCellMap().keySet()) {
                 final int row = spreadsheet.rowFromIndex(index);
@@ -55,7 +51,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
                 final Node formula = spreadsheet.get(row, col).getFormulaNode();
                 stateSaved.put(index, formula);
             }
-            spreadsheet.clear();
+            spreadsheetView.clear();
             setLastOperationOk();
         } else {
             final Node node = parser.parseCellReference();
@@ -71,22 +67,21 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
             final int row = cellReference.getRow(0);
             final int col = cellReference.getCol(0);
             final int index = spreadsheet.indexFromRowCol(row, col);
-            final Cell cell = spreadsheet.getOrCreate(row, col);
-            stateSaved.put(index, cell.getFormulaNode());
-            spreadsheet.remove(cellReference.getRow(0), cellReference.getCol(0));
+            stateSaved.put(index, spreadsheetView.getSpreadsheetOldAndRemoveAt(row, col));
             setLastOperationOk();
         }
     }
     
-    
     @Override
     public void undo() {
+        final Spreadsheet spreadsheet = spreadsheetView.getSpreadsheet();
         for (int index : stateSaved.keySet()) {
             final int row = spreadsheet.rowFromIndex(index);
             final int col = spreadsheet.colFromIndex(index);
             final Cell cell = spreadsheet.getOrCreate(row, col);
             cell.setFormula(stateSaved.get(index));
         }
+        spreadsheetView.fireTableDataChanged();
         setLastOperationOk();
     }
     

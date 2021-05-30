@@ -1,5 +1,7 @@
 package gui;
 
+import javax.swing.JLabel;
+import java.awt.Color;
 import spreadsheet.Cell;
 import spreadsheet.Spreadsheet;
 
@@ -24,6 +26,7 @@ public class Table extends JTable {
         //Enables selection of Cells
         setRowSelectionAllowed(true);
         setColumnSelectionAllowed(true);
+        setGridColor(Color.BLACK);
         
         setDefaultEditor(String.class, new SpreadsheetCellEditor(spreadsheetView));
         setDefaultRenderer(String.class, new SpreadsheetViewTableRenderer());

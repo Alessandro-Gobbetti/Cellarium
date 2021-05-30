@@ -30,7 +30,7 @@ public class GuiCommandInterpreter {
             {
                 put("SET", new GuiCommandSetFactory());
                 // put("PRINT", new TuiCommandPrintFactory());
-                // put("CLEAR", new TuiCommandClearFactory());
+                put("CLEAR", new GuiCommandClearFactory());
                 // put("SAVE", new TuiCommandSaveFactory());
                 // put("OPEN", new TuiCommandOpenFactory());
                 // put("IMPORT", new TuiCommandImportFactory());

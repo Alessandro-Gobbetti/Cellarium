@@ -63,16 +63,16 @@ public class CellariumGui {
         mainPanel.setLayout(new BorderLayout());
         
         //TopPanel
-        final JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
+        //final JPanel topPanel = new JPanel();
+        //topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
 
         
         //ToolBar
         //Makes possible that actions are executed on the ToolBar
-        final Actions actions = new Actions(spreadsheetView);
-        final ToolBar toolbar = new ToolBar(font, actions);
+        //final Actions actions = new Actions(spreadsheetView);
+        //final ToolBar toolbar = new ToolBar(font, actions);
         //Adds ToolBar to TopPanel
-        topPanel.add(toolbar);
+        //topPanel.add(toolbar);
         //table.getSelected
         
         
@@ -97,10 +97,10 @@ public class CellariumGui {
         final SpreadsheetTerminalHandler spreadsheetTerminalHandler = new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
         terminal.addActionListener(spreadsheetTerminalHandler);
         //Adds the expressionField to the topPanel
-        topPanel.add(terminal);
+        mainPanel.add(terminal, BorderLayout.NORTH);
         
         //Adds TopPanel to the frame
-        frame.add(topPanel, BorderLayout.NORTH);
+        //frame.add(topPanel, BorderLayout.NORTH);
         
         final SpreadsheetMouseHandler spreadsheetMouseHandler = 
             new SpreadsheetMouseHandler(spreadsheetView, terminal, table);

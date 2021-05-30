@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Component;
@@ -31,29 +32,37 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(final JTable table, final Object value, 
                                                    final boolean isSelected, final boolean hasFocus,
                                                    final int row, final int column) {
+        
         // set content allignment
-        setHorizontalAlignment(JLabel.CENTER);        
+        setHorizontalAlignment(JLabel.CENTER);     
         
         // set font
         super.setFont(font);
         if (row == 0) {
-            super.setBackground(column == table.getSelectedColumn() ? Color.ORANGE : Color.LIGHT_GRAY);
-            super.setForeground(Color.WHITE);
+            //super.setFont(getFont().deriveFont(15.0f));
+            super.setBackground(column == table.getSelectedColumn() ? Color.ORANGE : Color.DARK_GRAY);
+            super.setForeground(column == table.getSelectedColumn() ? Color.BLACK : Color.WHITE);
+            // set content
+            super.setValue(value);
         } else if (column == 0) {
-            super.setBackground(row == table.getSelectedRow() ? Color.ORANGE : Color.LIGHT_GRAY);
-            super.setForeground(Color.WHITE);
+            //super.setFont(getFont().deriveFont(15.0f));
+            super.setHorizontalAlignment(JLabel.RIGHT);
+            super.setBackground(row == table.getSelectedRow() ? Color.ORANGE : Color.DARK_GRAY);
+            super.setForeground(row == table.getSelectedRow() ? Color.BLACK : Color.WHITE);
+            // set content
+            super.setValue(value + "      ");
         } else {
             final SpreadsheetViewTableModel tableModel = (SpreadsheetViewTableModel)(table.getModel());
             final boolean isError = tableModel.isErrorAt(row, column);
             final boolean isNumber= tableModel.isNumberAt(row, column);
+            super.setFont(getFont().deriveFont(isNumber ? Font.PLAIN : Font.ITALIC));
             super.setHorizontalAlignment(isNumber ? JLabel.RIGHT : JLabel.LEFT);
             super.setForeground(isError ? Color.RED : Color.BLACK);
-            super.setBackground(isSelected ? Color.YELLOW : Color.WHITE);
+            super.setBackground(isSelected ? Color.ORANGE : Color.WHITE);
+            // set content
+            super.setValue(value);
         }
-                
-
-        // set content
-        super.setValue(value);
+        
         return this;
     }
 }
