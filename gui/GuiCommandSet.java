@@ -10,8 +10,8 @@ import spreadsheet.Text;
 /**
  * Write a description of class guiCommandSet here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class GuiCommandSet extends UndoableStateChangingCommand {
     
@@ -22,9 +22,13 @@ public class GuiCommandSet extends UndoableStateChangingCommand {
     
 
     /**
-     * Creator for TuiCommandSet.
+     * Creator for GuiCommandSet.
+     * 
+     * @param sourceCode the source code
+     * @param spreadsheetView the view table model
      */
-    public GuiCommandSet(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandSet(final String sourceCode,
+                         final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
         this.spreadsheetView = spreadsheetView;
@@ -63,19 +67,22 @@ public class GuiCommandSet extends UndoableStateChangingCommand {
             return;
         }
         // set the new cell content and save the old content.
-        stateSavedFormula = spreadsheetView.getSpreadsheetOldAndSetNewAt(content, stateChangedCellReference.getRow(0), 
-                                                                                  stateChangedCellReference.getCol(0));
+        stateSavedFormula =
+            spreadsheetView.getSpreadsheetOldAndSetNewAt(content,
+                                                         stateChangedCellReference.getRow(0), 
+                                                         stateChangedCellReference.getCol(0));
         setLastOperationOk();
     }
     
     @Override
     public void undo() {
-        if(stateChangedCellReference == null) {
+        if (stateChangedCellReference == null) {
             setLastOperationStatus(false, true, "Missing reference");
         } else {
-            stateSavedFormula = spreadsheetView.getSpreadsheetOldAndSetNewAt(stateSavedFormula,
-                                                                             stateChangedCellReference.getRow(0), 
-                                                                             stateChangedCellReference.getCol(0));
+            stateSavedFormula =
+                spreadsheetView.getSpreadsheetOldAndSetNewAt(stateSavedFormula,
+                                                             stateChangedCellReference.getRow(0), 
+                                                             stateChangedCellReference.getCol(0));
             
             setLastOperationOk();
         }

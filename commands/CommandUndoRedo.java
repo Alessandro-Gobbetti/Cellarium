@@ -11,6 +11,10 @@ public abstract class CommandUndoRedo extends NotUndoableNotStateChangingCommand
     
   private boolean isUndoFlag;
   
+  /**
+   * Creator for CommandUndoRedo.
+   * @param isUndo an undo flag to set the command to be undo or redo.
+   */
   public CommandUndoRedo(final boolean isUndo) {
       isUndoFlag = isUndo;
   }

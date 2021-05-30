@@ -8,13 +8,14 @@ import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
+
 import java.util.HashMap;
 
 /**
  * Write a description of class guiCommandSet here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class GuiCommandClear extends UndoableStateChangingCommand {
     
@@ -24,9 +25,13 @@ public class GuiCommandClear extends UndoableStateChangingCommand {
     
 
     /**
-     * Creator for TuiCommandSet.
+     * Creator for GuiCommandClear.
+     * 
+     * @param sourceCode the command to parse
+     * @param spreadsheetView the view table model
      */
-    public GuiCommandClear(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandClear(final String sourceCode,
+                           final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
         this.spreadsheetView = spreadsheetView;

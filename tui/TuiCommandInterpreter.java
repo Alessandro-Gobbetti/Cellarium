@@ -3,7 +3,6 @@ package tui;
 import commands.Command;
 import commands.CommandProcessor;
 import spreadsheet.Spreadsheet;
-import java.util.TreeMap;
 
 import java.util.HashMap;
 
@@ -15,7 +14,7 @@ import java.util.HashMap;
  */
 public class TuiCommandInterpreter {
     
-    private TreeMap<String, TuiCommandFactory> commandMap;
+    private HashMap<String, TuiCommandFactory> commandMap;
     private CommandProcessor commandProcessor;
     public static final String ANSI_BOLD = "\033[0;1m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -25,7 +24,7 @@ public class TuiCommandInterpreter {
      */
     public TuiCommandInterpreter() {
         commandProcessor = new CommandProcessor();
-        commandMap = new TreeMap<String, TuiCommandFactory>()
+        commandMap = new HashMap<String, TuiCommandFactory>()
         {
             {
                 put("SET", new TuiCommandSetFactory());

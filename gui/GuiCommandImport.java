@@ -9,7 +9,6 @@ import spreadsheet.ImputOutput;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
-import java.util.HashMap;
 
 /**
  * Write a description of class guiCommandSet here.
@@ -24,9 +23,13 @@ public class GuiCommandImport extends NotUndoableStateChangingCommand {
     
 
     /**
-     * Creator for TuiCommandSet.
+     * Creator for GuiCommandImport.
+     * 
+     * @param sourceCode the source code
+     * @param spreadsheetView the table model.
      */
-    public GuiCommandImport(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandImport(final String sourceCode,
+                            final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
         this.spreadsheetView = spreadsheetView;
@@ -37,7 +40,7 @@ public class GuiCommandImport extends NotUndoableStateChangingCommand {
         return "Import";
     }
     
-     @Override
+    @Override
     public void doit() {
         final CellariumParser parser = new CellariumParser(spreadsheetView.getSpreadsheet());
         parser.initLexer(sourceCode);

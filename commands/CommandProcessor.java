@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class CommandProcessor here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class CommandProcessor {
     
@@ -16,6 +16,9 @@ public class CommandProcessor {
     private boolean wasLastOperationAborted;
     private String lastOperationMessage;
     
+    /**
+     * Creator for CommandProcessor.
+     */
     public CommandProcessor() {
         past = new ArrayList<Command>();
         future = new ArrayList<Command>();
@@ -26,6 +29,7 @@ public class CommandProcessor {
     
     /**
      * To execute a given command.
+     * @param command the command to execute.
      */
     public void doCommand(final Command command) {
         if (command.isUndo()) {
@@ -34,8 +38,8 @@ public class CommandProcessor {
             redoLastCommand();
         } else {
             command.doit();
-            wasLastOperationSuccessful = command.getLastOperationSuccessful();
-            wasLastOperationAborted = command.getLastOperationAborted();
+            wasLastOperationSuccessful = command.wasLastOperationSuccessful();
+            wasLastOperationAborted = command.wasLastOperationAborted();
             lastOperationMessage = command.getLastOperationMessage();
             if (!wasLastOperationSuccessful) {
                 if (!wasLastOperationAborted && command.isChangingState()) {
@@ -65,8 +69,8 @@ public class CommandProcessor {
             final Command command = past.get(past.size() - 1);
             past.remove(past.size() - 1);
             command.undo();
-            wasLastOperationSuccessful = command.getLastOperationSuccessful();
-            wasLastOperationAborted = command.getLastOperationAborted();
+            wasLastOperationSuccessful = command.wasLastOperationSuccessful();
+            wasLastOperationAborted = command.wasLastOperationAborted();
             lastOperationMessage = command.getLastOperationMessage();
             if (!wasLastOperationSuccessful) {
                 if (command.isChangingState()) {
@@ -92,8 +96,8 @@ public class CommandProcessor {
             final Command command = future.get(future.size() - 1);
             future.remove(future.size() - 1);
             command.redo();
-            wasLastOperationSuccessful = command.getLastOperationSuccessful();
-            wasLastOperationAborted = command.getLastOperationAborted();
+            wasLastOperationSuccessful = command.wasLastOperationSuccessful();
+            wasLastOperationAborted = command.wasLastOperationAborted();
             lastOperationMessage = command.getLastOperationMessage();
             if (!wasLastOperationSuccessful) {
                 if (command.isChangingState()) {

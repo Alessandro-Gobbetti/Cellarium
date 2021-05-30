@@ -12,7 +12,7 @@ import spreadsheet.Spreadsheet;
 public class TuiCommandSaveFactory implements TuiCommandFactory {
 
     @Override
-    public Command getCommand(String input, Spreadsheet spreadsheet) {
+    public Command getCommand(final String input, final Spreadsheet spreadsheet) {
         return new TuiCommandSave(input, spreadsheet);
     }
     

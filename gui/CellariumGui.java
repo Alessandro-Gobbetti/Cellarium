@@ -3,9 +3,11 @@ package gui;
 import spreadsheet.Spreadsheet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Scrollbar;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -55,7 +57,7 @@ public class CellariumGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Menu Bar 
-        final MenuBar menubar = new MenuBar(font);
+        final MenuBar menubar = new MenuBar(font, interpreter, spreadsheetView);
         frame.setJMenuBar(menubar);
         
         //MainPanel
@@ -94,7 +96,9 @@ public class CellariumGui {
         //Terminal
         final String currentFormula = table.getSelectedCell(spreadsheet).getFormula();
         final JTextField terminal = new JTextField(currentFormula);
-        final SpreadsheetTerminalHandler spreadsheetTerminalHandler = new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
+        terminal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        final SpreadsheetTerminalHandler spreadsheetTerminalHandler = 
+            new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
         terminal.addActionListener(spreadsheetTerminalHandler);
         //Adds the expressionField to the topPanel
         mainPanel.add(terminal, BorderLayout.NORTH);

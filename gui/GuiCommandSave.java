@@ -9,13 +9,12 @@ import spreadsheet.ImputOutput;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
-import java.util.HashMap;
 
 /**
- * Write a description of class guiCommandSet here.
+ * To save a spreadsheet.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class GuiCommandSave extends NotUndoableStateChangingCommand {
     
@@ -25,8 +24,12 @@ public class GuiCommandSave extends NotUndoableStateChangingCommand {
 
     /**
      * Creator for TuiCommandSet.
+     * 
+     * @param sourceCode the source code
+     * @param spreadsheetView the table model
      */
-    public GuiCommandSave(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandSave(final String sourceCode,
+                          final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
         this.spreadsheetView = spreadsheetView;
@@ -51,7 +54,7 @@ public class GuiCommandSave extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.Save(filePathName, spreadsheetView.getSpreadsheet());
+            ImputOutput.save(filePathName, spreadsheetView.getSpreadsheet());
             setLastOperationOk();
         }
     }

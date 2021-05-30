@@ -60,7 +60,7 @@ public class ImputOutput {
      * @param pathFileName the path of the input file.
      * @param spreadsheet the actual spreadsheet.
      */
-    public static void Save(final String pathFileName, final Spreadsheet spreadsheet) {
+    public static void save(final String pathFileName, final Spreadsheet spreadsheet) {
         try {
             final FileWriter writer = new FileWriter(pathFileName);
             final HashMap<Integer,Cell> cellMap = spreadsheet.getCellMap();

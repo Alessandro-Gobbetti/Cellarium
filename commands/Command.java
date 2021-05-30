@@ -76,7 +76,7 @@ public abstract class Command {
      * If the operation was not successful the state must not be change.
      * @return True if the operation executed correctly.
      */
-    public boolean getLastOperationSuccessful() {
+    public boolean wasLastOperationSuccessful() {
         return wasLastOperationSuccessful;
     }
     
@@ -84,7 +84,7 @@ public abstract class Command {
      * True if the last operation aborted without changing state.
      * @return True if the last operation aborted without changing state.
      */
-    public boolean getLastOperationAborted() {
+    public boolean wasLastOperationAborted() {
         return wasLastOperationAborted;
     }
     

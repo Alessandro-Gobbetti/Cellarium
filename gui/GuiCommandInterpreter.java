@@ -3,7 +3,6 @@ package gui;
 import commands.Command;
 import commands.CommandProcessor;
 import spreadsheet.Spreadsheet;
-import java.util.TreeMap;
 
 import java.util.HashMap;
 
@@ -15,7 +14,7 @@ import java.util.HashMap;
  */
 public class GuiCommandInterpreter {
     
-    private TreeMap<String, GuiCommandFactory> commandMap;
+    private HashMap<String, GuiCommandFactory> commandMap;
     private CommandProcessor commandProcessor;
     public static final String ANSI_BOLD = "\033[0;1m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -25,7 +24,7 @@ public class GuiCommandInterpreter {
      */
     public GuiCommandInterpreter() {
         commandProcessor = new CommandProcessor();
-        commandMap = new TreeMap<String, GuiCommandFactory>()
+        commandMap = new HashMap<String, GuiCommandFactory>()
         {
             {
                 put("SET", new GuiCommandSetFactory());
@@ -47,10 +46,10 @@ public class GuiCommandInterpreter {
     /**
      * To parse the given source code and execute it on a given spreadsheet.
      * @param sourceCode the code to parse.  
-     * @param spreadsheet the given spreadsheet.
-     * @return true if no errors during parsing and execution.
+     * @param spreadsheetView the given spreadsheet model.
      */
-    public void parseAndExecute(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
+    public void parseAndExecute(final String sourceCode,
+                                final SpreadsheetViewTableModel spreadsheetView) {
         //remove spaces at the beginning or at the end
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
@@ -98,9 +97,8 @@ public class GuiCommandInterpreter {
         System.out.println("Type \"HELP\" followed by a command for more information.");
         // iterate for all element in commandMap
         for (final HashMap.Entry<String, GuiCommandFactory> entry : commandMap.entrySet()) {
-            System.out.println(
-                ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " + entry.getValue().helpShort()
-            );
+            System.out.println(ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " 
+                               + entry.getValue().helpShort());
         }
     }
     
@@ -109,20 +107,20 @@ public class GuiCommandInterpreter {
      */
     public void printCommandHistory() {
         final int pastCount = commandProcessor.getUndoCount();
-        if(pastCount == 0) {
+        if (pastCount == 0) {
             System.out.println("No commands to undo!");
         } else {
             System.out.println("COMMANDS TO UNDO:");
-            for(int i = 0; i < pastCount; i++) {
+            for (int i = 0; i < pastCount; i++) {
                 System.out.println("   " + i + ": " + commandProcessor.getUndoCommandName(i));
             }
         }
         final int futureCount = commandProcessor.getRedoCount();
-        if(futureCount == 0) {
+        if (futureCount == 0) {
             System.out.println("No commands to redo!");
         } else {
             System.out.println("COMMANDS TO REDO:");
-            for(int i = 0; i < futureCount; i++) {
+            for (int i = 0; i < futureCount; i++) {
                 System.out.println("   " + i + ": " + commandProcessor.getRedoCommandName(i));
             }
         }

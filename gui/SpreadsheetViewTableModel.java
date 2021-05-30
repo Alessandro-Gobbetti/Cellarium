@@ -28,9 +28,12 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
 
     /**
      * Constructor for objects of class SpreadsheetTableModel.
+     * 
      * @param spreadsheet  a spreadsheet to compute on.
+     * @param interpreter the interpreter.
      */
-    public SpreadsheetViewTableModel(final Spreadsheet spreadsheet, final GuiCommandInterpreter interpreter) {
+    public SpreadsheetViewTableModel(final Spreadsheet spreadsheet,
+                                     final GuiCommandInterpreter interpreter) {
         super();
         originRow = 1;
         originCol = 1;
@@ -67,10 +70,18 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         interpreter.parseAndExecute(command, this);
     }
     
+    /**
+     * To set a new formula at a position in the spreadsheet
+     * and get the old value.
+     * 
+     * @param formula the formula to insert
+     * @param row the row
+     * @param col the column
+     * @return the old formula.
+     */
     public Node getSpreadsheetOldAndSetNewAt(final Node formula, final int row, final int col) {
         final Cell cell =  spreadsheet.getOrCreate(row, col);
         final Node result = cell.getFormulaNode();
-        //cell.setFormula(formula);
         
         final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
         cell.setFormulaAndGetOutdatedCells(formula, markedOutOfDate);
@@ -84,7 +95,11 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     }
     
     /**
-     * To clear a cell.
+     * To clear a cell and return the old formula.
+     * 
+     * @param row the row
+     * @param col the column
+     * @return the old formula
      */
     public Node getSpreadsheetOldAndRemoveAt(final int row, final int col) {
         final Node result = getSpreadsheetOldAndSetNewAt(null, row, col);

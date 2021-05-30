@@ -52,7 +52,7 @@ public class TuiCommandSave extends NotUndoableStateChangingCommand{
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.Save(filePathName, spreadsheet);
+            ImputOutput.save(filePathName, spreadsheet);
             setLastOperationOk();
         }
     }
