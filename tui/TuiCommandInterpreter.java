@@ -3,6 +3,7 @@ package tui;
 import commands.Command;
 import commands.CommandProcessor;
 import spreadsheet.Spreadsheet;
+import java.util.TreeMap;
 
 import java.util.HashMap;
 
@@ -12,9 +13,9 @@ import java.util.HashMap;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class SpreadsheetCommandInterpreter {
+public class TuiCommandInterpreter {
     
-    private HashMap<String, TuiCommandFactory> commandMap;
+    private TreeMap<String, TuiCommandFactory> commandMap;
     private CommandProcessor commandProcessor;
     public static final String ANSI_BOLD = "\033[0;1m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -22,9 +23,9 @@ public class SpreadsheetCommandInterpreter {
     /**
      * Constructor for objects of class SpreadsheetCommandInterpreter.
      */
-    public SpreadsheetCommandInterpreter() {
+    public TuiCommandInterpreter() {
         commandProcessor = new CommandProcessor();
-        commandMap = new HashMap<String, TuiCommandFactory>()
+        commandMap = new TreeMap<String, TuiCommandFactory>()
         {
             {
                 put("SET", new TuiCommandSetFactory());
@@ -37,7 +38,8 @@ public class SpreadsheetCommandInterpreter {
                 put("UNDO", new TuiCommandUndoFactory());
                 put("REDO", new TuiCommandRedoFactory());
                 put("EXIT", new TuiCommandExitFactory());
-                put("HELP", new TuiCommandHelpFactory(SpreadsheetCommandInterpreter.this));
+                put("HISTORY", new TuiCommandHistoryFactory(TuiCommandInterpreter.this));
+                put("HELP", new TuiCommandHelpFactory(TuiCommandInterpreter.this));
             }
         };
     }
@@ -56,23 +58,16 @@ public class SpreadsheetCommandInterpreter {
         final String commandName = arr.length > 0 ? arr[0].toUpperCase() : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         
-        //if commandName == undo : undo
-        
-        final Command command = commandMap.get(commandName).getCommand(parameters, spreadsheet);
-        if (command == null) {
-            System.out.println("Please insert a valid command");
-            return;
-        } else if (command.isUndo()) {
-            commandProcessor.undoLastCommand();
-            return;
-        } else if (command.isRedo()) {
-            commandProcessor.redoLastCommand();
-            return;
-        }
-        // execute the command.
-        commandProcessor.doCommand(command);
-        if (!command.getLastOperationSuccessful()) {
-            System.out.println(command.getLastOperationMessage());
+        final TuiCommandFactory commandFactory = commandMap.get(commandName);
+        if (commandFactory == null) {
+            System.out.println("Please insert a valid command!");
+        } else {
+            final Command command = commandFactory.getCommand(parameters, spreadsheet);
+            // execute the command.
+            commandProcessor.doCommand(command);
+            if (!commandProcessor.getLastOperationSuccessful()) {
+                System.out.println(commandProcessor.getLastOperationMessage());
+            }
         }
     }
     
@@ -81,12 +76,12 @@ public class SpreadsheetCommandInterpreter {
      * @param commandName the command to return a help.
      */
     public void helpCommand(final String commandName) {
-        final TuiCommandFactory command = commandMap.get(commandName);
+        final TuiCommandFactory command = commandMap.get(commandName.toUpperCase());
         if (command == null) {
             System.out.println(commandName + ": invalid command.");
         } else {
             System.out.println(commandName + ": " + command.helpShort());
-            System.out.println(command.helpLong(commandName));
+            System.out.println(command.helpLong(commandName.toUpperCase()));
         }
     }
 
@@ -102,4 +97,29 @@ public class SpreadsheetCommandInterpreter {
             );
         }
     }
+    
+    /**
+     * Print a the command history list.
+     */
+    public void printCommandHistory() {
+        final int pastCount = commandProcessor.getUndoCount();
+        if(pastCount == 0) {
+            System.out.println("No commands to undo!");
+        } else {
+            System.out.println("COMMANDS TO UNDO:");
+            for(int i = 0; i < pastCount; i++) {
+                System.out.println("   " + i + ": " + commandProcessor.getUndoCommandName(i));
+            }
+        }
+        final int futureCount = commandProcessor.getRedoCount();
+        if(futureCount == 0) {
+            System.out.println("No commands to redo!");
+        } else {
+            System.out.println("COMMANDS TO REDO:");
+            for(int i = 0; i < futureCount; i++) {
+                System.out.println("   " + i + ": " + commandProcessor.getRedoCommandName(i));
+            }
+        }
+    }
+    
 }

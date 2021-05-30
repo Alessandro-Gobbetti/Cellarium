@@ -32,16 +32,13 @@ public class CellariumTui {
         System.out.println("Cellarium 1.0 (Jun 04 2021)");
         System.out.println("Type \"HELP\" for more information.");
         final Spreadsheet spreadsheet = new Spreadsheet();
-        final SpreadsheetCommandInterpreter interpreter = new SpreadsheetCommandInterpreter();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         // scan the input 
         final Scanner scanner = new Scanner(System.in);
         while (!terminate) {
             System.out.print(ANSI_BOLD + ANSI_RED + "Cellarium> " + ANSI_RESET);
             final String command = scanner.nextLine();
             interpreter.parseAndExecute(command, spreadsheet);
-            // if (!success) {
-                // System.out.println("Please insert a valid command");
-            // }
         }
     }
     

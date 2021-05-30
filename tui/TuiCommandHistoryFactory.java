@@ -9,32 +9,31 @@ import spreadsheet.Spreadsheet;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class TuiCommandHelpFactory implements TuiCommandFactory {
+public class TuiCommandHistoryFactory implements TuiCommandFactory {
 
     private TuiCommandInterpreter interpreter;
 
     /**
-     * Creator for TuiCommandHelpFactory.
+     * Creator for TuiCommandHistoryFactory.
      * 
      * @param interpreter the interpreter
      */
-    public TuiCommandHelpFactory(final TuiCommandInterpreter interpreter) {
+    public TuiCommandHistoryFactory(final TuiCommandInterpreter interpreter) {
         this.interpreter = interpreter;
     }
     
     @Override
     public Command getCommand(String input, Spreadsheet spreadsheet) {
-        return new TuiCommandHelp(interpreter, input);
+        return new TuiCommandHistory(interpreter, input);
     }
     
     @Override
     public String helpShort() {
-        return "print the list of commands or their detailed help";
+        return "print the command history list.";
     }
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + ": print all the commands and a little descriction for each of them.\n"
-               + commandName + " command: print a detailed description of the command.";
+        return commandName + ": print all the commands executed in the past and the ones that can be reexecuted.";
     }
 }

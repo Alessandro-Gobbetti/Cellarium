@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -30,32 +31,28 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(final JTable table, final Object value, 
                                                    final boolean isSelected, final boolean hasFocus,
                                                    final int row, final int column) {
+        // set content allignment
+        setHorizontalAlignment(JLabel.CENTER);        
+        
+        // set font
         super.setFont(font);
         if (row == 0) {
-            if (column == table.getSelectedColumn()) {
-                super.setBackground(Color.ORANGE);
-            } else {
-                super.setBackground(Color.GRAY);
-            }
+            super.setBackground(column == table.getSelectedColumn() ? Color.ORANGE : Color.LIGHT_GRAY);
             super.setForeground(Color.WHITE);
         } else if (column == 0) {
-            if (row == table.getSelectedRow()) {
-                super.setBackground(Color.ORANGE);
-            } else {
-                super.setBackground(Color.GRAY);
-            }
+            super.setBackground(row == table.getSelectedRow() ? Color.ORANGE : Color.LIGHT_GRAY);
             super.setForeground(Color.WHITE);
-            //} else if (isSelected && hasFocus) {
-            // super.setBackground(Color.ORANGE);
-            //} else if (isSelected) {
-            // super.setBackground(Color.YELLOW);
-        } else if (isSelected) {
-            super.setBackground(Color.RED);
-            super.setForeground(Color.BLACK);
         } else {
-            super.setBackground(Color.WHITE);
-            super.setForeground(Color.BLACK);
+            final SpreadsheetViewTableModel tableModel = (SpreadsheetViewTableModel)(table.getModel());
+            final boolean isError = tableModel.isErrorAt(row, column);
+            final boolean isNumber= tableModel.isNumberAt(row, column);
+            super.setHorizontalAlignment(isNumber ? JLabel.RIGHT : JLabel.LEFT);
+            super.setForeground(isError ? Color.RED : Color.BLACK);
+            super.setBackground(isSelected ? Color.YELLOW : Color.WHITE);
         }
+                
+
+        // set content
         super.setValue(value);
         return this;
     }

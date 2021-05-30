@@ -47,12 +47,13 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
     public void doit() {
         final CellariumParser parser = new CellariumParser(spreadsheet);
         parser.initLexer(sourceCode);
+        stateSaved.clear();
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             for (final int index: spreadsheet.getCellMap().keySet()) {
                 final int row = spreadsheet.rowFromIndex(index);
                 final int col = spreadsheet.colFromIndex(index);
-                final Cell cell = spreadsheet.get(row, col);
-                stateSaved.put(index, cell.getFormulaNode());
+                final Node formula = spreadsheet.get(row, col).getFormulaNode();
+                stateSaved.put(index, formula);
             }
             spreadsheet.clear();
             setLastOperationOk();
@@ -86,6 +87,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
             final Cell cell = spreadsheet.getOrCreate(row, col);
             cell.setFormula(stateSaved.get(index));
         }
+        setLastOperationOk();
     }
     
     @Override

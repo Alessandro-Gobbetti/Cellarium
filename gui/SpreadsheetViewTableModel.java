@@ -24,18 +24,20 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     private int originCol;
     private int rowCount;
     private int columnCount;
+    private GuiCommandInterpreter interpreter;
 
     /**
      * Constructor for objects of class SpreadsheetTableModel.
      * @param spreadsheet  a spreadsheet to compute on.
      */
-    public SpreadsheetViewTableModel(final Spreadsheet spreadsheet) {
+    public SpreadsheetViewTableModel(final Spreadsheet spreadsheet, final GuiCommandInterpreter interpreter) {
         super();
         originRow = 1;
         originCol = 1;
         rowCount = 60;
         columnCount = 30;
         this.spreadsheet = spreadsheet;
+        this.interpreter = interpreter;
     }
     
     @Override
@@ -47,6 +49,31 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(final Object aValue, final int row, final int col) {
         final String sourceCode = (String)aValue;
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        final String command = "SET " + CellReference.toA1(false, r, false, c) + " " + sourceCode;
+        interpreter.parseAndExecute(command, this);
+    }
+    
+    public Node getSpreadsheetOldAndSetNewAt(final Node formula, final int row, final int col) {
+        final Cell cell =  spreadsheet.getOrCreate(row, col);
+        final Node result = cell.getFormulaNode();
+        //cell.setFormula(formula);
+        
+        final ArrayList<Cell> markedOutOfDate = new ArrayList<Cell>();
+        cell.setFormulaAndGetOutdatedCells(formula, markedOutOfDate);
+        //fireTableDataChanged(); //to update all the table cells.
+        for (final Cell outdatedCell : markedOutOfDate) {
+            final int outdatedRow = spreadsheetToViewRow(outdatedCell.getRow());
+            final int outdatedCol = spreadsheetToViewCol(outdatedCell.getCol());
+            fireTableCellUpdated(outdatedRow, outdatedCol);
+        }
+        return result;
+    }
+    
+    
+    
+    public void directSetValueAt(final String sourceCode, final int row, final int col) {
         final int r = viewToSpreadsheetRow(row);
         final int c = viewToSpreadsheetCol(col);
         
@@ -96,7 +123,6 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
             if (spreadsheet.exists(r, c)) {
                 final Cell cell = spreadsheet.get(r, c);
                 result = cell.eval().asString();
-                //result = "(" + r + "," + c + ")";
             }
         }
         return result;
@@ -115,6 +141,26 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         final int c = viewToSpreadsheetCol(col);
         if (col > 0 && row > 0) {
             result = spreadsheet.getFormula(r, c);
+        }
+        return result;
+    }
+    
+    /**
+     * True if the cell contains a number, false otherwise.
+     * 
+     * @param row the row to look at
+     * @param col the column to look at
+     * @return true if the cell content is a number. 
+     */
+    public boolean isNumberAt(final int row, final int col) {
+        boolean result = false;
+        final int r = viewToSpreadsheetRow(row);
+        final int c = viewToSpreadsheetCol(col);
+        if (col > 0 && row > 0) {
+            if (spreadsheet.exists(r, c)) {
+                final Cell cell = spreadsheet.get(r, c);
+                result  = cell.eval().isConvertibleToNumber();
+            }
         }
         return result;
     }
@@ -194,9 +240,15 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         return maxCol > columnCount ? maxCol : columnCount;
     }
     
+    /**
+     * Return the spreadsheet.
+     * @return the spreadsheet.
+     */
+    public Spreadsheet getSpreadsheet() {
+        return spreadsheet;
+    }
     
-    
-    // To conver from view to spreadsheet model and vice-versa.
+    // To convert from view to spreadsheet model and vice-versa.
     /**
      * Convert view row index to spreadsheet row index.
      * 

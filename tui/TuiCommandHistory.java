@@ -14,7 +14,7 @@ import spreadsheet.Spreadsheet;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
+public class TuiCommandHistory extends NotUndoableNotStateChangingCommand {
 
     private TuiCommandInterpreter interpreter;
     private String sourceCode;
@@ -23,8 +23,8 @@ public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
      * Constructor for SpreadsheetCommandHelp.
      * @param interpreter the interpreter
      */
-    public TuiCommandHelp(final TuiCommandInterpreter interpreter,
-                          final String sourceCode) {
+    public TuiCommandHistory(final TuiCommandInterpreter interpreter,
+                             final String sourceCode) {
         super();
         this.interpreter = interpreter;
         this.sourceCode = sourceCode;
@@ -32,18 +32,12 @@ public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
     
     @Override
     public String getName() {
-        return "Help";
+        return "History";
     }
     
     @Override
     public void doit() {
-        //remove spaces at the beginning or at the end
-        final String trimmedSourceCode = sourceCode.trim();
-        if ("".equals(trimmedSourceCode)) {
-            interpreter.helpCommandList();
-        } else {
-            interpreter.helpCommand(trimmedSourceCode);
-        }
+        interpreter.printCommandHistory();
         setLastOperationOk();
     }
     

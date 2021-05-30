@@ -22,6 +22,7 @@ import javax.swing.SpringLayout;
 public class CellariumGui {
     
     private Spreadsheet spreadsheet;
+    private GuiCommandInterpreter interpreter;
     private SpreadsheetViewTableModel spreadsheetView;
     
     /**
@@ -29,7 +30,8 @@ public class CellariumGui {
      */
     public CellariumGui() {
         spreadsheet = new Spreadsheet();
-        spreadsheetView = new SpreadsheetViewTableModel(spreadsheet);
+        interpreter = new GuiCommandInterpreter();
+        spreadsheetView = new SpreadsheetViewTableModel(spreadsheet, interpreter);
     }
     
     /**
@@ -89,9 +91,11 @@ public class CellariumGui {
         
 
         
-        //ExpressionField
+        //Terminal
         final String currentFormula = table.getSelectedCell(spreadsheet).getFormula();
         final JTextField terminal = new JTextField(currentFormula);
+        final SpreadsheetTerminalHandler spreadsheetTerminalHandler = new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
+        terminal.addActionListener(spreadsheetTerminalHandler);
         //Adds the expressionField to the topPanel
         topPanel.add(terminal);
         

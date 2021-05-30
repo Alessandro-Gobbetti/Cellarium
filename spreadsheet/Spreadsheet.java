@@ -87,52 +87,48 @@ public class Spreadsheet {
         final Cell cell = get(row, col);
         if (cell != null) {
             cell.setFormula(null);
-            if (cell.numberOfCellsDependingOnThis() > 0) {
-                // we cannot remove the cell because it is referenced by some formula.
-                return;
+            if (cell.numberOfCellsDependingOnThis() == 0) {
+                // we cannot remove the cell when it is referenced by some formula.
+                final int cellIndex = indexFromRowCol(row, col);
+                cellMap.remove(cellIndex);
+            }
+            // Update max indices
+            if (row >= maxUsedCellRow || col >= maxUsedCellCol) {
+                recomputeMaxRow();
+                recomputeMaxCol();
             }
         }
-        final int cellIndex = indexFromRowCol(row, col);
-        cellMap.remove(cellIndex);
-        // Update max indices
-        updateMaxRow(row);
-        updateMaxCol(col);
     }
     
     /**
      * To update the max row.
      * @param newRow the new row.
      */
-    private void updateMaxRow(final int newRow) {
-        if (newRow == maxUsedCellRow) {
-            int resultRow = 0;
-            for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) { 
-                for (int c = maxUsedCellCol; c >= 0 && resultRow == 0; --c) {
-                    if (exists(r,c)) {
-                        resultRow = r;
-                    }
+    private void recomputeMaxRow() {
+        int resultRow = 0;
+        for (int r = maxUsedCellRow; r >= 0 && resultRow == 0; --r) { 
+            for (int c = maxUsedCellCol; c >= 0 && resultRow == 0; --c) {
+                if (exists(r,c) && get(r, c).getFormulaNode() != null) {
+                    resultRow = r;
                 }
             }
-            maxUsedCellRow = resultRow;
         }
+        maxUsedCellRow = resultRow;
     }
 
     /**
      * To update the max column.
-     * @param newCol the new column.
      */
-    private void updateMaxCol(final int newCol) {
-        if (newCol == maxUsedCellCol) {
-            int resultCol = 0;
-            for (int c = maxUsedCellCol; c >= 0 && resultCol == 0; --c) {
-                for (int r = maxUsedCellRow; r >= 0 && resultCol == 0; --r) {
-                    if (exists(r,c)) {
-                        resultCol = c;
-                    }
+    private void recomputeMaxCol() {
+        int resultCol = 0;
+        for (int c = maxUsedCellCol; c >= 0 && resultCol == 0; --c) {
+            for (int r = maxUsedCellRow; r >= 0 && resultCol == 0; --r) {
+                if (exists(r,c)  && get(r, c).getFormulaNode() != null) {
+                    resultCol = c;
                 }
             }
-            maxUsedCellCol = resultCol;
         }
+        maxUsedCellCol = resultCol;
     }
     
     /**

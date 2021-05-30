@@ -28,24 +28,30 @@ public class CommandProcessor {
      * To execute a given command.
      */
     public void doCommand(final Command command) {
-        command.doit();
-        wasLastOperationSuccessful = command.getLastOperationSuccessful();
-        wasLastOperationAborted = command.getLastOperationAborted();
-        lastOperationMessage = command.getLastOperationMessage();
-        if (!wasLastOperationSuccessful) {
-            if (!wasLastOperationAborted && command.isChangingState()) {
-                // we cannot trust the history.
-                past.clear();
+        if (command.isUndo()) {
+            undoLastCommand();
+        } else if (command.isRedo()) {
+            redoLastCommand();
+        } else {
+            command.doit();
+            wasLastOperationSuccessful = command.getLastOperationSuccessful();
+            wasLastOperationAborted = command.getLastOperationAborted();
+            lastOperationMessage = command.getLastOperationMessage();
+            if (!wasLastOperationSuccessful) {
+                if (!wasLastOperationAborted && command.isChangingState()) {
+                    // we cannot trust the history.
+                    past.clear();
+                    future.clear();
+                }
+            } else if (command.isChangingState()) {
                 future.clear();
-            }
-        } else if (command.isChangingState()) {
-            future.clear();
-            if (command.isUndoable()) {
-                past.add(command);
-            } else {
-                past.clear();
-            }
-        } // when the command do not change the state we do not add it to the history.
+                if (command.isUndoable()) {
+                    past.add(command);
+                } else {
+                    past.clear();
+                }
+            } // when the command do not change the state we do not add it to the history.
+        }
     }
     
     /**
@@ -55,7 +61,6 @@ public class CommandProcessor {
         if (past.isEmpty()) { 
             wasLastOperationSuccessful = false;
             lastOperationMessage = "No commands to undo!";
-            System.out.println(lastOperationMessage);
         } else {
             final Command command = past.get(past.size() - 1);
             past.remove(past.size() - 1);
