@@ -1,50 +1,48 @@
-package tui;
+package gui;
 
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
+import spreadsheet.Cell;
+import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.ImputOutput;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
+import java.util.HashMap;
 
 /**
- * To save the spreadsheet into a Cellarium file.
- * 
- * <p>
- * SAVE         to save the spreadsheet into a Cellarium file
- * </p>
- * 
- * @author Alessandro Gobbetti & Laurenz Ebi
- * @version 1.0
+ * Write a description of class guiCommandSet here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
  */
-public class TuiCommandSave extends NotUndoableStateChangingCommand{
+public class GuiCommandOpen extends NotUndoableStateChangingCommand {
     
     private String sourceCode;
-    private Spreadsheet spreadsheet;
+    private SpreadsheetViewTableModel spreadsheetView;
     
 
     /**
-     * Creator for TuiCommandOpen.
+     * Creator for TuiCommandSet.
      */
-    public TuiCommandSave(final String sourceCode, final Spreadsheet spreadsheet) {
+    public GuiCommandOpen(final String sourceCode, final SpreadsheetViewTableModel spreadsheetView) {
         super();
         this.sourceCode = sourceCode;
-        this.spreadsheet = spreadsheet;
+        this.spreadsheetView = spreadsheetView;
     }
     
     @Override
     public String getName() {
-        return "Save";
+        return "Open";
     }
-
+    
     @Override
     public void doit() {
-        final CellariumParser parser = new CellariumParser(spreadsheet);
+        final CellariumParser parser = new CellariumParser(spreadsheetView.getSpreadsheet());
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             setLastOperationStatus(false, true, "Please insert a file name");
-            return;
         } else {
             final Node content = parser.parseCell();
             final String filePathName = content.toString();
@@ -52,7 +50,8 @@ public class TuiCommandSave extends NotUndoableStateChangingCommand{
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.Save(filePathName, spreadsheet);
+            ImputOutput.open(filePathName, spreadsheetView.getSpreadsheet());
+            spreadsheetView.fireTableDataChanged();
             setLastOperationOk();
         }
     }

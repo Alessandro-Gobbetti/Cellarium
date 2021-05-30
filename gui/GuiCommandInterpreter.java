@@ -31,10 +31,10 @@ public class GuiCommandInterpreter {
                 put("SET", new GuiCommandSetFactory());
                 // put("PRINT", new TuiCommandPrintFactory());
                 put("CLEAR", new GuiCommandClearFactory());
-                // put("SAVE", new TuiCommandSaveFactory());
-                // put("OPEN", new TuiCommandOpenFactory());
-                // put("IMPORT", new TuiCommandImportFactory());
-                // put("EXPORT", new TuiCommandExportFactory());
+                put("SAVE", new GuiCommandSaveFactory());
+                put("OPEN", new GuiCommandOpenFactory());
+                put("IMPORT", new GuiCommandImportFactory());
+                put("EXPORT", new GuiCommandExportFactory());
                 put("UNDO", new GuiCommandUndoFactory());
                 put("REDO", new GuiCommandRedoFactory());
                 // put("EXIT", new TuiCommandExitFactory());

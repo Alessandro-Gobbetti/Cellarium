@@ -1,4 +1,4 @@
-package tui;
+package spreadsheet;
 
 import spreadsheet.Cell;
 import spreadsheet.CellariumParser;
@@ -15,12 +15,12 @@ import java.util.HashMap;
 /**
  * To save the spreadsheet into a csv file.
  */
-public class ManageCsv {
+public class ImputOutput {
     
     /**
      * Constructor for ManageCsv objects.
      */
-    private ManageCsv() {
+    private ImputOutput() {
     }
     
     /**

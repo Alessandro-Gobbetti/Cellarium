@@ -3,6 +3,7 @@ package tui;
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.CellariumParser;
+import spreadsheet.ImputOutput;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
@@ -50,7 +51,7 @@ public class TuiCommandImport extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ManageCsv.openFromCsv(filePathName, spreadsheet);
+            ImputOutput.openFromCsv(filePathName, spreadsheet);
         }
     }
 }
