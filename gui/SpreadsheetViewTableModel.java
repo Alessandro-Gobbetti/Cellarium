@@ -2,7 +2,6 @@ package gui;
 
 import spreadsheet.Cell;
 import spreadsheet.CellReference;
-import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 

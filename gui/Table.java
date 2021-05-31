@@ -5,7 +5,6 @@ import spreadsheet.Spreadsheet;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 
 /**

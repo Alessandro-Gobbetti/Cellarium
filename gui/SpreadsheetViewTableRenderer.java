@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,24 +31,19 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(final JTable table, final Object value, 
                                                    final boolean isSelected, final boolean hasFocus,
                                                    final int row, final int column) {
-        
-        // set content allignment
+        // set content allignment and font
         setHorizontalAlignment(JLabel.CENTER);     
-        
-        // set font
         super.setFont(font);
+        
         if (row == 0) {
-            //super.setFont(getFont().deriveFont(15.0f));
             super.setBackground(column == table.getSelectedColumn()
                                 ? Color.ORANGE
                                 : Color.DARK_GRAY);
             super.setForeground(column == table.getSelectedColumn()
                                 ? Color.BLACK
                                 : Color.WHITE);
-            // set content
             super.setValue(value);
         } else if (column == 0) {
-            //super.setFont(getFont().deriveFont(15.0f));
             super.setHorizontalAlignment(JLabel.RIGHT);
             super.setBackground(row == table.getSelectedRow() 
                                 ? Color.ORANGE
@@ -57,7 +51,6 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
             super.setForeground(row == table.getSelectedRow()
                                 ? Color.BLACK
                                 : Color.WHITE);
-            // set content
             super.setValue(value + "      ");
         } else {
             final SpreadsheetViewTableModel tableModel = 
@@ -68,10 +61,8 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
             super.setHorizontalAlignment(isNumber ? JLabel.RIGHT : JLabel.LEFT);
             super.setForeground(isError ? Color.RED : Color.BLACK);
             super.setBackground(isSelected ? Color.ORANGE : Color.WHITE);
-            // set content
             super.setValue(value);
         }
-        
         return this;
     }
 }
