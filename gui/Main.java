@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -57,8 +58,8 @@ public class Main {
         
         //Menu Bar 
         final MenuBar menubar = new MenuBar(font, interpreter, spreadsheetView);
+        SwingUtilities.updateComponentTreeUI(menubar);
         frame.setJMenuBar(menubar);
-        
         //MainPanel
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -95,7 +96,7 @@ public class Main {
         //Terminal
         final String currentFormula = table.getSelectedCell(spreadsheet).getFormula();
         final JTextField terminal = new JTextField(currentFormula);
-        terminal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        terminal.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
         final SpreadsheetTerminalHandler spreadsheetTerminalHandler = 
             new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
         terminal.addActionListener(spreadsheetTerminalHandler);
