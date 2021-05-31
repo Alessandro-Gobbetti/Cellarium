@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * A sin operation.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Sine extends UnaryOperation {
     

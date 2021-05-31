@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * An integer subtraction.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Subtraction extends BinaryOperation {
         

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 /**
  * A Binary Operation.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public abstract class RangeOperation extends Node {
     

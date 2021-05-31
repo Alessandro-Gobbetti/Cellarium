@@ -1,10 +1,10 @@
 package spreadsheet;
 
 /**
- * Write a description of class CellValue here.
+ * This class defines some CellTypes.
  *
- * @author (Alessandro Gobbetti & Laurenz Ebi)
- * @version (1.0)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public interface CellValue {
     

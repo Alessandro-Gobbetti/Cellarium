@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * Write a description of class NumberCellValue here.
+ * This class defines the values of a Cell which contains a number.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

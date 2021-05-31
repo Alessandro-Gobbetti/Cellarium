@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 /**
  * To save the spreadsheet into a csv file.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class ImputOutput {
     

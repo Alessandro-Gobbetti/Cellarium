@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * A assignment (e.g., =5, or =x).
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Assign extends UnaryOperation {
         

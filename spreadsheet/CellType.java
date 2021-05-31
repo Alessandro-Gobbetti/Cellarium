@@ -1,9 +1,9 @@
 package spreadsheet;
 
 /**
- * To describe the different type of a CellValue
+ * This class defines the different types a Cell can have.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public enum CellType {

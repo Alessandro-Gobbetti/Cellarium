@@ -1,9 +1,9 @@
 package spreadsheet;
 
 /**
- * Write a description of class StringCellValue here.
+ * This class defines the values of a Cell which contains a string.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class StringCellValue implements CellValue {

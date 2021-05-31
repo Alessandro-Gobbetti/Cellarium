@@ -3,6 +3,9 @@ package spreadsheet;
 /**
  * A Parser can convert source code into an AST
  * consisting of Node objects.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public interface Parser {
 

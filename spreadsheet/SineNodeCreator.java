@@ -1,9 +1,9 @@
 package spreadsheet;
 
 /**
- * Write a description of class SinNodeCreator here.
+ * This Class creates a Sin node.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class SineNodeCreator extends UnaryFunctionNodeCreator {

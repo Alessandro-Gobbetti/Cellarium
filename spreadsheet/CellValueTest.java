@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * The test class CellValueTest.
  * Tests methods of CellValue and his subclasses.
  *
- * @author  Alessandro Gobbetti & Laurenz Ebi
+ * @author  Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class CellValueTest {

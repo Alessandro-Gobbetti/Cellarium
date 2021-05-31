@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 
 /**
- * Write a description of class CellReferenceRange here.
+ * Defines a range of Cells.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class CellReferenceRange extends Node {

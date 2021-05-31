@@ -1,9 +1,9 @@
 package spreadsheet;
 
 /**
- * Write a description of class SquareRootNodeCreator here.
+ * This Clas creates a SquareRoot node.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class SquareRootNodeCreator extends UnaryFunctionNodeCreator {

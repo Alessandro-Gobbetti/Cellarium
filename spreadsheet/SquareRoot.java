@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * An sqare root computation, (ex. sqrt(9) = 3).
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class SquareRoot extends UnaryOperation {
     

@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * A Text is an AST node that 
  * corresponds to a text value
  * (a String in the source code).
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Text extends Node {
     

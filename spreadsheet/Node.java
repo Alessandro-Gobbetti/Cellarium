@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 /**
  * An abstract syntax tree (AST) node.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public abstract class Node {
     

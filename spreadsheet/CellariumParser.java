@@ -10,6 +10,9 @@ import java.util.HashMap;
  * A Parser for our Cellaium language
  * (a simple language of arithmetic expressions).
  * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
+ * 
  * <code>
  * CELL         ::= Literal | 
  *                  Text |

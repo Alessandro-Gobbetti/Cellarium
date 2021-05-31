@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * An integer addition.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Addition extends BinaryOperation {
     

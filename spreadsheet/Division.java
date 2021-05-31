@@ -2,6 +2,9 @@ package spreadsheet;
 
 /**
  * An integer division.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Division extends BinaryOperation {
 

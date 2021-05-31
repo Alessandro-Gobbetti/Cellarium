@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * A Cell Reference
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
- * @version 2021.05.12
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class CellReference extends Node {
     

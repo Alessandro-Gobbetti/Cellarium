@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 /**
  * Tests toString(), isConstant(), and getType() of Node subclasses.
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class NodeTest {
 

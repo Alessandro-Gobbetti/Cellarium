@@ -1,9 +1,9 @@
 package spreadsheet;
 
 /**
- * Write a description of class ErrorCellValue here.
+ * This class defines the values of an error Cell.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class ErrorCellValue implements CellValue {

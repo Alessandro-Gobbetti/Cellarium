@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * A Literal is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
+ * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class Literal extends Node {
     

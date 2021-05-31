@@ -17,12 +17,18 @@ public class FunctionNodeCreatorTest {
     
     @Test
     public void testNullaryFunctionNodeCreator() {
-        //LiteralNodeCreator creator1 = new LiteralNodeCreator(10.0);
-        //Node result1 = creator1.create(new ArrayList<>());
-        //LiteralNodeCreator creator2 = new LiteralNodeCreator(null);
-        //Node result2 = creator2.create(new ArrayList<>());
-        //assertEquals("10.0", result1.toString());
-        //assertEquals("10.0", result1.toString());
+        LiteralNodeCreator creator = new LiteralNodeCreator(10.0);
+        Node result = creator.create(new ArrayList<Node>());
+        CellValue cellValue = result.eval();
+        assertEquals(10.0 ,cellValue.asNumber(), 0.0000001);
+        
+        Node l1 = new Literal(1.0);
+        Node l2 = new Literal(2.0);
+        ArrayList list = new ArrayList<Node>();
+        list.add(l1);
+        list.add(l2);
+        Node result1 = creator.create(list);
+        assertEquals("Expected no parameter, got 2 parameters.", result1.toString());
     }
     
     @Test
@@ -30,6 +36,22 @@ public class FunctionNodeCreatorTest {
         LiteralNodeCreator creator = new LiteralNodeCreator(10.0);
         CellValue cellValue = creator.nullaryCreate().eval();
         assertEquals(10.0 ,cellValue.asNumber(), 0.0000001);
+    }
+    
+    @Test
+    public void testUnaryFunctionNodeCreator() {
+        SquareRootNodeCreator creator = new SquareRootNodeCreator();
+        Node literal = new Literal(9.0);
+        CellValue cellValue = creator.unaryCreate(literal).eval();
+        assertEquals(3.0 , cellValue.asNumber(), 0.0000001);
+        
+        Node l1 = new Literal(1.0);
+        Node l2 = new Literal(2.0);
+        ArrayList list = new ArrayList<Node>();
+        list.add(l1);
+        list.add(l2);
+        Node result1 = creator.create(list);
+        assertEquals("Expected one parameter, got 2 parameters.", result1.toString());
     }
     
     @Test
@@ -54,6 +76,35 @@ public class FunctionNodeCreatorTest {
         Node literal = new Literal(1.0);
         CellValue cellValue = creator.unaryCreate(literal).eval();
         assertEquals(0.54030230586814 , cellValue.asNumber(), 0.0000001);
+    }
+
+    @Test
+    public void testUnaryRangeFunctionNodeCreator() {
+        MinimumNodeCreator creator = new MinimumNodeCreator();
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser(s);
+        CellReference referance1 = new CellReference(s, false, 0, false, 0);
+        CellReference referance2 = new CellReference(s, false, 1, false, 0);
+        CellReferenceRange range = new CellReferenceRange(referance1, referance2);
+        
+        //With CellReferanceRange as Parameter
+        Cell cA1 =  s.getOrCreate(0,0); 
+        cA1.setFormula(p.parse("10"));
+        Node minimum = creator.unaryCreate(range);
+        assertEquals(0.0 ,minimum.eval().asNumber(), 0.0000001);
+        
+        Cell cA2 =  s.getOrCreate(1,0);
+        cA2.setFormula(p.parse("100"));
+        assertEquals(10.0 ,minimum.eval().asNumber(), 0.0000001);
+        
+        //With CellReferance as Parameter
+        Node result1 = creator.unaryCreate(referance1);
+        assertEquals(10.0, result1.eval().asNumber(), 0.0000001);
+        
+        //With literal as Prameter
+        Node l1 = new Literal(1.0);
+        Node result2 = creator.unaryCreate(l1);
+        assertEquals("Expected a range as parameter, got 1.0", result2.toString());
     }
     
     @Test

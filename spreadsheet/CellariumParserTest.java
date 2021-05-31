@@ -12,6 +12,9 @@ import org.junit.Test;
  * This test class will test some aspects of the rules
  * of the Cellarium language.
  * 
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
+ * 
  * <code>
  * CELL         ::= Literal | 
  *                  Text |
@@ -206,4 +209,54 @@ public class CellariumParserTest {
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
+    
+    @Test 
+    public void testCellariumParser1() {
+        // setup
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
+        
+        // test input
+        final String sourceCode = "2 2";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new Text(sourceCode);
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+    
+    @Test 
+    public void testCellariumParser2() {
+        // setup
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
+        
+        // test input
+        final String sourceCode = "$A1";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new Text(sourceCode);
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+    
+    /**
+    @Test 
+    public void testCellariumParser3() {
+        // setup
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
+        
+        // test input
+        final String sourceCode = "= $A1 $A2";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new Text(sourceCode);
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+    */
 }
