@@ -29,6 +29,8 @@ public class TuiCommandSet extends UndoableStateChangingCommand {
 
     /**
      * Creator for TuiCommandSet.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandSet(final String sourceCode, final Spreadsheet spreadsheet) {
         super();
@@ -78,7 +80,7 @@ public class TuiCommandSet extends UndoableStateChangingCommand {
     
     @Override
     public void undo() {
-        if(stateChangedCellReference == null) {
+        if (stateChangedCellReference == null) {
             setLastOperationStatus(false, true, "Missing reference");
             return;
         } else {

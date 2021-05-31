@@ -25,6 +25,8 @@ public class TuiCommandImport extends NotUndoableStateChangingCommand {
     
     /**
      * Creator for TuiCommandSet.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandImport(final String sourceCode, final Spreadsheet spreadsheet) {
         super();
@@ -37,7 +39,7 @@ public class TuiCommandImport extends NotUndoableStateChangingCommand {
         return "Import";
     }
     
-     @Override
+    @Override
     public void doit() {
         final CellariumParser parser = new CellariumParser(spreadsheet);
         parser.initLexer(sourceCode);

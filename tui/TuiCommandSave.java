@@ -18,7 +18,7 @@ import spreadsheet.Text;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class TuiCommandSave extends NotUndoableStateChangingCommand{
+public class TuiCommandSave extends NotUndoableStateChangingCommand {
     
     private String sourceCode;
     private Spreadsheet spreadsheet;
@@ -26,6 +26,8 @@ public class TuiCommandSave extends NotUndoableStateChangingCommand{
 
     /**
      * Creator for TuiCommandOpen.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandSave(final String sourceCode, final Spreadsheet spreadsheet) {
         super();

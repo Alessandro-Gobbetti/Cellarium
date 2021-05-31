@@ -47,7 +47,6 @@ public class TuiCommandInterpreter {
      * To parse the given source code and execute it on a given spreadsheet.
      * @param sourceCode the code to parse.  
      * @param spreadsheet the given spreadsheet.
-     * @return true if no errors during parsing and execution.
      */
     public void parseAndExecute(final String sourceCode, final Spreadsheet spreadsheet) {
         //remove spaces at the beginning or at the end
@@ -64,7 +63,7 @@ public class TuiCommandInterpreter {
             final Command command = commandFactory.getCommand(parameters, spreadsheet);
             // execute the command.
             commandProcessor.doCommand(command);
-            if (!commandProcessor.getLastOperationSuccessful()) {
+            if (!commandProcessor.wasLastOperationSuccessful()) {
                 System.out.println(commandProcessor.getLastOperationMessage());
             }
         }
@@ -102,20 +101,20 @@ public class TuiCommandInterpreter {
      */
     public void printCommandHistory() {
         final int pastCount = commandProcessor.getUndoCount();
-        if(pastCount == 0) {
+        if (pastCount == 0) {
             System.out.println("No commands to undo!");
         } else {
             System.out.println("COMMANDS TO UNDO:");
-            for(int i = 0; i < pastCount; i++) {
+            for (int i = 0; i < pastCount; i++) {
                 System.out.println("   " + i + ": " + commandProcessor.getUndoCommandName(i));
             }
         }
         final int futureCount = commandProcessor.getRedoCount();
-        if(futureCount == 0) {
+        if (futureCount == 0) {
             System.out.println("No commands to redo!");
         } else {
             System.out.println("COMMANDS TO REDO:");
-            for(int i = 0; i < futureCount; i++) {
+            for (int i = 0; i < futureCount; i++) {
                 System.out.println("   " + i + ": " + commandProcessor.getRedoCommandName(i));
             }
         }

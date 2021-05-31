@@ -18,6 +18,7 @@ public class CellReference extends Node {
 
     /**
      * Constructor for CellReference.
+     * @param spreadsheet the spreadsheet
      * @param rowIsConstant true if the row is constant: i.e. A$1
      * @param row the row to look at
      * @param colIsConstant true if the column is constant: i.e. $A1 

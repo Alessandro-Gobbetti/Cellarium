@@ -20,6 +20,8 @@ public class TuiCommandRedo extends CommandUndoRedo {
 
     /**
      * Creator for TuiCommandOpen.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandRedo(final String sourceCode, final Spreadsheet spreadsheet) {
         super(false);

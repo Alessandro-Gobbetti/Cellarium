@@ -26,6 +26,8 @@ public class TuiCommandPrint extends NotUndoableNotStateChangingCommand {
     
     /**
      * Creator for TuiCommandOpen.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandPrint(final String sourceCode, final Spreadsheet spreadsheet) {
         super();

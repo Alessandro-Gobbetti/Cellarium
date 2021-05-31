@@ -34,6 +34,7 @@ public class TuiCommandHistoryFactory implements TuiCommandFactory {
     
     @Override
     public String helpLong(final String commandName) {
-        return commandName + ": print all the commands executed in the past and the ones that can be reexecuted.";
+        return commandName 
+            + ": print all the commands executed in the past and the ones that can be reexecuted.";
     }
 }

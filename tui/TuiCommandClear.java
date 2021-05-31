@@ -30,6 +30,8 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
 
     /**
      * Creator for TuiCommandSet.
+     * @param sourceCode   the sourceCode 
+     * @param spreadsheet  the spreadsheet 
      */
     public TuiCommandClear(final String sourceCode, final Spreadsheet spreadsheet) {
         super();
@@ -81,7 +83,7 @@ public class TuiCommandClear extends UndoableStateChangingCommand {
     
     @Override
     public void undo() {
-        for (int index : stateSaved.keySet()) {
+        for (final int index : stateSaved.keySet()) {
             final int row = spreadsheet.rowFromIndex(index);
             final int col = spreadsheet.colFromIndex(index);
             final Cell cell = spreadsheet.getOrCreate(row, col);

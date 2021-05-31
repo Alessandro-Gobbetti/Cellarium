@@ -22,6 +22,7 @@ public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
     /**
      * Constructor for SpreadsheetCommandHelp.
      * @param interpreter the interpreter
+     * @param sourceCode  the sourceCode 
      */
     public TuiCommandHelp(final TuiCommandInterpreter interpreter,
                           final String sourceCode) {
