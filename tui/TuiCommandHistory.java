@@ -1,7 +1,6 @@
 package tui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import spreadsheet.Spreadsheet;
 
 /**
  * To print a help message for all commands or just for one.
@@ -11,7 +10,7 @@ import spreadsheet.Spreadsheet;
  * HELP COMMAND     to print the help of a given command
  * </p>
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandHistory extends NotUndoableNotStateChangingCommand {

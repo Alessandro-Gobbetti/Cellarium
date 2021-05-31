@@ -1,7 +1,6 @@
 package tui;
 
 import commands.CommandUndoRedo;
-import spreadsheet.Spreadsheet;
 
 /**
  * To quit the program.
@@ -14,19 +13,12 @@ import spreadsheet.Spreadsheet;
  * @version 1.0
  */
 public class TuiCommandRedo extends CommandUndoRedo {
-    
-    private String sourceCode;
-    private Spreadsheet spreadsheet;
 
     /**
      * Creator for TuiCommandOpen.
-     * @param sourceCode   the sourceCode 
-     * @param spreadsheet  the spreadsheet 
      */
-    public TuiCommandRedo(final String sourceCode, final Spreadsheet spreadsheet) {
+    public TuiCommandRedo() {
         super(false);
-        this.sourceCode = sourceCode;
-        this.spreadsheet = spreadsheet;
     }
     
 }

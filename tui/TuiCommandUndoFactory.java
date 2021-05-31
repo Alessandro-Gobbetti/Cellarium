@@ -13,7 +13,7 @@ public class TuiCommandUndoFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandUndo(input, spreadsheet);
+        return new TuiCommandUndo();
     }
     
     @Override

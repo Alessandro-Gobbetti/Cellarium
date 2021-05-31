@@ -13,7 +13,7 @@ public class TuiCommandExitFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandExit(input, spreadsheet);
+        return new TuiCommandExit();
     }
     
     @Override
