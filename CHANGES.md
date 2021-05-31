@@ -37,3 +37,20 @@
 * Added tests
 
 * Improved several features
+
+## Milestone 4: May 31
+* Commands
+  * new package
+  * refactored commands to allow undo/redo
+* Gui
+  * Better design
+  * undo, redo, clear, save, open, export, import...
+  * commands can be run from the Jtextfield
+  * scrollbars
+* Tui
+  * undo and redo
+
+* Added tests
+
+* Improved several features
+
