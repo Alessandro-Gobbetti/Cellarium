@@ -1,7 +1,6 @@
 package tui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import spreadsheet.Spreadsheet;
 
 /**
  * To print a help message for all commands or just for one.

@@ -13,7 +13,7 @@ public class TuiCommandRedoFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandRedo(input, spreadsheet);
+        return new TuiCommandRedo();
     }
     
     @Override
