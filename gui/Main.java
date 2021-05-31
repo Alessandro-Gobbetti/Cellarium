@@ -20,7 +20,7 @@ import javax.swing.SpringLayout;
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
  */
-public class CellariumGui {
+public class Main {
     
     private Spreadsheet spreadsheet;
     private GuiCommandInterpreter interpreter;
@@ -29,7 +29,7 @@ public class CellariumGui {
     /**
      * Constructor for CellariumGui.
      */
-    public CellariumGui() {
+    public Main() {
         spreadsheet = new Spreadsheet();
         interpreter = new GuiCommandInterpreter();
         spreadsheetView = new SpreadsheetViewTableModel(spreadsheet, interpreter);
@@ -40,7 +40,7 @@ public class CellariumGui {
      * @param args  String[] of commands.
      */
     public static void main(final String[] args) {
-        final CellariumGui gui = new CellariumGui();
+        final Main gui = new Main();
         gui.run();
     }
     

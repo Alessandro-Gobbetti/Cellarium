@@ -21,7 +21,7 @@ public class TuiCommandExit extends NotUndoableStateChangingCommand {
     
     @Override
     public void doit() {
-        CellariumTui.setTerminated(true);
+        Main.setTerminated(true);
         setLastOperationOk();
     }
     

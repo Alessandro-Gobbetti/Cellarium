@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Alessandro Gobbetti && Laurenz Ebi
  * @version 1.0
  */
-public class CellariumTui {
+public class Main {
     
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -21,7 +21,7 @@ public class CellariumTui {
     /**
      * Constructor for CellariumTui.
      */
-    private CellariumTui() {
+    private Main() {
     }
     
     /**
@@ -48,6 +48,6 @@ public class CellariumTui {
      *                   false to stop the program execution, true to contine.
      */
     public static void setTerminated(final boolean terminate) {
-        CellariumTui.terminate = terminate;
+        Main.terminate = terminate;
     }
 }
