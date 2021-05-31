@@ -2,12 +2,9 @@ package gui;
 
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
-import spreadsheet.Cell;
-import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.ImputOutput;
 import spreadsheet.Node;
-import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
 
 /**

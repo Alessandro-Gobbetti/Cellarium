@@ -2,7 +2,6 @@ package gui;
 
 import commands.Command;
 import commands.CommandProcessor;
-import spreadsheet.Spreadsheet;
 
 import java.util.HashMap;
 

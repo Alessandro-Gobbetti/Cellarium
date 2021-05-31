@@ -1,7 +1,6 @@
 package gui;
 
 import commands.UndoableStateChangingCommand;
-import spreadsheet.Cell;
 import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.Node;

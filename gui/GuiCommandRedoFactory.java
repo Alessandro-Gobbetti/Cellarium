@@ -12,7 +12,7 @@ public class GuiCommandRedoFactory implements GuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandRedo(input, spreadsheetView);
+        return new GuiCommandRedo();
     }
     
     @Override

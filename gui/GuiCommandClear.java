@@ -7,7 +7,6 @@ import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
-import spreadsheet.Text;
 
 import java.util.HashMap;
 
@@ -80,7 +79,7 @@ public class GuiCommandClear extends UndoableStateChangingCommand {
     @Override
     public void undo() {
         final Spreadsheet spreadsheet = spreadsheetView.getSpreadsheet();
-        for (int index : stateSaved.keySet()) {
+        for (final int index : stateSaved.keySet()) {
             final int row = spreadsheet.rowFromIndex(index);
             final int col = spreadsheet.colFromIndex(index);
             final Cell cell = spreadsheet.getOrCreate(row, col);

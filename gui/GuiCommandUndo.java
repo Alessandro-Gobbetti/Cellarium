@@ -13,11 +13,8 @@ public class GuiCommandUndo extends CommandUndoRedo {
     /**
      * Creator for GuiCommandUndo.
      * 
-     * @param sourceCode the command to parse
-     * @param spreadsheetView the spreadsheet model
      */
-    public GuiCommandUndo(final String sourceCode,
-                          final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandUndo() {
         super(true);
     }
 }
