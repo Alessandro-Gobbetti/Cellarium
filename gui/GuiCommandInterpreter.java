@@ -67,7 +67,7 @@ public class GuiCommandInterpreter {
             final Command command = commandFactory.getCommand(parameters, spreadsheetView);
             // execute the command.
             commandProcessor.doCommand(command);
-            if (!commandProcessor.getLastOperationSuccessful()) {
+            if (!commandProcessor.wasLastOperationSuccessful()) {
                 
                 
                 //FIXME

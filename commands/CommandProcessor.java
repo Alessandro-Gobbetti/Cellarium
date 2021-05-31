@@ -117,7 +117,7 @@ public class CommandProcessor {
      * If the last operation was not successful the state must not be change.
      * @return True if the last operation executed correctly.
      */
-    public boolean getLastOperationSuccessful() {
+    public boolean wasLastOperationSuccessful() {
         return wasLastOperationSuccessful;
     }
     
@@ -125,7 +125,7 @@ public class CommandProcessor {
      * True if the last operation aborted without changing state.
      * @return True if the last operation aborted without changing state.
      */
-    public boolean getLastOperationAborted() {
+    public boolean wasLastOperationAborted() {
         return wasLastOperationAborted;
     }
     
@@ -137,18 +137,36 @@ public class CommandProcessor {
         return lastOperationMessage;
     }
     
+    /**
+     * To get the amount of undoable commands.
+     * @return the amount of undoable commands
+     */
     public int getUndoCount() {
         return past.size();
     }
     
+    /**
+     * To get the amount of redoable commands.
+     * @return the amount of redoable commands
+     */
     public int getRedoCount() {
         return future.size();
     }
     
+    /**
+     * Returns the name of the command at a given position in the undo list.
+     * @param index the index of the command.
+     * @return the name of the command at a given position in the undo list
+     */
     public String getUndoCommandName(final int index) {
         return past.get(past.size() - 1 - index).getName();
     }
     
+    /**
+     * Returns the name of the command at a given position in the redo list.
+     * @param index the index of the command.
+     * @return the name of the command at a given position in the redo list
+     */
     public String getRedoCommandName(final int index) {
         return future.get(future.size() - 1 - index).getName();
     }

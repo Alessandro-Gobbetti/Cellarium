@@ -8,34 +8,35 @@ package commands;
  * @version 1.0
  */
 public abstract class CommandUndoRedo extends NotUndoableNotStateChangingCommand {
-    
-  private boolean isUndoFlag;
   
-  /**
-   * Creator for CommandUndoRedo.
-   * @param isUndo an undo flag to set the command to be undo or redo.
-   */
-  public CommandUndoRedo(final boolean isUndo) {
-      isUndoFlag = isUndo;
-  }
+    private boolean isUndoFlag;
   
-  @Override
-  public boolean isUndo() {
-      return isUndoFlag;
-  }
+    /**
+     * Creator for CommandUndoRedo.
+     * @param isUndo an undo flag to set the command to be undo or redo.
+     */
+    public CommandUndoRedo(final boolean isUndo) {
+        super();
+        isUndoFlag = isUndo;
+    }
   
-  @Override
-  public boolean isRedo() {
-      return !isUndo();
-  }
+    @Override
+    public boolean isUndo() {
+        return isUndoFlag;
+    }
   
-  @Override
-  public String getName() {
-      return isUndo() ? "UNDO" : "REDO";
-  }
+    @Override
+    public boolean isRedo() {
+        return !isUndo();
+    }
   
-  @Override
-  public void doit() {
-      setLastOperationOk();
-  }
+    @Override
+    public String getName() {
+        return isUndo() ? "UNDO" : "REDO";
+    }
+  
+    @Override
+    public void doit() {
+        setLastOperationOk();
+    }
 }

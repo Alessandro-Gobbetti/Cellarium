@@ -2,15 +2,21 @@ package commands;
 
 
 /**
- * Write a description of class CommandAppend here.
+ * The only goal for this class is to verify 
+ * the functionalities of commands and test undo and redo.
+ * This class appends the string "pippo" to the first element in a string array.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class CommandPippoAppend extends UndoableStateChangingCommand {
     
     private String[] currentString;
     
+    /**
+     * Constructor for CommandPippoAppend.
+     * @param currentString the string array.
+     */
     public CommandPippoAppend(final String[] currentString) {
         super();
         this.currentString = currentString;
