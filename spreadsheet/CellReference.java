@@ -15,6 +15,8 @@ public class CellReference extends Node {
     private int row;
     private boolean colIsConstant;
     private int col;
+    
+    private static final int ALPA26_BASE = 26;
 
     /**
      * Constructor for CellReference.
@@ -53,7 +55,7 @@ public class CellReference extends Node {
             //  10-35 for the letter A-Z
             final int digit = Character.getNumericValue(c) - 9;
             // digits are multiplied by 26^0, 26^1, ...
-            result = result * 26 + digit;
+            result = result * ALPA26_BASE + digit;
         }
         // ALPHA-26 count colum A as the 1st column, we want to have 0 index.
         return result - 1;
@@ -72,9 +74,9 @@ public class CellReference extends Node {
         while (alpha26Col > 0) {
             int currentDigit = alpha26Col % 26;
             if (currentDigit == 0) {
-                currentDigit = 26;
+                currentDigit = ALPA26_BASE;
             }
-            alpha26Col = (alpha26Col - currentDigit) / 26;
+            alpha26Col = (alpha26Col - currentDigit) / ALPA26_BASE;
             // convert the digit to the letters A, B, C, ...
             final char colChar = (char)(currentDigit + (int)('A') - 1);
             // add digit from right to left

@@ -42,7 +42,6 @@ public class SpreadsheetScrollbarHandler implements AdjustmentListener {
     
     @Override
     public void adjustmentValueChanged(final AdjustmentEvent e) {
-        System.out.println(e);
         final int origin = e.getValue();
         setViewOrigin(origin);
         if (!e.getValueIsAdjusting()) {

@@ -1,6 +1,7 @@
 package tui;
 
 import commands.Command;
+import commands.CommandUndoRedo;
 import spreadsheet.Spreadsheet;
 
 /**
@@ -13,7 +14,7 @@ public class TuiCommandRedoFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandRedo();
+        return new CommandUndoRedo(false);
     }
     
     @Override

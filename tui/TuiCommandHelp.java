@@ -5,11 +5,6 @@ import commands.NotUndoableNotStateChangingCommand;
 /**
  * To print a help message for all commands or just for one.
  * 
- * <p>
- * HELP             to print the list of commands
- * HELP COMMAND     to print the help of a given command
- * </p>
- * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
@@ -19,7 +14,7 @@ public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {
     private String sourceCode;
     
     /**
-     * Constructor for SpreadsheetCommandHelp.
+     * Constructor for TuiCommandHelp.
      * @param interpreter the interpreter
      * @param sourceCode  the sourceCode 
      */

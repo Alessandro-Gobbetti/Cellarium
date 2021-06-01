@@ -69,6 +69,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
         interpreter.parseAndExecute(command, this);
     }
     
+    
     /**
      * To set a new formula at a position in the spreadsheet
      * and get the old value.
@@ -256,6 +257,7 @@ public class SpreadsheetViewTableModel extends AbstractTableModel {
     public Spreadsheet getSpreadsheet() {
         return spreadsheet;
     }
+    
     
     // To convert from view to spreadsheet model and vice-versa.
     /**

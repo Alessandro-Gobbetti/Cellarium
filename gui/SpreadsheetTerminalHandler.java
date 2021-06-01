@@ -30,6 +30,5 @@ public class SpreadsheetTerminalHandler implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
         final String command = e.getActionCommand();
         interpreter.parseAndExecute(command, spreadsheetView);
-        System.out.println(command);
     }
 }

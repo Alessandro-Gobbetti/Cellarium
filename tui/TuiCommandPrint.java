@@ -25,7 +25,7 @@ public class TuiCommandPrint extends NotUndoableNotStateChangingCommand {
     private Spreadsheet spreadsheet;
     
     /**
-     * Creator for TuiCommandOpen.
+     * Creator for TuiCommandPrint.
      * @param sourceCode   the sourceCode 
      * @param spreadsheet  the spreadsheet 
      */
@@ -45,7 +45,7 @@ public class TuiCommandPrint extends NotUndoableNotStateChangingCommand {
         final CellariumParser parser = new CellariumParser(spreadsheet);
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
-            PrintSpreadsheet.print(spreadsheet);
+            PrintSpreadsheetHelper.print(spreadsheet);
             setLastOperationOk();
         } else {
             final Node node = parser.parseCellReference();

@@ -2,12 +2,12 @@ package commands;
 
 
 /**
- * Abstract class for undo and redo commands.
+ * Class for undo and redo commands.
  *
  * @author Alessadro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public abstract class CommandUndoRedo extends NotUndoableNotStateChangingCommand {
+public class CommandUndoRedo extends NotUndoableStateChangingCommand {
   
     private boolean isUndoFlag;
   

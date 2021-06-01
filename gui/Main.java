@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
 
 
 /**
@@ -46,7 +45,7 @@ public class Main {
     }
     
     /**
-     * To draw the gui.
+     * To draw and run the gui.
      */
     public void run() {
         //Font style
@@ -58,27 +57,14 @@ public class Main {
         
         //Menu Bar 
         final MenuBar menubar = new MenuBar(font, interpreter, spreadsheetView);
-        SwingUtilities.updateComponentTreeUI(menubar);
         frame.setJMenuBar(menubar);
         //MainPanel
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         
         //TopPanel
-        //final JPanel topPanel = new JPanel();
-        //topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
-
-        
-        //ToolBar
-        //Makes possible that actions are executed on the ToolBar
-        //final Actions actions = new Actions(spreadsheetView);
-        //final ToolBar toolbar = new ToolBar(font, actions);
-        //Adds ToolBar to TopPanel
-        //topPanel.add(toolbar);
-        //table.getSelected
-        
-        
-        
+        final JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
         
         //Spreadsheet
         final JPanel spreadsheetPanel = new JPanel(new SpringLayout());
@@ -91,24 +77,27 @@ public class Main {
         //Adds Spreadsheet to mainPanel
         mainPanel.add(spreadsheetPanel, BorderLayout.CENTER);
         
-
         
         //Terminal
         final String currentFormula = table.getSelectedCell(spreadsheet).getFormula();
         final JTextField terminal = new JTextField(currentFormula);
         terminal.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        terminal.setFont(new Font("SansSerif", Font.PLAIN, 16));
         final SpreadsheetTerminalHandler spreadsheetTerminalHandler = 
             new SpreadsheetTerminalHandler(spreadsheetView, interpreter);
         terminal.addActionListener(spreadsheetTerminalHandler);
         //Adds the expressionField to the topPanel
-        mainPanel.add(terminal, BorderLayout.NORTH);
+        topPanel.add(terminal, BorderLayout.NORTH);
         
-        //Adds TopPanel to the frame
-        //frame.add(topPanel, BorderLayout.NORTH);
+        //Message
+        final JTextField messageField = new JTextField();
+        interpreter.setOutputMessageField(messageField);
+        messageField.setEditable(false);
+        topPanel.add(messageField, BorderLayout.SOUTH);
         
+        //Adds TopPanel to the frame        
         final SpreadsheetMouseHandler spreadsheetMouseHandler = 
-            new SpreadsheetMouseHandler(spreadsheetView, terminal, table);
-            
+            new SpreadsheetMouseHandler(spreadsheetView, terminal, messageField, table);
         table.addMouseListener(spreadsheetMouseHandler);
                
         
@@ -132,6 +121,7 @@ public class Main {
         frame.setPreferredSize(new Dimension(600, 600));
         frame.setMinimumSize(new Dimension(300, 300));
         
+        frame.add(topPanel, BorderLayout.NORTH);
         //Adds mainPanel to frame
         frame.add(mainPanel);
         
@@ -142,4 +132,5 @@ public class Main {
         frame.setVisible(true);
     }
     
+    //private void initTerminal
 }

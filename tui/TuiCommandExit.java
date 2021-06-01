@@ -5,9 +5,6 @@ import commands.NotUndoableStateChangingCommand;
 /**
  * To quit the program.
  * 
- * <p>
- * EXIT             to quit the program.
- * </p>
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

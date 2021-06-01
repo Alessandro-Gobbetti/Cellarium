@@ -3,7 +3,10 @@ package gui;
 import commands.Command;
 import commands.CommandProcessor;
 
+import java.awt.Color;
 import java.util.HashMap;
+import java.util.Locale;
+import javax.swing.JTextField;
 
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
@@ -15,6 +18,8 @@ public class GuiCommandInterpreter {
     
     private HashMap<String, GuiCommandFactory> commandMap;
     private CommandProcessor commandProcessor;
+    private JTextField outputMessageField;
+    
     public static final String ANSI_BOLD = "\033[0;1m";
     public static final String ANSI_RESET = "\u001B[0m";
 
@@ -22,12 +27,12 @@ public class GuiCommandInterpreter {
      * Constructor for objects of class SpreadsheetCommandInterpreter.
      */
     public GuiCommandInterpreter() {
-        commandProcessor = new CommandProcessor();
-        commandMap = new HashMap<String, GuiCommandFactory>()
+        this.commandProcessor = new CommandProcessor();
+        this.outputMessageField = null;
+        this.commandMap = new HashMap<String, GuiCommandFactory>()
         {
             {
                 put("SET", new GuiCommandSetFactory());
-                // put("PRINT", new TuiCommandPrintFactory());
                 put("CLEAR", new GuiCommandClearFactory());
                 put("SAVE", new GuiCommandSaveFactory());
                 put("OPEN", new GuiCommandOpenFactory());
@@ -35,9 +40,6 @@ public class GuiCommandInterpreter {
                 put("EXPORT", new GuiCommandExportFactory());
                 put("UNDO", new GuiCommandUndoFactory());
                 put("REDO", new GuiCommandRedoFactory());
-                // put("EXIT", new TuiCommandExitFactory());
-                // put("HISTORY", new TuiCommandHistoryFactory(TuiCommandInterpreter.this));
-                // put("HELP", new TuiCommandHelpFactory(TuiCommandInterpreter.this));
             }
         };
     }
@@ -53,75 +55,47 @@ public class GuiCommandInterpreter {
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
         final String[] arr = trimmedSourceCode.split(" ", 2);
-        final String commandName = arr.length > 0 ? arr[0].toUpperCase() : "";   // command
+        final String commandName = arr.length > 0 ? arr[0].toUpperCase(Locale.getDefault()) : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         
         final GuiCommandFactory commandFactory = commandMap.get(commandName);
         if (commandFactory == null) {
-            
-            
-            //FIXME
-            System.out.println("Please insert a valid command!");
+            printMessage(false, "Please type a valid command!");
         } else {
             final Command command = commandFactory.getCommand(parameters, spreadsheetView);
             // execute the command.
             commandProcessor.doCommand(command);
-            if (!commandProcessor.wasLastOperationSuccessful()) {
-                
-                
-                //FIXME
-                System.out.println(commandProcessor.getLastOperationMessage());
-            }
+            printMessage(commandProcessor.wasLastOperationSuccessful() ,commandProcessor.getLastOperationMessage());
         }
     }
     
     /**
-     * Print a detailed description for the given command.
-     * @param commandName the command to return a help.
+     * To get the last operation message.
+     * @return the last operation message.
      */
-    public void helpCommand(final String commandName) {
-        final GuiCommandFactory command = commandMap.get(commandName.toUpperCase());
-        if (command == null) {
-            System.out.println(commandName + ": invalid command.");
-        } else {
-            System.out.println(commandName + ": " + command.helpShort());
-            System.out.println(command.helpLong(commandName.toUpperCase()));
-        }
-    }
-
-    /**
-     * Print a short description for all the possible commands.
-     */
-    public void helpCommandList() {
-        System.out.println("Type \"HELP\" followed by a command for more information.");
-        // iterate for all element in commandMap
-        for (final HashMap.Entry<String, GuiCommandFactory> entry : commandMap.entrySet()) {
-            System.out.println(ANSI_BOLD + entry.getKey() + ANSI_RESET + ": " 
-                               + entry.getValue().helpShort());
-        }
+    public String getLastOperationMessage() {
+        return commandProcessor.getLastOperationMessage();
     }
     
     /**
-     * Print a the command history list.
+     * To set the outputMessageField.
+     * 
+     * @param outputMessageField the outputMessageField
      */
-    public void printCommandHistory() {
-        final int pastCount = commandProcessor.getUndoCount();
-        if (pastCount == 0) {
-            System.out.println("No commands to undo!");
+    public void setOutputMessageField(final JTextField outputMessageField) {
+        this.outputMessageField = outputMessageField;
+    }
+    
+    /**
+     * To print a message.
+     * @param message the message to print.
+     */
+    public void printMessage(final boolean isOk, final String message) {
+        if (outputMessageField == null) {
+            System.out.println(message);
         } else {
-            System.out.println("COMMANDS TO UNDO:");
-            for (int i = 0; i < pastCount; i++) {
-                System.out.println("   " + i + ": " + commandProcessor.getUndoCommandName(i));
-            }
-        }
-        final int futureCount = commandProcessor.getRedoCount();
-        if (futureCount == 0) {
-            System.out.println("No commands to redo!");
-        } else {
-            System.out.println("COMMANDS TO REDO:");
-            for (int i = 0; i < futureCount; i++) {
-                System.out.println("   " + i + ": " + commandProcessor.getRedoCommandName(i));
-            }
+            outputMessageField.setForeground(isOk ? Color.GREEN : Color.RED);
+            outputMessageField.setText(message);
         }
     }
     

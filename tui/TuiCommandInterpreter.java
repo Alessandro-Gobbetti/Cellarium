@@ -4,6 +4,7 @@ import commands.Command;
 import commands.CommandProcessor;
 import spreadsheet.Spreadsheet;
 
+import java.util.Locale;
 import java.util.HashMap;
 
 /**
@@ -53,7 +54,7 @@ public class TuiCommandInterpreter {
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
         final String[] arr = trimmedSourceCode.split(" ", 2);
-        final String commandName = arr.length > 0 ? arr[0].toUpperCase() : "";   // command
+        final String commandName = arr.length > 0 ? arr[0].toUpperCase(Locale.getDefault()) : "";   // command
         final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
         
         final TuiCommandFactory commandFactory = commandMap.get(commandName);
@@ -74,12 +75,12 @@ public class TuiCommandInterpreter {
      * @param commandName the command to return a help.
      */
     public void helpCommand(final String commandName) {
-        final TuiCommandFactory command = commandMap.get(commandName.toUpperCase());
+        final TuiCommandFactory command = commandMap.get(commandName.toUpperCase(Locale.getDefault()));
         if (command == null) {
             System.out.println(commandName + ": invalid command.");
         } else {
             System.out.println(commandName + ": " + command.helpShort());
-            System.out.println(command.helpLong(commandName.toUpperCase()));
+            System.out.println(command.helpLong(commandName.toUpperCase(Locale.getDefault())));
         }
     }
 

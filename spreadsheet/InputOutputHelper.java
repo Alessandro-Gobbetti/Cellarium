@@ -13,12 +13,15 @@ import java.util.HashMap;
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
-public class ImputOutput {
+public class InputOutputHelper {
+    
+    private static final String NO_FILE_FIND = "No such file or directory found at ";
+    private static final String INSERT_VALID_PATH = ". Please insert an existing file path!";
     
     /**
      * Constructor for ManageCsv objects.
      */
-    private ImputOutput() {
+    private InputOutputHelper() {
     }
     
     /**
@@ -39,13 +42,12 @@ public class ImputOutput {
             } 
             writer.flush();
             writer.close();
-            System.out.println("Done!");
         } catch (IOException exeption) {
             // if the given path is wrong.
             System.out.println(
-                "No such file or directory found at " 
+                NO_FILE_FIND 
                 + pathFileName 
-                + ". Please insert an existing file path!"
+                + INSERT_VALID_PATH
             );
             //exeptin.printStackTrace();
         }
@@ -62,18 +64,17 @@ public class ImputOutput {
         try {
             final FileWriter writer = new FileWriter(pathFileName);
             final HashMap<Integer,Cell> cellMap = spreadsheet.getCellMap();
-            for (int index : cellMap.keySet()) {
+            for (final int index : cellMap.keySet()) {
                 writer.append(index + " " + cellMap.get(index).getFormula() + "\n");
             }
             writer.flush();
             writer.close();
-            System.out.println("Done!");
         } catch (IOException exeption) {
             // if the given path is wrong.
             System.out.println(
-                "No such file or directory found at " 
+                NO_FILE_FIND 
                 + pathFileName 
-                + ". Please insert an existing file path!"
+                + INSERT_VALID_PATH
             );
             //exeptin.printStackTrace();
         }
@@ -110,13 +111,12 @@ public class ImputOutput {
                 currentRow++;
             }
             csvReader.close();
-            System.out.println("Done!");
         } catch (IOException exeption) {
             // if the file is not found:
             System.out.println(
-                "No such file or directory found at " 
+                NO_FILE_FIND 
                 + pathFileName 
-                + ". Please insert an existing file path!"
+                + INSERT_VALID_PATH
             );
             //exeption.printStackTrace();
         }
@@ -136,7 +136,6 @@ public class ImputOutput {
             String line = csvReader.readLine();
             // Clear the current Spreadsheet.
             spreadsheet.clear();
-            int currentRow = 0;
             while (line != null) {
                 // split the line in two: the index from the rest.
                 final String[] arr = line.split(" ", 2);
@@ -154,13 +153,12 @@ public class ImputOutput {
                 line = csvReader.readLine();
             }
             csvReader.close();
-            System.out.println("Done!");
         } catch (IOException exeption) {
             // if the file is not found:
             System.out.println(
-                "No such file or directory found at " 
+                NO_FILE_FIND 
                 + pathFileName 
-                + ". Please insert an existing file path!"
+                + INSERT_VALID_PATH
             );
             //exeption.printStackTrace();
         }

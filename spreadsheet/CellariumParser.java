@@ -5,6 +5,8 @@ import lexer.TokenType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+
 
 /**
  * A Parser for our Cellaium language
@@ -32,6 +34,8 @@ public final class CellariumParser implements Parser {
     private Spreadsheet spreadsheet;
     private LexicalAnalyzer lexer;
     private HashMap<String, FunctionNodeCreator> functionMap;
+    
+    private static final String SYNTAX_ERROR_CODE = "Err:Syntax";
     
     /**
      * Constructor for CellariumParser. To initialize a map with all functions.
@@ -106,7 +110,7 @@ public final class CellariumParser implements Parser {
             if (expression.isError()) {
                 return expression;
             } else if (!currentTokenMatches(TokenType.END_OF_FILE)) {
-                return new Error("Err:Syntax", "Syntax error: garbage after the expression");
+                return new Error(SYNTAX_ERROR_CODE, "Syntax error: garbage after the expression");
             }
             return new Assign(expression);
         } else if (currentTokenMatches(TokenType.LITERAL)) {
@@ -224,8 +228,7 @@ public final class CellariumParser implements Parser {
      * <code>
      * FACTOR ::=  
      *          Literal |
-     *          Cell reference |
-     *          Cell range |
+     *          REFORRANGE |
      *          "(" EXPRESSION ")"
      * </code>
      * 
@@ -241,24 +244,7 @@ public final class CellariumParser implements Parser {
             // produce Node
             return parseFunction();
         } else if (currentTokenMatches(TokenType.CELLREFERENCE)) {
-            final Node reference = parseCellReference();
-            if (reference.isError()) {
-                return reference;
-            }
-            if (!currentTokenMatches(TokenType.COLON)) {
-                return reference;
-            } else {
-                // skip the colon
-                lexer.fetchNextToken();
-                final Node secondReference = parseCellReference();
-                if (secondReference.isError()) {
-                    return secondReference;
-                }
-                // cast nodes to CellReferences, we know it's possible because there are not errors.
-                final CellReference begin = (CellReference)reference;
-                final CellReference end = (CellReference)secondReference;
-                return new CellReferenceRange(begin, end);
-            }
+            return parseCellReferenceOrReferenceRange();
         } else if (currentTokenMatches(TokenType.OPEN_PAREN)) {
             // skip the parenthesis
             lexer.fetchNextToken();
@@ -275,15 +261,48 @@ public final class CellariumParser implements Parser {
                 return factor;
             } else {
                 // return error message
-                return new Error("Err:Syntax",
+                return new Error(SYNTAX_ERROR_CODE,
                                  "Syntax error: expected a ')', got " + lexer.currentTokenName());
             }
         } else {
             // print error message
-            return new Error("Err:Syntax",
+            return new Error(SYNTAX_ERROR_CODE,
                              "Syntax error: expected a FACTOR, got " + lexer.currentTokenName());
         }
     }
+    
+    /**
+     * Parse a Cell Reference or a Cell Reference Range.
+     * This assumes the lexer already points to the first token of this element.
+     * 
+     * <p>EBNF:
+     * <code>
+     * REFORRANGE ::= CellReference [":" CellReference]
+     * </code>
+     * 
+     * @return a Node representing the CellReference or the CellReferenceRange.
+     */
+    private Node parseCellReferenceOrReferenceRange() {
+        final Node reference = parseCellReference();
+        if (reference.isError()) {
+            return reference;
+        }
+        if (!currentTokenMatches(TokenType.COLON)) {
+            return reference;
+        } else {
+            // skip the colon
+            lexer.fetchNextToken();
+            final Node secondReference = parseCellReference();
+            if (secondReference.isError()) {
+                return secondReference;
+            }
+            // cast nodes to CellReferences, we know it's possible because there are not errors.
+            final CellReference begin = (CellReference)reference;
+            final CellReference end = (CellReference)secondReference;
+            return new CellReferenceRange(begin, end);
+        }
+    }
+    
     
     /**
      * Parse a cell reference.
@@ -298,7 +317,7 @@ public final class CellariumParser implements Parser {
      */
     public Node parseCellReference() {
         if (!currentTokenMatches(TokenType.CELLREFERENCE)) {
-            return new Error("Err:Syntax",
+            return new Error(SYNTAX_ERROR_CODE,
                              "Expected a CELL REFERENCE, got " + lexer.currentTokenName());
         }
         // Get the reference string before skipping it.
@@ -318,22 +337,14 @@ public final class CellariumParser implements Parser {
             startOfColIndex++;
         }
         // step over column name chars until first digit (or dollars) for row number.
-        boolean found = false;
-        for (int i = startOfColIndex; i < endOfRowIndex && !found; i++) {
-            final char ch = reference.charAt(i);
-            if (ch == '$') {
-                rowIsConstant = true;
-                startOfRowIndex = i + 1;
-                endOfColIndex = i;
-                found = true;
-            } else if (Character.isDigit(ch)) {
-                startOfRowIndex = i;
-                endOfColIndex = i;
-                found = true;
-            }
+        startOfRowIndex = findStartOfRowIndex(reference, startOfColIndex, endOfRowIndex);
+        if (startOfRowIndex < 0) {
+            return new Error(SYNTAX_ERROR_CODE, "Malformed CELL REFERENCE, got " + reference);
         }
-        if (!found) {
-            return new Error("Err:Syntax", "Malformed CELL REFERENCE, got " + reference);
+        endOfColIndex = startOfRowIndex;
+        if (reference.charAt(startOfRowIndex) == '$') {
+            rowIsConstant = true;
+            startOfRowIndex++;
         }
         final String colString = reference.substring(startOfColIndex, endOfColIndex);
         final String rowString = reference.substring(startOfRowIndex, endOfRowIndex);
@@ -346,31 +357,62 @@ public final class CellariumParser implements Parser {
         if (row < 0 || col < 0) {
             return new Error("Err:REF",
                              "Cell out of range " + reference
-                                         + " row: '" + rowString + "' -> " + row
-                                         + " col: '" + colString + "' -> " + col);
+                             + " row: '" + rowString + "' -> " + row
+                             + " col: '" + colString + "' -> " + col);
         }
         return new CellReference(spreadsheet, rowIsConstant, row, colIsConstant, col);
     }
 
+    /**
+     * To find ths start of row index in a CellReference.
+     * This is the first character that is a digit or a '$'.
+     * 
+     * @param reference the reference
+     * @param startOfColIndex start of the search range.
+     * @param endOfRowIndex end of the search range.
+     * 
+     * @return the start of row index in a CellReference.
+     */
+    private int findStartOfRowIndex(final String reference, final int startOfColIndex, final int endOfRowIndex) {
+        int result = -1;
+        for (int i = startOfColIndex; i < endOfRowIndex && result == -1; i++) {
+            final char ch = reference.charAt(i);
+            if (ch == '$' || Character.isDigit(ch)) {
+                result = i;
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * To parse a function.
+     * 
+     * <p>EBNF:
+     * <code>
+     * FUNCTION ::= IDENTIFIER( + PARAMETERS + ")"
+     * </code>
+     * 
+     * @return a Node representing the function
+     */
     private Node parseFunction() {
         if (!currentTokenMatches(TokenType.FUNCTION)) {
-            return new Error("Err:Syntax",
+            return new Error(SYNTAX_ERROR_CODE,
                              "Expected a FUNCTION, got " + lexer.currentTokenName());
         }
         // Get the reference string before skipping it.
-        final String functionName = lexer.getCurrentToken().getText().toUpperCase();
+        final String functionName = lexer.getCurrentToken().getText().toUpperCase(Locale.getDefault());
         lexer.fetchNextToken();
         final FunctionNodeCreator functionNodeCreator = functionMap.get(functionName);
         if (functionNodeCreator == null) {
-            return new Error("Err:Syntax", "Unknown function, got " + functionName);
+            return new Error(SYNTAX_ERROR_CODE, "Unknown function, got " + functionName);
         }
         final ArrayList<Node> parameters = parseParameters();
         if (parameters == null) {
-            return new Error("Err:Syntax", "Parse parameters error");
+            return new Error(SYNTAX_ERROR_CODE, "Parse parameters error");
         } else if (!parameters.isEmpty() && parameters.get(0).isError()) {
             return parameters.get(0);
         } else if (!currentTokenMatches(TokenType.CLOSED_PAREN)) {
-            return new Error("Err:Syntax",
+            return new Error(SYNTAX_ERROR_CODE,
                              "Syntax error: expected a ')', got " + lexer.currentTokenName());
         }
         // skip the closed parenthesis
@@ -383,6 +425,13 @@ public final class CellariumParser implements Parser {
      * returns empty list if no paramters,
      * list with one element if there are errors,
      * otherwise, a list with all the parameters.
+     * 
+     * <p>EBNF:
+     * <code>
+     * PARAMETERS ::= [EXPRESSION {"," EXPRESSION}]
+     * </code>
+     * 
+     * @return an array of Nodes representing the parameters
      */
     private ArrayList<Node> parseParameters() {
         final ArrayList<Node> result = new ArrayList<Node>();
@@ -416,5 +465,27 @@ public final class CellariumParser implements Parser {
      */
     public boolean currentTokenMatches(final TokenType type) {
         return lexer != null && lexer.currentTokenMatches(type);
+    }
+    
+    /**
+     * Returns a cell from a parsed Reference.
+     * We already point to the beginning of the reference, 
+     * and we expect that there is nothing after it.
+     * 
+     * @return a cell from a parsed Reference.
+     */
+    public Cell getCellFromParsedReference() {
+        final Node node = parseCellReference();
+        if (!(node instanceof CellReference)) {
+            return null;
+        }
+        final CellReference cellReference = (CellReference)node;
+        if (!currentTokenMatches(TokenType.END_OF_FILE)) {
+            return null;
+        }
+        final int row = cellReference.getRow(0);
+        final int col = cellReference.getCol(0);
+        final int index = spreadsheet.indexFromRowCol(row, col);
+        return spreadsheet.getOrCreate(row, col);
     }
 }

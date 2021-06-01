@@ -31,10 +31,28 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(final JTable table, final Object value, 
                                                    final boolean isSelected, final boolean hasFocus,
                                                    final int row, final int column) {
-        // set content allignment and font
-        setHorizontalAlignment(JLabel.CENTER);     
+        if (row == 0 || column == 0) {
+            renderBoundary(table, value, row, column);
+        } else {
+            renderSpreadsheet(table, value, isSelected, row, column);
+        }
+        return this;
+    }
+    
+    /**
+     * to render the spreadsheet boundary cell.
+     * 
+     * @param table the table
+     * @param value the value to insert
+     * @param row the row
+     * @param column the column
+     */
+    private void renderBoundary(final JTable table, final Object value, 
+                                final int row, final int column) {
+        assert row == 0 || column == 0;
+        // set default font  
         super.setFont(font);
-        
+        setHorizontalAlignment(row == 0 ? JLabel.CENTER : JLabel.RIGHT); 
         if (row == 0) {
             super.setBackground(column == table.getSelectedColumn()
                                 ? Color.ORANGE
@@ -44,7 +62,6 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
                                 : Color.WHITE);
             super.setValue(value);
         } else if (column == 0) {
-            super.setHorizontalAlignment(JLabel.RIGHT);
             super.setBackground(row == table.getSelectedRow() 
                                 ? Color.ORANGE
                                 : Color.DARK_GRAY);
@@ -52,17 +69,30 @@ public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {
                                 ? Color.BLACK
                                 : Color.WHITE);
             super.setValue(value + "      ");
-        } else {
-            final SpreadsheetViewTableModel tableModel = 
-                (SpreadsheetViewTableModel)(table.getModel());
-            final boolean isError = tableModel.isErrorAt(row, column);
-            final boolean isNumber = tableModel.isNumberAt(row, column);
-            super.setFont(getFont().deriveFont(isNumber ? Font.PLAIN : Font.ITALIC));
-            super.setHorizontalAlignment(isNumber ? JLabel.RIGHT : JLabel.LEFT);
-            super.setForeground(isError ? Color.RED : Color.BLACK);
-            super.setBackground(isSelected ? Color.ORANGE : Color.WHITE);
-            super.setValue(value);
         }
-        return this;
+    }
+    
+    /**
+     * to render the spreadsheet cell.
+     * 
+     * @param table the table
+     * @param value the value to insert
+     * @param isSelected true if the cell is selected
+     * @param row the row
+     * @param column the column
+     */
+    private void renderSpreadsheet(final JTable table, final Object value, 
+                                   final boolean isSelected,
+                                   final int row, final int column) {
+        assert row != 0 || column != 0;
+        final SpreadsheetViewTableModel tableModel = 
+            (SpreadsheetViewTableModel)(table.getModel());
+        final boolean isError = tableModel.isErrorAt(row, column);
+        final boolean isNumber = tableModel.isNumberAt(row, column);
+        super.setFont(getFont().deriveFont(isNumber ? Font.PLAIN : Font.ITALIC));
+        super.setHorizontalAlignment(isNumber ? JLabel.RIGHT : JLabel.LEFT);
+        super.setForeground(isError ? Color.RED : Color.BLACK);
+        super.setBackground(isSelected ? Color.ORANGE : Color.WHITE);
+        super.setValue(value);
     }
 }

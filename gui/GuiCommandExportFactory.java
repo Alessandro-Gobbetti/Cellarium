@@ -13,7 +13,7 @@ public class GuiCommandExportFactory implements GuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandExport(input, spreadsheetView);
+        return new GuiCommandSaveOrExport(false, input, spreadsheetView);
     }
     
     @Override

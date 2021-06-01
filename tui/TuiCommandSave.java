@@ -3,7 +3,7 @@ package tui;
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.CellariumParser;
-import spreadsheet.ImputOutput;
+import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
@@ -25,7 +25,7 @@ public class TuiCommandSave extends NotUndoableStateChangingCommand {
     
 
     /**
-     * Creator for TuiCommandOpen.
+     * Creator for TuiCommandSave.
      * @param sourceCode   the sourceCode 
      * @param spreadsheet  the spreadsheet 
      */
@@ -54,7 +54,7 @@ public class TuiCommandSave extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.save(filePathName, spreadsheet);
+            InputOutputHelper.save(filePathName, spreadsheet);
             setLastOperationOk();
         }
     }

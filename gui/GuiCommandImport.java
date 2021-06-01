@@ -3,7 +3,7 @@ package gui;
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.CellariumParser;
-import spreadsheet.ImputOutput;
+import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Text;
 
@@ -51,8 +51,9 @@ public class GuiCommandImport extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.openFromCsv(filePathName, spreadsheetView.getSpreadsheet());
+            InputOutputHelper.openFromCsv(filePathName, spreadsheetView.getSpreadsheet());
             spreadsheetView.fireTableDataChanged();
+            setLastOperationOk();
         }
     }
     

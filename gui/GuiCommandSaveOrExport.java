@@ -1,9 +1,9 @@
 package gui;
 
-import commands.NotUndoableStateChangingCommand;
+import commands.NotUndoableNotStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.CellariumParser;
-import spreadsheet.ImputOutput;
+import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Text;
 
@@ -13,28 +13,31 @@ import spreadsheet.Text;
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
-public class GuiCommandSave extends NotUndoableStateChangingCommand {
+public class GuiCommandSaveOrExport extends NotUndoableNotStateChangingCommand {
     
+    private boolean isSave;
     private String sourceCode;
     private SpreadsheetViewTableModel spreadsheetView;
     
 
     /**
-     * Creator for TuiCommandSet.
+     * Creator for GuiCommandSaveOrExport.
      * 
      * @param sourceCode the source code
      * @param spreadsheetView the table model
      */
-    public GuiCommandSave(final String sourceCode,
-                          final SpreadsheetViewTableModel spreadsheetView) {
+    public GuiCommandSaveOrExport(final boolean isSave,
+                                  final String sourceCode,
+                                  final SpreadsheetViewTableModel spreadsheetView) {
         super();
+        this.isSave = isSave;
         this.sourceCode = sourceCode;
         this.spreadsheetView = spreadsheetView;
     }
     
     @Override
     public String getName() {
-        return "Save";
+        return isSave ? "Save" : "Export";
     }
 
     @Override
@@ -43,7 +46,6 @@ public class GuiCommandSave extends NotUndoableStateChangingCommand {
         parser.initLexer(sourceCode);
         if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
             setLastOperationStatus(false, true, "Please insert a file name");
-            return;
         } else {
             final Node content = parser.parseCell();
             final String filePathName = content.toString();
@@ -51,7 +53,11 @@ public class GuiCommandSave extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.save(filePathName, spreadsheetView.getSpreadsheet());
+            if (isSave) {
+                InputOutputHelper.save(filePathName, spreadsheetView.getSpreadsheet());
+            } else {
+                InputOutputHelper.generateCsvFile(filePathName, spreadsheetView.getSpreadsheet());
+            }
             setLastOperationOk();
         }
     }

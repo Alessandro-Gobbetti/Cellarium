@@ -140,6 +140,34 @@ public class Spreadsheet {
         maxUsedCellCol = 0;
     }
     
+    /**
+     * To save the state of the spreadsheet in a map.
+     * 
+     * @param state the map.
+     */
+    public void saveStateIn(final HashMap<Integer, Node> state) {
+        for (final int index: getCellMap().keySet()) {
+            final int row = rowFromIndex(index);
+            final int col = colFromIndex(index);
+            final Node formula = get(row, col).getFormulaNode();
+            state.put(index, formula);
+        }
+    }
+    
+    /**
+     * To restore the state of the spreadsheet from a map.
+     * 
+     * @param state the map.
+     */
+    public void restoreStateFrom(final HashMap<Integer, Node> state) {
+        clear();
+        for (final int index : state.keySet()) {
+            final int row = rowFromIndex(index);
+            final int col = colFromIndex(index);
+            final Cell cell = getOrCreate(row, col);
+            cell.setFormula(state.get(index));
+        }
+    }
     
     /**
      * Whatches out if the Cell exists.
@@ -181,7 +209,7 @@ public class Spreadsheet {
         Cell result = get(row, col);
         if (result == null) {
             final int cellIndex = indexFromRowCol(row, col);
-            result = new Cell(this, row, col);
+            result = new Cell(row, col);
             cellMap.put(cellIndex, result);
             // Update max indices
             maxUsedCellRow = Math.max(maxUsedCellRow, row);

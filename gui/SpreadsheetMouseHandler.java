@@ -17,6 +17,7 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
     
     private SpreadsheetViewTableModel spreadsheetView;
     private JTextField terminal;
+    private JTextField outputMessageField;
     private Table table;
     
     /**
@@ -28,10 +29,12 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
      */
     public SpreadsheetMouseHandler(final SpreadsheetViewTableModel spreadsheetView,
                                    final JTextField terminal,
+                                   final JTextField outputMessageField,
                                    final Table table) {
         super();
         this.spreadsheetView = spreadsheetView;
         this.terminal = terminal;
+        this.outputMessageField = outputMessageField;
         this.table = table;
     }
     
@@ -60,6 +63,7 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
                 terminal.setForeground(Color.BLACK);
             }
             terminal.setText(command);
+            outputMessageField.setText("");
         }
     }
 

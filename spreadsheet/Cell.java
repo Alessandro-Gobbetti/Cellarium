@@ -10,33 +10,28 @@ import java.util.ArrayList;
  */
 public class Cell {
     
-    private Spreadsheet owner;
     private int row;
     private int col;
     private CellValue value;
     private boolean isEvaluating;
     private boolean isValueUpToDate;
     private Node formula;
-    private Style style;
     private ArrayList<Cell> cellDependingOnThis;
     
     
     /**
      * Constructor for objects of class Cell.
      * 
-     * @param owner  the spreadsheet that contains the Cell.
      * @param row the row of the cell.
      * @param col the column of the cell.
      */
-    public Cell(final Spreadsheet owner, final int row, final int col) {
-        this.owner = owner;
+    public Cell(final int row, final int col) {
         this.row = row;
         this.col = col;
         this.value = new EmptyCellValue();
         this.isEvaluating = false;
         this.isValueUpToDate = true;
         this.formula = null;
-        this.style = new Style();
         this.cellDependingOnThis = new ArrayList<Cell>();
     }
 

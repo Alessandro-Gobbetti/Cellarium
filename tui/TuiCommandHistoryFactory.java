@@ -24,7 +24,7 @@ public class TuiCommandHistoryFactory implements TuiCommandFactory {
     
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandHistory(interpreter, input);
+        return new TuiCommandHistory(interpreter);
     }
     
     @Override

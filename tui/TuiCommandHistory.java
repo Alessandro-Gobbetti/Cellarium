@@ -3,12 +3,8 @@ package tui;
 import commands.NotUndoableNotStateChangingCommand;
 
 /**
- * To print a help message for all commands or just for one.
+ * To print all the history commands.
  * 
- * <p>
- * HELP             to print the list of commands
- * HELP COMMAND     to print the help of a given command
- * </p>
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
@@ -16,18 +12,15 @@ import commands.NotUndoableNotStateChangingCommand;
 public class TuiCommandHistory extends NotUndoableNotStateChangingCommand {
 
     private TuiCommandInterpreter interpreter;
-    private String sourceCode;
     
     /**
-     * Constructor for SpreadsheetCommandHelp.
-     * @param interpreter  the interpreter
-     * @param sourceCode   the sourceCode 
+     * Constructor for TuiCommandHistory.
+     * 
+     * @param interpreter the interpreter
      */
-    public TuiCommandHistory(final TuiCommandInterpreter interpreter,
-                             final String sourceCode) {
+    public TuiCommandHistory(final TuiCommandInterpreter interpreter) {
         super();
         this.interpreter = interpreter;
-        this.sourceCode = sourceCode;
     }
     
     @Override

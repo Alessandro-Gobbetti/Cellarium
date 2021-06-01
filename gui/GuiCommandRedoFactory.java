@@ -1,6 +1,7 @@
 package gui;
 
 import commands.Command;
+import commands.CommandUndoRedo;
 
 /**
  * Write a description of class guiCommandSetFactory here.
@@ -12,7 +13,7 @@ public class GuiCommandRedoFactory implements GuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandRedo();
+        return new CommandUndoRedo(false);
     }
     
     @Override

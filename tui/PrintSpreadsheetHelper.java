@@ -6,10 +6,10 @@ import spreadsheet.Spreadsheet;
 /**
  * To print a spreadsheet on terminal.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
-public class PrintSpreadsheet {
+public class PrintSpreadsheetHelper {
 
     
     private static final String ANSI_RED = "\u001B[31m";
@@ -18,7 +18,7 @@ public class PrintSpreadsheet {
     /**
      * Constructor for PrintSpreadsheet.
      */
-    private PrintSpreadsheet() {
+    private PrintSpreadsheetHelper() {
     }
     
     /**

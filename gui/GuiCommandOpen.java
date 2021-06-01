@@ -3,7 +3,7 @@ package gui;
 import commands.NotUndoableStateChangingCommand;
 import lexer.TokenType;
 import spreadsheet.CellariumParser;
-import spreadsheet.ImputOutput;
+import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Text;
 
@@ -50,7 +50,7 @@ public class GuiCommandOpen extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            ImputOutput.open(filePathName, spreadsheetView.getSpreadsheet());
+            InputOutputHelper.open(filePathName, spreadsheetView.getSpreadsheet());
             spreadsheetView.fireTableDataChanged();
             setLastOperationOk();
         }
