@@ -1,7 +1,7 @@
 package gui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import lexer.TokenType;
+import spreadsheet.lexer.TokenType;
 import spreadsheet.CellariumParser;
 import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;

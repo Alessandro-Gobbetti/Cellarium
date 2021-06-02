@@ -1,7 +1,7 @@
 package tui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import lexer.TokenType;
+import spreadsheet.lexer.TokenType;
 import spreadsheet.Cell;
 import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
