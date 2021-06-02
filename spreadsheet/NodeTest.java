@@ -88,10 +88,11 @@ public class NodeTest {
     
     @Test 
     public void testAdditionEval() {
-        Spreadsheet s = new Spreadsheet();
         Node e = new Addition(new Literal(5.0), new Literal(6.0));
         Node a = new Addition(new Literal(3.0), new Literal(3.0));
+        Node i = new Addition(new Text("Hello"), new Literal(6.0));
         assertEquals(11.0, e.eval().asNumber(), 0.0);
+        assertTrue(i.eval().isError());
         assertEquals(6.0, a.eval().asNumber(), 0.0);
     }
     
@@ -127,7 +128,6 @@ public class NodeTest {
     
     @Test 
     public void testLiteralEval() {
-        Spreadsheet s = new Spreadsheet();
         Node e = new Literal(5.0);
         Node a = new Literal(3.0);
         assertEquals(5.0, e.eval().asNumber(), 0.0);
@@ -141,6 +141,8 @@ public class NodeTest {
         Node a = new Sine(new Literal(180.0));
         Node i = new Sine(new Literal(0.0));
         Node j = new Sine(new Negation(new Literal(180.0)));
+        Node k = new Sine(new SquareRoot(new Literal(-1)));
+        assertTrue(k.eval().isError());
         assertEquals(0.893996663600558, e.eval().asNumber(), 0.0000000001);
         assertEquals(-0.80115263573383, a.eval().asNumber(), 0.0000000001);
         assertEquals(0.0, i.eval().asNumber(), 0.0);
@@ -160,6 +162,30 @@ public class NodeTest {
         assertEquals(1.0, i.eval().asNumber(), 0.0);
         assertEquals(-0.598460069057858, j.eval().asNumber(), 0.0000000001);
         assertEquals("cos(90.0)", e.toString());
+    }
+    
+    @Test
+    public void testTanEval() {
+        Node e = new Tangent(new Literal(90.0));
+        Node a = new Tangent(new Literal(10));
+        Node i = new Tangent(new Literal(0.0));
+        Node j = new Negation(a);
+        assertEquals(-1.99520041221, e.eval().asNumber(), 0.0000000001);
+        assertEquals(0.64836082745, a.eval().asNumber(), 0.0000001);
+        assertEquals(0.0, i.eval().asNumber(), 0.0);
+        assertEquals(-0.64836082745, j.eval().asNumber(), 0.000000001);
+        assertEquals("tan(90.0)", e.toString());
+    }
+    
+    @Test
+    public void testLogEval() {
+        Node e = new Logarithm(new Literal(90.0));
+        Node a = new Logarithm(new Literal(10.0));
+        Node i = new Logarithm(new Literal(Math.E));
+        assertEquals(4.499809670330, e.eval().asNumber(), 0.00000001);
+        assertEquals(2.302585092994046, a.eval().asNumber(), 0.000000001);
+        assertEquals(1.0, i.eval().asNumber(), 0.0);
+        assertEquals("log(90.0)", e.toString());
     }
     
     @Test
@@ -223,6 +249,14 @@ public class NodeTest {
         Cell cA2 =  s.getOrCreate(1,0);
         Cell cA3 =  s.getOrCreate(2,0);
         
+        Node a = new Average(new CellReferenceRange(new CellReference(s, false, 0, false, 0),
+                                                    new CellReference(s, false, 2, false, 0)));
+        assertTrue(a.eval().isError());
+        
+        cA1.setFormula(p.parse("Hello!"));
+        assertTrue(a.eval().isError());
+        assertFalse(a.isConstant());
+        
         cA1.setFormula(p.parse("10"));
         cA2.setFormula(p.parse("= A1 + 5.0"));
         cA3.setFormula(p.parse("= A1 * A2"));
@@ -230,6 +264,7 @@ public class NodeTest {
         Node e = new Average(new CellReferenceRange(new CellReference(s, false, 0, false, 0),
                                                     new CellReference(s, false, 2, false, 0)));
         assertEquals(58.333333333, e.eval().asNumber(), 0.0000001);
+        assertFalse(e.isConstant());
         assertEquals("AVERAGE(A1:A3)", e.toString());
     }
     

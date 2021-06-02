@@ -172,6 +172,29 @@ public class CellariumParserTest {
     }
     
     @Test
+    public void testFunction() {
+        // setup
+        final Spreadsheet s = new Spreadsheet();
+        final Parser parser = new CellariumParser(s);
+        // test input
+        final String sourceCode = "sin(12.0)";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new Sine(new Literal(12));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+        final String sourceCode2 = "= sin(12";
+        assertTrue(parser.parse(sourceCode2).isError());
+        final String sourceCode3 = "= hello(12)";
+        assertTrue(parser.parse(sourceCode3).isError());
+        final String sourceCode4 = "= sin()";
+        assertTrue(parser.parse(sourceCode4).isError());
+        final String sourceCode5 = "= 12,13,)";
+        assertTrue(parser.parse(sourceCode3).isError());
+    }
+    
+    @Test
     public void testErrors() {
         // setup
         final Spreadsheet s = new Spreadsheet();
@@ -208,6 +231,16 @@ public class CellariumParserTest {
         expectedRoot = new Assign(new CellReference(s, true, 122, true, 27));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
+        
+        String sourceCode2 = "= $A0";
+        assertTrue(parser.parse(sourceCode2).isError());
+        
+        String sourceCode3 = "= $A1:B0";
+        assertTrue(parser.parse(sourceCode3).isError());
+        String sourceCode4 = "= $A1:5";
+        assertTrue(parser.parse(sourceCode4).isError());
+        String sourceCode5 = "= $0:5";
+        assertTrue(parser.parse(sourceCode4).isError());
     }
     
     @Test 
@@ -230,7 +263,7 @@ public class CellariumParserTest {
     public void testCellariumParser2() {
         // setup
         final Spreadsheet s = new Spreadsheet();
-        final Parser parser = new CellariumParser(s);
+        final CellariumParser parser = new CellariumParser(s);
         
         // test input
         final String sourceCode = "$A1";
@@ -240,7 +273,18 @@ public class CellariumParserTest {
         final Node expectedRoot = new Text(sourceCode);
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
+        
+        Cell c = parser.getCellFromParsedReference();
+        assertTrue(c instanceof Cell);
+        
+        final String sourceCode2 = "1";
+        assertFalse(parser.getCellFromParsedReference() instanceof Cell);
+        
+        final String sourceCode3 = "A1 *2";
+        assertFalse(parser.getCellFromParsedReference() instanceof Cell);
     }
+    
+    
     
     /**
     @Test 

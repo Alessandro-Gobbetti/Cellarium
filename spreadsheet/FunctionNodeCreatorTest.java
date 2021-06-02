@@ -71,11 +71,29 @@ public class FunctionNodeCreatorTest {
     }
     
     @Test
-    public void testCosineNodeCreatorr() {
+    public void testCosineNodeCreator() {
         CosineNodeCreator creator = new CosineNodeCreator();
         Node literal = new Literal(1.0);
         CellValue cellValue = creator.unaryCreate(literal).eval();
         assertEquals(0.54030230586814 , cellValue.asNumber(), 0.0000001);
+    }
+    
+    @Test
+    public void testTangentNodeCreator() {
+        final FunctionNodeCreator creator = new TangentNodeCreator();
+        final Node literal = new Literal(0.0);
+        final ArrayList<Node> parameters = new ArrayList<Node>(){{add(literal);}};
+        CellValue cellValue = creator.create(parameters).eval();
+        assertEquals(0.0 , cellValue.asNumber(), 0);
+    }
+    
+    @Test
+    public void testLogarithmNodeCreator() {
+        final FunctionNodeCreator creator = new LogarithmNodeCreator();
+        final Node literal = new Literal(10.0);
+        final ArrayList<Node> parameters = new ArrayList<Node>(){{add(literal);}};
+        CellValue cellValue = creator.create(parameters).eval();
+        assertEquals(2.302585092994046 , cellValue.asNumber(), 00000000000001);
     }
 
     @Test

@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * The test class SpreadsheetTest, test some aspects of 
@@ -20,11 +21,19 @@ public class SpreadsheetTest {
         Cell c11 =  s.getOrCreate(1,1);
         Cell c12 =  s.getOrCreate(1,2);
         Cell c13 =  s.getOrCreate(1,3);
+        Cell c14 =  s.getOrCreate(1,4);
+        Cell c15 =  s.getOrCreate(1,5);
         
-        c11.setFormula(new Literal(10.0));
+        final Cell c1010 = s.getOrCreate(10,10);
+        c11.setFormulaAndGetOutdatedCells(new Literal(10.0), new ArrayList<Cell>(){{add(c1010);};});
         c12.setFormula(new Addition(new Literal(5.0), new CellReference(s, false, 1, false, 1)));
         c13.setFormula(new Multiplication(new CellReference(s, false, 1, false, 1), new CellReference(s, false, 1, false, 2)));
-
+        c14.setFormula(new CellReference(s, false, 1, false, 4));
+        c15.setFormula(null);
+        assertTrue(c14.eval().isError());
+        assertTrue(c15.eval().isConvertibleToNumber());
+        assertEquals(1, c11.getRow());
+        assertEquals(1, c11.getCol());
         assertEquals(150, s.getValue(1,3).asNumber(), 0.0);
         c11.setFormula(new Literal(20.0));
         assertEquals(500, s.getValue(1,3).asNumber(), 0.0);
@@ -130,5 +139,26 @@ public class SpreadsheetTest {
         Spreadsheet s = new Spreadsheet();
         s.copyPaste(0,0,1,1);
         s.cutPaste(1,1,0,0);
+    }
+    
+    @Test 
+    public void testStoreAndRestore() {
+        Spreadsheet s = new Spreadsheet();
+        Parser p = new CellariumParser(s);
+        Cell cA3 =  s.getOrCreate(2,0);
+        Cell cA2 =  s.getOrCreate(1,0);
+        Cell cC3 =  s.getOrCreate(2,2);
+        Cell cD4 =  s.getOrCreate(3,4);
+        
+        cA3.setFormula(p.parse("10"));
+        cA2.setFormula(p.parse("= A1 + 5.0"));
+        cC3.setFormula(p.parse("= A1 * A2"));
+        cD4.setFormula(p.parse("=AVERAGE(A1:A3)"));
+        
+        HashMap<Integer, Node> state = new HashMap<Integer, Node>();
+        s.saveStateIn(state);
+        s.clear();
+        s.restoreStateFrom(state);
+        assertTrue(s.exists(3,4));
     }
 }

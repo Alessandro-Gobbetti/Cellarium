@@ -51,6 +51,8 @@ public final class CellariumParser implements Parser {
                 put("E(", new LiteralNodeCreator(Math.E));
                 put("SIN(", new SineNodeCreator());
                 put("COS(", new CosineNodeCreator());
+                put("TAN(", new TangentNodeCreator());
+                put("LOG(", new LogarithmNodeCreator());
                 put("SQRT(", new SquareRootNodeCreator());
                 put("AVERAGE(", new AverageNodeCreator());
                 put("SUM(", new SumNodeCreator());
