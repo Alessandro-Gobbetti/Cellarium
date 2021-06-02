@@ -10,7 +10,6 @@ package spreadsheet;
  */
 public class Average extends RangeOperation {
     
-    private double currentCount;
     
     /**
      * Create a new Average node.
@@ -18,7 +17,6 @@ public class Average extends RangeOperation {
      */
     public Average(final CellReferenceRange child) {
         super(child);
-        currentCount = 0;
     }
     
     @Override
@@ -33,16 +31,13 @@ public class Average extends RangeOperation {
     
     @Override
     protected double computeNext(final double result, final CellValue value) {
-        currentCount++;
-        if (Double.isNaN(result)) {
-            return value.asNumber();
-        } else {
-            return result + value.asNumber();
-        }
+        return result;
     }
     
     @Override
     protected double computeResult(final double result) {
-        return result / currentCount;
+        final RangeOperation count = new Count(getChild());
+        final RangeOperation sum = new Sum(getChild());
+        return sum.eval().asNumber() / count.eval().asNumber();
     }
 }
