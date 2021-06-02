@@ -4,8 +4,8 @@ import commands.Command;
 import commands.CommandProcessor;
 
 import java.awt.Color;
-import java.util.Locale;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.JTextField;
 
 /**

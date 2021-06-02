@@ -4,8 +4,8 @@ import commands.Command;
 import commands.CommandProcessor;
 import spreadsheet.Spreadsheet;
 
-import java.util.Locale;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
