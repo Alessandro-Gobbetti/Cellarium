@@ -111,7 +111,7 @@ public abstract class Command {
      * To set the last operation ok.
      */
     protected void setLastOperationOk() {
-        setLastOperationStatus(true, false, "Ok");
+        setLastOperationStatus(true, false, "Ok!");
     }
     
 }

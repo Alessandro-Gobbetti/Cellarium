@@ -3,10 +3,10 @@ package gui;
 import commands.Command;
 
 /**
- * Write a description of class GuiCommandFactory here.
+ * To create gui commands.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public abstract interface GuiCommandFactory {
     
@@ -20,17 +20,4 @@ public abstract interface GuiCommandFactory {
     public abstract Command getCommand(final String input,
                                        final SpreadsheetViewTableModel spreadsheetView);
     
-    /**
-     * Return a short description for the command.
-     * @return a short description for command.
-     */
-    public abstract String helpShort();
-    
-    /**
-     * Return a long description for the command.
-     * @param commandName  the name of the command.
-     * @return a long description for command.
-     */
-    public abstract String helpLong(final String commandName);
-
 }

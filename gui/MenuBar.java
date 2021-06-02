@@ -10,7 +10,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -24,8 +23,6 @@ public class MenuBar extends JMenuBar {
     private GuiCommandInterpreter interpreter;
     private SpreadsheetViewTableModel spreadsheetView;
     private FileChooser fileChooser;
-    private final FileNameExtensionFilter cellariumFilter;
-    private final FileNameExtensionFilter csvFilter;
     
     /**
      * Creates the a MenuBar.
@@ -40,12 +37,6 @@ public class MenuBar extends JMenuBar {
         this.interpreter = interpreter;
         this.spreadsheetView = spreadsheetView;
         fileChooser = new FileChooser();
-        cellariumFilter = new FileNameExtensionFilter(
-                        "Cellarium files (*.cellarium)",
-                        "cellarium");
-        csvFilter = new FileNameExtensionFilter(
-                        "Text files (*.csv, *.txt)",
-                        "txt", "text", "csv");
         
         //Sets font
         UIManager.put("Menu.font", font);
@@ -59,7 +50,6 @@ public class MenuBar extends JMenuBar {
         addSaveMenuItem(fileMenu);
         addImportMenuItem(fileMenu);
         addExportMenuItem(fileMenu);
-        addPrintMenuItem(fileMenu);
         addQuitMenuItem(fileMenu);
         
         final JMenu editMenu = new JMenu("Edit");
@@ -85,16 +75,16 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addNewMenuItem(final JMenu menu) {
-        final JMenuItem newItem = new JMenuItem("New...");
-        newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        newItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("CLEAR", spreadsheetView);
-                fileChooser.setFileFilter(cellariumFilter);
                 fileChooser.saveFileDialog(interpreter, spreadsheetView);
             }
-        });
-        menu.add(newItem);
+        };
+        addMenuItem(menu,
+                    "New...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -102,15 +92,14 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addOpenMenuItem(final JMenu menu) {
-        final JMenuItem openItem = new JMenuItem("Open...");
-        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        openItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
-                fileChooser.setFileFilter(cellariumFilter);
                 fileChooser.openFileDialog(interpreter, spreadsheetView);
             }
-        });
-        menu.add(openItem);
+        };
+        addMenuItem(menu, "Open...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -118,15 +107,14 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addSaveMenuItem(final JMenu menu) {
-        final JMenuItem saveItem = new JMenuItem("Save...");
-        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        saveItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
-                fileChooser.setFileFilter(cellariumFilter);
                 fileChooser.saveFileDialog(interpreter, spreadsheetView);
             }
-        }); 
-        menu.add(saveItem);
+        };
+        addMenuItem(menu, "Save...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -134,15 +122,15 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addImportMenuItem(final JMenu menu) {
-        final JMenuItem importItem = new JMenuItem("Import...");
-        importItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
-        importItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
-                fileChooser.setFileFilter(csvFilter);
                 fileChooser.importFileDialog(interpreter, spreadsheetView);
             }
-        });
-        menu.add(importItem);
+        };
+        addMenuItem(menu,
+                    "Import...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -150,24 +138,15 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addExportMenuItem(final JMenu menu) {
-        final JMenuItem exportItem = new JMenuItem("Export...");
-        exportItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-        exportItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
-                fileChooser.setFileFilter(csvFilter);
                 fileChooser.exportFileDialog(interpreter, spreadsheetView);
             }
-        }); 
-        menu.add(exportItem);
-    }
-    
-    /**
-     * to add PRINT item to a menu.
-     * @param menu the menu
-     */
-    private void addPrintMenuItem(final JMenu menu) {
-        final JMenuItem printItem = new JMenuItem("Print");
-        menu.add(printItem);
+        };
+        addMenuItem(menu,
+                    "Export...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -175,14 +154,14 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addQuitMenuItem(final JMenu menu) {
-        final JMenuItem quitItem = new JMenuItem("Quit");
-        quitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-        quitItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent event) { 
                 System.exit(0);
             }
-        });
-        menu.add(quitItem);
+        };
+        addMenuItem(menu, "Quit",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -190,14 +169,15 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addUndoMenuItem(final JMenu menu) {
-        final JMenuItem undoItem = new JMenuItem("Undo");
-        undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
-        undoItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
                 interpreter.parseAndExecute("UNDO", spreadsheetView);
             }
-        });
-        menu.add(undoItem);
+        };
+        addMenuItem(menu,
+                    "Undo",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -205,14 +185,15 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addRedoMenuItem(final JMenu menu) {
-        final JMenuItem redoItem = new JMenuItem("Redo");
-        redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
-        redoItem.addActionListener(new ActionListener() {
+        final ActionListener action = new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("REDO", spreadsheetView);
             }
-        });
-        menu.add(redoItem);
+        };
+        addMenuItem(menu,
+                    "Redo",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK),
+                    action);
     }
     
     /**
@@ -220,18 +201,21 @@ public class MenuBar extends JMenuBar {
      * @param menu the menu
      */
     private void addClearMenuItem(final JMenu menu) {
-        addMenuItem(menu,
-                    "Clear All", 
+        final ActionListener action = new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                interpreter.parseAndExecute("CLEAR", spreadsheetView);
+            }
+        };
+        addMenuItem(menu,"Clear All", 
                     KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK),
-                    new ActionListener() {
-                        public void actionPerformed(final ActionEvent e) {
-                            interpreter.parseAndExecute("CLEAR", spreadsheetView);
-                        }
-                    });
+                    action);
     }
     
-    private void addMenuItem(final JMenu menu, final String name, final KeyStroke keyStroke,
-                            final ActionListener action) {
+    // to quickly add an item to a menu.
+    private void addMenuItem(final JMenu menu,
+                             final String name,
+                             final KeyStroke keyStroke,
+                             final ActionListener action) {
         final JMenuItem item = new JMenuItem(name);
         item.setAccelerator(keyStroke);
         item.addActionListener(action);

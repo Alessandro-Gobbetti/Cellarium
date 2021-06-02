@@ -2,6 +2,7 @@ package gui;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * A file FileChooser. This class extends JFileChooser that 
@@ -12,6 +13,13 @@ import javax.swing.JFileChooser;
  */
 public class FileChooser extends JFileChooser {
 
+    private static final FileNameExtensionFilter CELLARIUM_FILTER = 
+        new FileNameExtensionFilter("Cellarium files (*.cellarium)",
+                                     "cellarium");
+    private static final FileNameExtensionFilter CSV_FILTER =
+        new FileNameExtensionFilter("Text files (*.csv, *.txt)",
+                                    "txt", "text", "csv");
+
     /**
      * To create and show a open file dialog.
      * @param interpreter the interpreter.
@@ -19,6 +27,8 @@ public class FileChooser extends JFileChooser {
      */
     public void openFileDialog(final GuiCommandInterpreter interpreter, 
                                final SpreadsheetViewTableModel spreadsheetView) {
+        resetChoosableFileFilters();
+        setFileFilter(CELLARIUM_FILTER);
         final int returnVal = showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();
@@ -34,6 +44,8 @@ public class FileChooser extends JFileChooser {
      */
     public void saveFileDialog(final GuiCommandInterpreter interpreter, 
                                final SpreadsheetViewTableModel spreadsheetView) {
+        resetChoosableFileFilters();
+        setFileFilter(CELLARIUM_FILTER);
         final int returnVal = showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();
@@ -50,6 +62,8 @@ public class FileChooser extends JFileChooser {
      */
     public void importFileDialog(final GuiCommandInterpreter interpreter,
                                  final SpreadsheetViewTableModel spreadsheetView) {
+        resetChoosableFileFilters();
+        setFileFilter(CSV_FILTER);
         final int returnVal = showDialog(this, "Import");
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();
@@ -65,6 +79,8 @@ public class FileChooser extends JFileChooser {
      */
     public void exportFileDialog(final GuiCommandInterpreter interpreter,
                                  final SpreadsheetViewTableModel spreadsheetView) {
+        resetChoosableFileFilters();
+        setFileFilter(CSV_FILTER);
         final int returnVal = showDialog(this, "Export");
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();

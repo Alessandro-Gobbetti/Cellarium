@@ -3,26 +3,18 @@ package gui;
 import commands.Command;
 
 /**
- * Write a description of class GuiCommandSaveFactory here.
+ * To create a Save command.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class GuiCommandSaveFactory implements GuiCommandFactory {
 
 
     @Override
-    public Command getCommand(final String input, final SpreadsheetViewTableModel spreadsheetView) {
+    public Command getCommand(final String input,
+                              final SpreadsheetViewTableModel spreadsheetView) {
         return new GuiCommandSaveOrExport(true, input, spreadsheetView);
     }
     
-    @Override
-    public String helpShort() {
-        return "Save the spreadsheet ";
-    }
-    
-    @Override
-    public String helpLong(final String commandName) {
-        return commandName + " FILE-PATH: save the spreadsheet as csv into the given directory.";
-    }
 }

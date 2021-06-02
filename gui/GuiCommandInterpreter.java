@@ -4,8 +4,8 @@ import commands.Command;
 import commands.CommandProcessor;
 
 import java.awt.Color;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.HashMap;
 import javax.swing.JTextField;
 
 /**
@@ -55,8 +55,8 @@ public class GuiCommandInterpreter {
         final String trimmedSourceCode = sourceCode.trim();
         // split the first world to the rest
         final String[] arr = trimmedSourceCode.split(" ", 2);
-        final String commandName = arr.length > 0 ? arr[0].toUpperCase(Locale.getDefault()) : "";   // command
-        final String parameters = arr.length > 1 ? arr[1] : "";    // command parameters
+        final String commandName = arr.length > 0 ? arr[0].toUpperCase(Locale.getDefault()) : "";
+        final String parameters = arr.length > 1 ? arr[1] : "";
         
         final GuiCommandFactory commandFactory = commandMap.get(commandName);
         if (commandFactory == null) {
@@ -65,7 +65,8 @@ public class GuiCommandInterpreter {
             final Command command = commandFactory.getCommand(parameters, spreadsheetView);
             // execute the command.
             commandProcessor.doCommand(command);
-            printMessage(commandProcessor.wasLastOperationSuccessful() ,commandProcessor.getLastOperationMessage());
+            printMessage(commandProcessor.wasLastOperationSuccessful(), 
+                         commandProcessor.getLastOperationMessage());
         }
     }
     
@@ -88,6 +89,8 @@ public class GuiCommandInterpreter {
     
     /**
      * To print a message.
+     * 
+     * @param isOk true if the operation was successfull.
      * @param message the message to print.
      */
     public void printMessage(final boolean isOk, final String message) {

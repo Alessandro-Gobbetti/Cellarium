@@ -1,12 +1,12 @@
 package tui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import spreadsheet.lexer.TokenType;
 import spreadsheet.Cell;
 import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
+import spreadsheet.lexer.TokenType;
 
 /**
  * To print a spreadsheet or just a cell. 

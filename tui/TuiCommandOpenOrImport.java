@@ -1,42 +1,49 @@
 package tui;
 
 import commands.NotUndoableStateChangingCommand;
-import spreadsheet.lexer.TokenType;
 import spreadsheet.CellariumParser;
 import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
+import spreadsheet.lexer.TokenType;
 
 /**
- * To import a csv file as a spreadsheet.
+ * To open a cellarium file as a spreadsheet.
  * 
  * <p>
- * OPEN         to import a csv file as a spreadsheet.
+ * OPEN         to open a cellarium file as a spreadsheet.
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class TuiCommandImport extends NotUndoableStateChangingCommand {
+public class TuiCommandOpenOrImport extends NotUndoableStateChangingCommand {
 
+    private boolean isOpen;
     private String sourceCode;
     private Spreadsheet spreadsheet;
     
+
     /**
-     * Creator for TuiCommandImport.
+     * Creator for TuiCommandOpenOrImport.
+     * 
+     * @param isOpen  true to open a file, false to import it.
      * @param sourceCode   the sourceCode 
      * @param spreadsheet  the spreadsheet 
      */
-    public TuiCommandImport(final String sourceCode, final Spreadsheet spreadsheet) {
+    public TuiCommandOpenOrImport(final boolean isOpen, 
+                                  final String sourceCode, 
+                                  final Spreadsheet spreadsheet) {
         super();
+        this.isOpen = isOpen;
         this.sourceCode = sourceCode;
         this.spreadsheet = spreadsheet;
     }
     
     @Override
     public String getName() {
-        return "Import";
+        return isOpen ? "Open" : "Import";
     }
     
     @Override
@@ -53,7 +60,13 @@ public class TuiCommandImport extends NotUndoableStateChangingCommand {
                 setLastOperationStatus(false, true, filePathName);
                 return;
             }
-            InputOutputHelper.openFromCsv(filePathName, spreadsheet);
+            if (isOpen) {
+                InputOutputHelper.open(filePathName, spreadsheet);
+            } else {
+                InputOutputHelper.openFromCsv(filePathName, spreadsheet);
+            }
+            setLastOperationOk();
         }
     }
+    
 }

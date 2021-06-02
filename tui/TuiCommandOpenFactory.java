@@ -13,7 +13,7 @@ public class TuiCommandOpenFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandOpen(input, spreadsheet);
+        return new TuiCommandOpenOrImport(true, input, spreadsheet);
     }
     
     @Override

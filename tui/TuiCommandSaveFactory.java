@@ -13,7 +13,7 @@ public class TuiCommandSaveFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandSave(input, spreadsheet);
+        return new TuiCommandSaveOrExport(true, input, spreadsheet);
     }
     
     @Override

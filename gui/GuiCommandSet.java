@@ -7,7 +7,7 @@ import spreadsheet.Node;
 import spreadsheet.Text;
 
 /**
- * Write a description of class guiCommandSet here.
+ * To set a cell content.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

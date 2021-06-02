@@ -60,7 +60,7 @@ public abstract class RangeOperation extends Node {
                 result = computeNext(result, value);
             }
         }
-        if (computeResult(result) == Double.NaN) {
+        if (Double.isNaN(computeResult(result))) {
             return new ErrorCellValue("#DIV/0", "Expected a number");
         } else {
             return new NumberCellValue(computeResult(result));

@@ -4,16 +4,16 @@ import commands.Command;
 import spreadsheet.Spreadsheet;
 
 /**
- * This is a factory for tui commands.
+ * To create an Open command.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandImportFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandImport(input, spreadsheet);
+        return new TuiCommandOpenOrImport(false, input, spreadsheet);
     }
     
     @Override

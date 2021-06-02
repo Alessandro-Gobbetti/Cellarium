@@ -324,13 +324,12 @@ public final class CellariumParser implements Parser {
         final String reference = lexer.getCurrentToken().getText();
         lexer.fetchNextToken();
         
-        // Separate reference in row and column parts.
-        int startOfColIndex = 0;
-        int endOfColIndex = 0;
-        int startOfRowIndex = 0;
-        final int endOfRowIndex = reference.length();
+        // Separate reference in row and column parts. 
         boolean rowIsConstant = false;
         boolean colIsConstant = false;
+        int startOfColIndex = 0;
+        int startOfRowIndex = 0;
+        final int endOfRowIndex = reference.length();
         // skip initial dollars
         if (reference.charAt(startOfColIndex) == '$') {
             colIsConstant = true;
@@ -341,7 +340,7 @@ public final class CellariumParser implements Parser {
         if (startOfRowIndex < 0) {
             return new Error(SYNTAX_ERROR_CODE, "Malformed CELL REFERENCE, got " + reference);
         }
-        endOfColIndex = startOfRowIndex;
+        final int endOfColIndex = startOfRowIndex;
         if (reference.charAt(startOfRowIndex) == '$') {
             rowIsConstant = true;
             startOfRowIndex++;
@@ -373,7 +372,9 @@ public final class CellariumParser implements Parser {
      * 
      * @return the start of row index in a CellReference.
      */
-    private int findStartOfRowIndex(final String reference, final int startOfColIndex, final int endOfRowIndex) {
+    private int findStartOfRowIndex(final String reference,
+                                    final int startOfColIndex,
+                                    final int endOfRowIndex) {
         int result = -1;
         for (int i = startOfColIndex; i < endOfRowIndex && result == -1; i++) {
             final char ch = reference.charAt(i);
@@ -400,7 +401,8 @@ public final class CellariumParser implements Parser {
                              "Expected a FUNCTION, got " + lexer.currentTokenName());
         }
         // Get the reference string before skipping it.
-        final String functionName = lexer.getCurrentToken().getText().toUpperCase(Locale.getDefault());
+        final String functionName =
+            lexer.getCurrentToken().getText().toUpperCase(Locale.getDefault());
         lexer.fetchNextToken();
         final FunctionNodeCreator functionNodeCreator = functionMap.get(functionName);
         if (functionNodeCreator == null) {
@@ -485,7 +487,6 @@ public final class CellariumParser implements Parser {
         }
         final int row = cellReference.getRow(0);
         final int col = cellReference.getCol(0);
-        final int index = spreadsheet.indexFromRowCol(row, col);
         return spreadsheet.getOrCreate(row, col);
     }
 }

@@ -1,11 +1,11 @@
 package gui;
 
 import commands.NotUndoableNotStateChangingCommand;
-import spreadsheet.lexer.TokenType;
 import spreadsheet.CellariumParser;
 import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Text;
+import spreadsheet.lexer.TokenType;
 
 /**
  * To save a spreadsheet.
@@ -23,6 +23,7 @@ public class GuiCommandSaveOrExport extends NotUndoableNotStateChangingCommand {
     /**
      * Creator for GuiCommandSaveOrExport.
      * 
+     * @param isSave true to save a file, false to export it.
      * @param sourceCode the source code
      * @param spreadsheetView the table model
      */
@@ -51,14 +52,15 @@ public class GuiCommandSaveOrExport extends NotUndoableNotStateChangingCommand {
             final String filePathName = content.toString();
             if (content.isError() || !(content instanceof Text)) {
                 setLastOperationStatus(false, true, filePathName);
-                return;
-            }
-            if (isSave) {
-                InputOutputHelper.save(filePathName, spreadsheetView.getSpreadsheet());
             } else {
-                InputOutputHelper.generateCsvFile(filePathName, spreadsheetView.getSpreadsheet());
+                if (isSave) {
+                    InputOutputHelper.save(filePathName, spreadsheetView.getSpreadsheet());
+                } else {
+                    InputOutputHelper.generateCsvFile(filePathName,
+                                                      spreadsheetView.getSpreadsheet());
+                }
+                setLastOperationOk();
             }
-            setLastOperationOk();
         }
     }
     

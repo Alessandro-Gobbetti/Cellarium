@@ -8,10 +8,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 
 /**
- * Write a description of class SpreadsheetTerminalHandler here.
+ * To handle the mouse.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetMouseHandler extends MouseAdapter {
     
@@ -24,8 +24,9 @@ public class SpreadsheetMouseHandler extends MouseAdapter {
      * Constructor for SpreadsheetMouseHandler.
      * 
      * @param spreadsheetView the table model.
-     * @param terminal the textfield
-     * @param table the table
+     * @param terminal the textfield.
+     * @param outputMessageField the field where the output message is printed.
+     * @param table the table.
      */
     public SpreadsheetMouseHandler(final SpreadsheetViewTableModel spreadsheetView,
                                    final JTextField terminal,

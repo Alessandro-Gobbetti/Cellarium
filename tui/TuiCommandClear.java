@@ -1,12 +1,11 @@
 package tui;
 
 import commands.UndoableStateChangingCommand;
-import spreadsheet.lexer.TokenType;
 import spreadsheet.Cell;
-import spreadsheet.CellReference;
 import spreadsheet.CellariumParser;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
+import spreadsheet.lexer.TokenType;
 
 import java.util.HashMap;
 

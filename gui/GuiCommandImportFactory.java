@@ -3,26 +3,18 @@ package gui;
 import commands.Command;
 
 /**
- * Write a description of class guiCommandSetFactory here.
+ * To create a Import command.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class GuiCommandImportFactory implements GuiCommandFactory {
 
 
     @Override
-    public Command getCommand(final String input, final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandImport(input, spreadsheetView);
+    public Command getCommand(final String input,
+                              final SpreadsheetViewTableModel spreadsheetView) {
+        return new GuiCommandOpenOrImport(false, input, spreadsheetView);
     }
     
-    @Override
-    public String helpShort() {
-        return "Import a spreadsheet ";
-    }
-    
-    @Override
-    public String helpLong(final String commandName) {
-        return commandName + " FILE-PATH: import the spreadsheet from a csv file.";
-    }
 }
