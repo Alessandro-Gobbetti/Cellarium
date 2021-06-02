@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 import static org.junit.Assert.*;
 import org.junit.After;

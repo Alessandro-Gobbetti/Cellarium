@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

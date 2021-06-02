@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -6,33 +6,33 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class RegExTokenFactoryTest {
+public class StringTokenFactoryTest {
 
     @Test
-    public void testMatchFixed() {
-        RegExTokenFactory f = new RegExTokenFactory("hi");
-        f.setText("XXhiXX");
+    public void testMatchOne() {
+        StringTokenFactory f = new StringTokenFactory("a");
+        f.setText("XXaXX");
         boolean found = f.find(2);
         assertTrue(found);
         assertEquals(2, f.getTokenStartPosition());
-        assertEquals(2, f.getTokenLength());
-        assertEquals("hi", f.getTokenText());
+        assertEquals(1, f.getTokenLength());
+        assertEquals("a", f.getTokenText());
     }
     
     @Test
-    public void testMatchFlexible() {
-        RegExTokenFactory f = new RegExTokenFactory("ha*");
-        f.setText("XhaaaX");
+    public void testMatchTwo() {
+        StringTokenFactory f = new StringTokenFactory("ha");
+        f.setText("XhaX");
         boolean found = f.find(1);
         assertTrue(found);
         assertEquals(1, f.getTokenStartPosition());
-        assertEquals(4, f.getTokenLength());
-        assertEquals("haaa", f.getTokenText());
+        assertEquals(2, f.getTokenLength());
+        assertEquals("ha", f.getTokenText());
     }
     
     @Test
     public void testMatchThereAndNotEarlier() {
-        RegExTokenFactory f = new RegExTokenFactory("hi");
+        StringTokenFactory f = new StringTokenFactory("hi");
         f.setText("XhiXhiX");
         boolean found = f.find(4);
         assertTrue(found);
@@ -41,7 +41,7 @@ public class RegExTokenFactoryTest {
     
     @Test
     public void testMatchThereAndNotLater() {
-        RegExTokenFactory f = new RegExTokenFactory("hi");
+        StringTokenFactory f = new StringTokenFactory("hi");
         f.setText("XhiXhiX");
         boolean found = f.find(1);
         assertTrue(found);
@@ -50,18 +50,18 @@ public class RegExTokenFactoryTest {
     
     @Test
     public void testNoMatchNowhere() {
-        RegExTokenFactory f = new RegExTokenFactory("hi");
+        StringTokenFactory f = new StringTokenFactory("hi");
         f.setText("abc");
         assertFalse(f.find(0));
         assertFalse(f.find(1));
         assertFalse(f.find(2));
     }
     
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testStartOutOfBounds() {
-        RegExTokenFactory f = new RegExTokenFactory("hi");
+        StringTokenFactory f = new StringTokenFactory("hi");
         f.setText("abc");
-        f.find(4); // this call must throw an IOOB exception
+        assertFalse(f.find(4)); // this call does not throw an IOOB exception
     }
     
 }

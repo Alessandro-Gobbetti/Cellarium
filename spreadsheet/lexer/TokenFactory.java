@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 /**
  * A TokenFactory can produce Tokens.

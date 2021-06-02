@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 /**
  * A program in a programming language is made up 

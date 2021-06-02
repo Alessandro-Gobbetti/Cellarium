@@ -1,7 +1,7 @@
 package spreadsheet;
 
-import lexer.LexicalAnalyzer;
-import lexer.TokenType;
+import spreadsheet.lexer.LexicalAnalyzer;
+import spreadsheet.lexer.TokenType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

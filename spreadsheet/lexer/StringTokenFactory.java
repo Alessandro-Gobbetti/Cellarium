@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 /**
  * A special kind of TokenFactory

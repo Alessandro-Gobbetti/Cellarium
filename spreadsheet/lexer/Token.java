@@ -1,4 +1,4 @@
-package lexer;
+package spreadsheet.lexer;
 
 /**
  * A token is a contiguous sequence of characters in a text,
