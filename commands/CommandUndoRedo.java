@@ -4,7 +4,7 @@ package commands;
 /**
  * Class for undo and redo commands.
  *
- * @author Alessadro Gobbetti & Laurenz Ebi
+ * @author Alessadro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class CommandUndoRedo extends NotUndoableStateChangingCommand {

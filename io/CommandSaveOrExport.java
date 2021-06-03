@@ -10,7 +10,7 @@ import spreadsheet.Spreadsheet;
  * EXPORT       to export a csv file as a spreadsheet.
  * </p>
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class CommandSaveOrExport extends InputOutputCommand {

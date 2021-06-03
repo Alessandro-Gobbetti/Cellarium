@@ -76,6 +76,8 @@ public abstract class RangeOperation extends Node {
     
     /**
      * helper method to compute next result during evaluation.
+     * @param result  the previous result.
+     * @param value   The CellValue.
      * 
      * @return the next result.
      */
@@ -83,6 +85,7 @@ public abstract class RangeOperation extends Node {
     
     /**
      * helper method to compute the result of the evaluation.
+     * @param result  the result to compute and return on.
      * 
      * @return the result of the evaluation.
      */
