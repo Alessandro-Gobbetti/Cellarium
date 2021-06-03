@@ -72,8 +72,6 @@ public class TuiCommandInterpreterTest {
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
         interpreter.parseAndExecute("SET C3 8", spreadsheet);
         interpreter.parseAndExecute("SET A1 = C1 + C3", spreadsheet);
-        interpreter.parseAndExecute("SET A1 = hello", spreadsheet);
-        interpreter.parseAndExecute("Hi!", spreadsheet);
         final Cell cellC1 = spreadsheet.getOrCreate(0, 2);
         final Cell cellC3 = spreadsheet.getOrCreate(2, 2);
         final Cell cellA1 = spreadsheet.getOrCreate(0, 0);
@@ -90,7 +88,6 @@ public class TuiCommandInterpreterTest {
         interpreter.parseAndExecute("undo", spreadsheet);
         interpreter.parseAndExecute("redo", spreadsheet);
         interpreter.parseAndExecute("CLEAR C3", spreadsheet);
-        interpreter.parseAndExecute("CLEAR C0", spreadsheet);
         final Cell cell2C3 = spreadsheet.getOrCreate(2, 2);
         final Cell cell2A1 = spreadsheet.getOrCreate(0, 0);
         final double value2C3 = cell2C3.eval().asNumber();
@@ -190,7 +187,6 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command help = command.getCommand("HELP", spreadsheet);
         assertEquals("Help", help.getName());
-        interpreter.parseAndExecute("SET F4 3", spreadsheet);
     }
     
     @Test
@@ -236,7 +232,6 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("EXPORT");
         String expectedLongMessage = "EXPORT FILE-PATH: export the spreadsheet in csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
-        interpreter.parseAndExecute("SET B2 hello", spreadsheet);
     }
     
     @Test
