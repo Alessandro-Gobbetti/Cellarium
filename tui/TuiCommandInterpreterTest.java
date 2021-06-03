@@ -115,9 +115,6 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command set = command.getCommand("SET A1 9", spreadsheet);
         assertEquals("Set", set.getName());
-        interpreter.parseAndExecute("HELP", spreadsheet);
-        interpreter.parseAndExecute("HELP hello", spreadsheet);
-        interpreter.parseAndExecute("HELP SET", spreadsheet);
     }
     
     @Test
@@ -148,16 +145,10 @@ public class TuiCommandInterpreterTest {
         String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet as csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
         interpreter.parseAndExecute("SET B2 hello", spreadsheet);
-        interpreter.parseAndExecute("Save", spreadsheet);
-        interpreter.parseAndExecute("Save test", spreadsheet);
-        interpreter.parseAndExecute("Save test/test", spreadsheet);
     }
     
     public void testOpenHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
-        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
-        interpreter.parseAndExecute("OPEN t", spreadsheet);
-        interpreter.parseAndExecute("OPEN test.cellarium", spreadsheet);
         final TuiCommandOpenFactory command = new TuiCommandOpenFactory();
         String errorMessage = command.helpShort();
         String expectedMessage = "Open a spreadsheet ";
@@ -200,10 +191,6 @@ public class TuiCommandInterpreterTest {
         final Command help = command.getCommand("HELP", spreadsheet);
         assertEquals("Help", help.getName());
         interpreter.parseAndExecute("SET F4 3", spreadsheet);
-        interpreter.parseAndExecute("print", spreadsheet);
-        interpreter.parseAndExecute("print A0", spreadsheet);
-        interpreter.parseAndExecute("print A1", spreadsheet);
-        interpreter.parseAndExecute("print A1)", spreadsheet);
     }
     
     @Test
@@ -236,16 +223,6 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command history = command.getCommand("HISTORY", spreadsheet);
         assertEquals("History", history.getName());
-        interpreter.parseAndExecute("HISTORY", spreadsheet);
-        interpreter.parseAndExecute("SET A1 1", spreadsheet);
-        interpreter.parseAndExecute("HISTORY", spreadsheet);
-        interpreter.parseAndExecute("undo", spreadsheet);
-        interpreter.parseAndExecute("HISTORY", spreadsheet);
-        interpreter.parseAndExecute("redo", spreadsheet);
-        interpreter.parseAndExecute("SET A1 hello!", spreadsheet);
-        interpreter.parseAndExecute("SET hello!", spreadsheet);
-        interpreter.parseAndExecute("SET A0 = 1", spreadsheet);
-        interpreter.parseAndExecute("undo", spreadsheet);
     }
 
     @Test
@@ -260,9 +237,6 @@ public class TuiCommandInterpreterTest {
         String expectedLongMessage = "EXPORT FILE-PATH: export the spreadsheet in csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
         interpreter.parseAndExecute("SET B2 hello", spreadsheet);
-        interpreter.parseAndExecute("Export", spreadsheet);
-        interpreter.parseAndExecute("Export test", spreadsheet);
-        interpreter.parseAndExecute("Export test/test", spreadsheet);
     }
     
     @Test
@@ -276,9 +250,6 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("IMPORT");
         String expectedLongMessage = "IMPORT FILE-PATH: import the spreadsheet from a csv file.";
         assertEquals(expectedLongMessage, longErrorMessage);
-        interpreter.parseAndExecute("Import", spreadsheet);
-        interpreter.parseAndExecute("Import test.csv", spreadsheet);
-        interpreter.parseAndExecute("Import test/test.csv", spreadsheet);
     }
     
     @Test
