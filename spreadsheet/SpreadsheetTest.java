@@ -134,12 +134,6 @@ public class SpreadsheetTest {
         assertEquals(new HashMap<Integer,Cell>(), s.getCellMap());
     }
     
-    @Test 
-    public void testCopyPasteDemo() {
-        Spreadsheet s = new Spreadsheet();
-        s.copyPaste(0,0,1,1);
-        s.cutPaste(1,1,0,0);
-    }
     
     @Test 
     public void testStoreAndRestore() {
