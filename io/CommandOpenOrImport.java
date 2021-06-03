@@ -1,24 +1,24 @@
-package tui;
+package io;
 
 import commands.NotUndoableStateChangingCommand;
 import spreadsheet.CellariumParser;
-import spreadsheet.InputOutputHelper;
 import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
 import spreadsheet.Text;
 import spreadsheet.lexer.TokenType;
 
 /**
- * To open a cellarium file as a spreadsheet.
+ * To open or import a cellarium or csv file as a spreadsheet.
  * 
  * <p>
  * OPEN         to open a cellarium file as a spreadsheet.
+ * IMPORT       to import a csv file as a spreadsheet.
  * </p>
  * 
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class TuiCommandOpenOrImport extends NotUndoableStateChangingCommand {
+public class CommandOpenOrImport extends NotUndoableStateChangingCommand {
 
     private boolean isOpen;
     private String sourceCode;
@@ -32,9 +32,9 @@ public class TuiCommandOpenOrImport extends NotUndoableStateChangingCommand {
      * @param sourceCode   the sourceCode 
      * @param spreadsheet  the spreadsheet 
      */
-    public TuiCommandOpenOrImport(final boolean isOpen, 
-                                  final String sourceCode, 
-                                  final Spreadsheet spreadsheet) {
+    public CommandOpenOrImport(final boolean isOpen, 
+                               final String sourceCode, 
+                               final Spreadsheet spreadsheet) {
         super();
         this.isOpen = isOpen;
         this.sourceCode = sourceCode;

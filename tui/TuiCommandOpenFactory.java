@@ -2,6 +2,7 @@ package tui;
 
 import commands.Command;
 import spreadsheet.Spreadsheet;
+import io.CommandOpenOrImport;
 
 /**
  * This is a factory for tui commands.
@@ -13,7 +14,7 @@ public class TuiCommandOpenFactory implements TuiCommandFactory {
 
     @Override
     public Command getCommand(final String input, final Spreadsheet spreadsheet) {
-        return new TuiCommandOpenOrImport(true, input, spreadsheet);
+        return new CommandOpenOrImport(true, input, spreadsheet);
     }
     
     @Override

@@ -50,8 +50,7 @@ public class FileChooser extends JFileChooser {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();
             interpreter.parseAndExecute("SAVE " + getCurrentDirectory() + "/"  
-                                        + getName(file) + ".cellarium",
-                                        spreadsheetView);
+                                        + getName(file), spreadsheetView);
         }
     }
     
@@ -85,7 +84,7 @@ public class FileChooser extends JFileChooser {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             final File file = getSelectedFile();
             interpreter.parseAndExecute("EXPORT " + getCurrentDirectory() 
-                                        + "/"  + getName(file) + ".csv", 
+                                        + "/"  + getName(file), 
                                         spreadsheetView);
         }
     }

@@ -99,7 +99,7 @@ public abstract class Command {
     /**
      * To set the last operation status.
      */
-    protected void setLastOperationStatus(final boolean success,
+    public void setLastOperationStatus(final boolean success,
                                           final boolean aborted,
                                           final String message) {
         wasLastOperationSuccessful = success;

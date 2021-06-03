@@ -19,5 +19,7 @@ public abstract interface GuiCommandFactory {
      */
     public abstract Command getCommand(final String input,
                                        final SpreadsheetViewTableModel spreadsheetView);
+                                       
+    
     
 }

@@ -1,6 +1,7 @@
 package gui;
 
 import commands.Command;
+import io.CommandOpenOrImport;
 
 /**
  * To create an Open command.
@@ -14,7 +15,7 @@ public class GuiCommandOpenFactory implements GuiCommandFactory {
     @Override
     public Command getCommand(final String input,
                               final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandOpenOrImport(true, input, spreadsheetView);
+        return new CommandOpenOrImport(true, input, spreadsheetView.getSpreadsheet());
     }
 
 }

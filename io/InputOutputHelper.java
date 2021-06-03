@@ -1,4 +1,9 @@
-package spreadsheet;
+package io;
+
+import spreadsheet.Cell;
+import spreadsheet.CellariumParser;
+import spreadsheet.Node;
+import spreadsheet.Spreadsheet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +13,8 @@ import java.util.HashMap;
 
 
 /**
- * To save the spreadsheet into a csv file.
+ * To manage imput/output for Cellarium.
+ * Supports .csv and .cellarium files.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
@@ -31,7 +37,9 @@ public class InputOutputHelper {
      */
     public static void generateCsvFile(final String pathFileName, final Spreadsheet spreadsheet) {
         try {
-            final FileWriter writer = new FileWriter(pathFileName);
+            // removing any file extension and adding .csv 
+            final String fileName = (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".csv";
+            final FileWriter writer = new FileWriter(fileName);
             for (int row = 0; row <= spreadsheet.getMaxUsedCellRow(); row++) {
                 for (int col = 0; col <= spreadsheet.getMaxUsedCellCol(); col++) {
                     writer.append(
@@ -62,7 +70,9 @@ public class InputOutputHelper {
      */
     public static void save(final String pathFileName, final Spreadsheet spreadsheet) {
         try {
-            final FileWriter writer = new FileWriter(pathFileName);
+            // removing any file extension and adding .csv 
+            final String fileName = (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".cellarium";
+            final FileWriter writer = new FileWriter(fileName);
             final HashMap<Integer,Cell> cellMap = spreadsheet.getCellMap();
             for (final int index : cellMap.keySet()) {
                 writer.append(index + " " + cellMap.get(index).getFormula() + "\n");

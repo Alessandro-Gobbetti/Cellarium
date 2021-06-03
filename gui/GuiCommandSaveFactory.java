@@ -1,6 +1,7 @@
 package gui;
 
 import commands.Command;
+import io.CommandSaveOrExport;
 
 /**
  * To create a Save command.
@@ -14,7 +15,7 @@ public class GuiCommandSaveFactory implements GuiCommandFactory {
     @Override
     public Command getCommand(final String input,
                               final SpreadsheetViewTableModel spreadsheetView) {
-        return new GuiCommandSaveOrExport(true, input, spreadsheetView);
+        return new CommandSaveOrExport(true, input, spreadsheetView.getSpreadsheet());
     }
     
 }

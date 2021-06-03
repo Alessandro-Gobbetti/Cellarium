@@ -67,6 +67,10 @@ public class GuiCommandInterpreter {
             commandProcessor.doCommand(command);
             printMessage(commandProcessor.wasLastOperationSuccessful(), 
                          commandProcessor.getLastOperationMessage());
+            if (commandFactory instanceof GuiCommandOpenFactory
+                || commandFactory instanceof GuiCommandImportFactory) {
+                spreadsheetView.fireTableDataChanged();
+            }
         }
     }
     

@@ -66,6 +66,11 @@ public class TuiCommandInterpreter {
             commandProcessor.doCommand(command);
             if (!commandProcessor.wasLastOperationSuccessful()) {
                 System.out.println(commandProcessor.getLastOperationMessage());
+            } else if (commandFactory instanceof TuiCommandSaveFactory
+                       || commandFactory instanceof TuiCommandOpenFactory
+                       || commandFactory instanceof TuiCommandImportFactory
+                       || commandFactory instanceof TuiCommandExportFactory) {
+                System.out.println("Done!");
             }
         }
     }
