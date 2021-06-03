@@ -169,13 +169,13 @@ Use the menu bar to use some additional features.
 | Features | Hotkey | Description |
 | --- | --- | --- |
 | `CLEAR ALL` | ALT + X | To clear the entire spreadsheet |
-| `UNDO` | STRG + Z | Undos the last command |
-| `REDO` | STRG + Y |Redos the last undone command |
-| `SAVE` | STRG + S | Saves the spreadsheet in the current directory with the given name, as a `.cellarium` file |
-| `OPEN` | STRG + O |Imports a given `.cellarium` file in Cellarium |
-| `EXPORT` | STRG + E |Saves the spreadsheet in the current directory with the given name, as a `.csv` file |
-| `IMPORT` | STRG + I | Imports a given `.csv` file in Cellarium |
-| `QUIT` | STRG + Q | Closes the programm |
+| `UNDO` | CTRL + Z | Undos the last command |
+| `REDO` | CTRL + Y |Redos the last undone command |
+| `SAVE` | CTRL + S | Saves the spreadsheet in the current directory with the given name, as a `.cellarium` file |
+| `OPEN` | CTRL + O |Imports a given `.cellarium` file in Cellarium |
+| `EXPORT` | CTRL + E |Saves the spreadsheet in the current directory with the given name, as a `.csv` file |
+| `IMPORT` | CTRL + I | Imports a given `.csv` file in Cellarium |
+| `QUIT` | CTRL + Q | Closes the programm |
 
 &nbsp;
 
