@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Handels the colors of different sections of the Spreadsheet.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class SpreadsheetViewTableRenderer extends DefaultTableCellRenderer {

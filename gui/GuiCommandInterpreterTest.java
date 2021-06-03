@@ -18,34 +18,6 @@ import org.junit.Test;
 public class GuiCommandInterpreterTest {
     
     @Test
-    public void testSetAndClear() {
-        final Spreadsheet spreadsheet = new Spreadsheet();
-        final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
-        final SpreadsheetViewTableModel model = new SpreadsheetViewTableModel(spreadsheet, interpreter);
-        //SET
-        interpreter.parseAndExecute("SET C1 5", model);
-        final Cell cell1 = spreadsheet.getOrCreate(0, 2);
-        final double value1C1 = cell1.eval().asNumber();
-        assertEquals(5.0, value1C1, 0.0);
-        //REDO / UNDO
-        interpreter.parseAndExecute("UNDO", model);
-        interpreter.parseAndExecute("REDO", model);
-        assertEquals(5.0, value1C1, 0.0);
-        //CLEAR
-        interpreter.parseAndExecute("CLEAR C1", model);
-        final Cell cell = spreadsheet.getOrCreate(0, 2);
-        final double value2 = cell.eval().asNumber();
-        assertEquals(0.0, value2, 0.0);
-        //REDO / UNDO
-        interpreter.parseAndExecute("UNDO", model);
-        interpreter.parseAndExecute("REDO", model);
-        assertEquals(0.0, value2, 0.0);
-        
-        assertEquals("Ok!", interpreter.getLastOperationMessage());
-    }
-    
-    
-    @Test
     public void testFactorySet() {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
