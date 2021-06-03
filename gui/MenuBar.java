@@ -255,36 +255,42 @@ public class MenuBar extends JMenuBar {
         final JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         
-        final JTextField authorsTitle = new JTextField("Autors:");
-        authorsTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
-        authorsTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        authorsTitle.setEditable(false);
-        textPanel.add(authorsTitle);
-        
-        final JTextField authors = new JTextField("Alessandro Gobbetti - Laurenz Ebi");
-        authors.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        authors.setEditable(false);
-        textPanel.add(authors);
-        
+        createInfoTitleLine("Authors:", textPanel);
+        createInfoLine("Alessandro Gobbetti - Laurenz Ebi", textPanel);
+        createInfoLine("USI, PF2 2021, final project.", textPanel);
+
         textPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         
-        final JTextField aboutTitle = new JTextField("About Cellarium 1.0:");
-        aboutTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
-        aboutTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        aboutTitle.setEditable(false);
-        textPanel.add(aboutTitle);
-        
-        final JTextField messageField = new JTextField("Visit: https://github.com/usi-pf2-2021/project-cellarium");
+        createInfoTitleLine("About Cellarium 1.0:", textPanel);
+        createInfoLine("Visit: https://github.com/usi-pf2-2021/project-cellarium", textPanel);
+        createInfoLine("To get some help read the README.", textPanel);
+
+        panel.add(textPanel);
+    }
+    
+    /**
+     * Helper method to create a title info line.
+     * @param text the string.
+     * @param panel the panel to add this line. 
+     */
+    private void createInfoTitleLine(final String text, final JPanel panel) {
+        final JTextField title = new JTextField(text);
+        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        title.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        title.setEditable(false);
+        panel.add(title);
+    }
+    
+    /**
+     * Helper method to create a info line.
+     * @param text the string.
+     * @param panel the panel to add this line. 
+     */
+    private void createInfoLine(final String text, final JPanel panel) {
+        final JTextField messageField = new JTextField(text);
         messageField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         messageField.setEditable(false);
-        textPanel.add(messageField);
-        
-        final JTextField readme = new JTextField("To get some help read the README");
-        readme.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        readme.setEditable(false);
-        textPanel.add(readme);
-        
-        panel.add(textPanel);
+        panel.add(messageField);
     }
     
     // to quickly add an item to a menu.

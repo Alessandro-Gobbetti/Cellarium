@@ -1,11 +1,6 @@
 package io;
 
-import commands.NotUndoableStateChangingCommand;
-import spreadsheet.CellariumParser;
-import spreadsheet.Node;
 import spreadsheet.Spreadsheet;
-import spreadsheet.Text;
-import spreadsheet.lexer.TokenType;
 
 /**
  * To open or import a cellarium or csv file as a spreadsheet.
@@ -18,12 +13,7 @@ import spreadsheet.lexer.TokenType;
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0
  */
-public class CommandOpenOrImport extends NotUndoableStateChangingCommand {
-
-    private boolean isOpen;
-    private String sourceCode;
-    private Spreadsheet spreadsheet;
-    
+public class CommandOpenOrImport extends InputOutputCommand {
 
     /**
      * Creator for TuiCommandOpenOrImport.
@@ -35,38 +25,21 @@ public class CommandOpenOrImport extends NotUndoableStateChangingCommand {
     public CommandOpenOrImport(final boolean isOpen, 
                                final String sourceCode, 
                                final Spreadsheet spreadsheet) {
-        super();
-        this.isOpen = isOpen;
-        this.sourceCode = sourceCode;
-        this.spreadsheet = spreadsheet;
+        super(isOpen, sourceCode, spreadsheet);
     }
     
     @Override
     public String getName() {
-        return isOpen ? "Open" : "Import";
+        return isSaveOrOpen() ? "Open" : "Import";
     }
     
     @Override
-    public void doit() {
-        final CellariumParser parser = new CellariumParser(spreadsheet);
-        parser.initLexer(sourceCode);
-        if (parser.currentTokenMatches(TokenType.END_OF_FILE)) {
-            setLastOperationStatus(false, true, "Please insert a file name");
-            return;
+    protected void execute(final String filePathName, final Spreadsheet spreadsheet) {
+        if (isSaveOrOpen()) {
+            InputOutputHelper.open(filePathName, spreadsheet);
         } else {
-            final Node content = parser.parseCell();
-            final String filePathName = content.toString();
-            if (content.isError() || !(content instanceof Text)) {
-                setLastOperationStatus(false, true, filePathName);
-                return;
-            }
-            if (isOpen) {
-                InputOutputHelper.open(filePathName, spreadsheet);
-            } else {
-                InputOutputHelper.openFromCsv(filePathName, spreadsheet);
-            }
-            setLastOperationOk();
+            InputOutputHelper.openFromCsv(filePathName, spreadsheet);
         }
+        setLastOperationOk();
     }
-    
 }

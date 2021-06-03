@@ -63,14 +63,14 @@ public class GuiCommandSet extends UndoableStateChangingCommand {
         
         if (content.isError()) {
             setLastOperationStatus(false, true, content.toString());
-            return;
+        } else {
+            // set the new cell content and save the old content.
+            stateSavedFormula =
+                spreadsheetView.getSpreadsheetOldAndSetNewAt(content,
+                                                             stateChangedCellReference.getRow(0), 
+                                                             stateChangedCellReference.getCol(0));
+            setLastOperationOk();
         }
-        // set the new cell content and save the old content.
-        stateSavedFormula =
-            spreadsheetView.getSpreadsheetOldAndSetNewAt(content,
-                                                         stateChangedCellReference.getRow(0), 
-                                                         stateChangedCellReference.getCol(0));
-        setLastOperationOk();
     }
     
     @Override

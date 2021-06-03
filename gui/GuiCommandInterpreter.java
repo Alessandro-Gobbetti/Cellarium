@@ -34,12 +34,12 @@ public class GuiCommandInterpreter {
             {
                 put("SET", new GuiCommandSetFactory());
                 put("CLEAR", new GuiCommandClearFactory());
+                put("UNDO", new GuiCommandUndoFactory());
+                put("REDO", new GuiCommandRedoFactory());
                 put("SAVE", new GuiCommandSaveFactory());
                 put("OPEN", new GuiCommandOpenFactory());
                 put("IMPORT", new GuiCommandImportFactory());
                 put("EXPORT", new GuiCommandExportFactory());
-                put("UNDO", new GuiCommandUndoFactory());
-                put("REDO", new GuiCommandRedoFactory());
             }
         };
     }
