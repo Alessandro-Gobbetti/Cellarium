@@ -1,11 +1,11 @@
 package tui;
 
 import commands.Command;
-import spreadsheet.Spreadsheet;
 import io.CommandSaveOrExport;
+import spreadsheet.Spreadsheet;
 
 /**
- * This is a factory for tui commands.
+ * To create an Export command.
  *
  * @author Alessandro Gobbetti & Laurenz Ebi
  * @version 1.0

@@ -2,10 +2,10 @@ package commands;
 
 
 /**
- * Write a description of class Command here.
+ * A command.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public abstract class Command {
     
@@ -98,6 +98,10 @@ public abstract class Command {
     
     /**
      * To set the last operation status.
+     * 
+     * @param success True if the last operation was successful.
+     * @param aborted True if the last operation was aborted.
+     * @param message a message connected to the last operation.
      */
     public void setLastOperationStatus(final boolean success,
                                           final boolean aborted,
