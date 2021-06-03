@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  * Handles how the spreadsheet has to be showed.
  * Creates the index lines for columns and rows. 
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class SpreadsheetViewTableModel extends AbstractTableModel {

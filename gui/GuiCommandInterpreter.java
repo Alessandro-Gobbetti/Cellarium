@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class GuiCommandInterpreter {

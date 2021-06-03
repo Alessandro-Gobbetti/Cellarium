@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 /**
  * Write a description of class SpreadsheetTerminalHandler here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetTerminalHandler implements ActionListener {
 

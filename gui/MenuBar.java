@@ -25,7 +25,7 @@ import javax.swing.UIManager;
 /**
  * The class MenuBar creates the MenuBar for the GUI of the Spreadsheet.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class MenuBar extends JMenuBar {

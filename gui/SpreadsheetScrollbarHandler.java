@@ -7,7 +7,7 @@ import java.awt.event.AdjustmentListener;
 /**
  * To handle a scrollbar.
  *
- * @author Alessandro Gobbett & Laurenz Ebi
+ * @author Alessandro Gobbett - Laurenz Ebi
  * @version 1.0
  */
 public class SpreadsheetScrollbarHandler implements AdjustmentListener {

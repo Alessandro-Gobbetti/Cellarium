@@ -10,7 +10,7 @@ import javax.swing.JTable;
 /**
  * Creates the Table for the Spreadsheet.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class Table extends JTable {
