@@ -9,7 +9,7 @@
 ## Milestone 2: May 17
 * Added code from Lab 10
 * Added a Spreadsheet
-* Added some more functionallities (Sin, Cos, Sqrt)
+* Added some more functionalities (Sin, Cos, Sqrt)
 * Changed the way of evaluation
 * Researched the packages we will use
 * Added remove 
@@ -21,8 +21,8 @@
   * SET cells
   * CLEAR the spreadsheet or single cells
   * HELP to get an explanation for all commands or a more detailed for a single command
-  * SAVE to save the spreadsheet in csv
-  * OPEN to open a csv file
+  * EXPORT to save the spreadsheet in csv
+  * IMPORT to open a csv file
   * EXIT to quit the program
 
 * Added a GUI
@@ -52,5 +52,15 @@
 
 * Added tests
 
-* Improved several features
+* Fixed the Average functionality
+
+* Added Cellarium Icon
+
+* Added own formatting `.cellarium` which is optimized to avoid waste of memory.
+  * Added SAVE to save the cellarium as `.cellarium ` file
+  * Added OPEN to open `.cellarium` files
+
+* Added some more functionalities (Tan, Log)
+
+* Fixed MVN Warnings, PMD Failures and CPD. 
 
