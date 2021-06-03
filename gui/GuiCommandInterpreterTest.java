@@ -42,7 +42,7 @@ public class GuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
         final SpreadsheetViewTableModel model = new SpreadsheetViewTableModel(spreadsheet, interpreter);
-        final GuiCommandSaveFactory command = new GuiCommandSaveFactory();
+        final GuiCommandSaveOrExportFactory command = new GuiCommandSaveOrExportFactory(true);
         final Command clear = command.getCommand("SAVE", model);
         assertEquals("Save", clear.getName());
     }
@@ -52,7 +52,7 @@ public class GuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
         final SpreadsheetViewTableModel model = new SpreadsheetViewTableModel(spreadsheet, interpreter);
-        final GuiCommandOpenFactory command = new GuiCommandOpenFactory();
+        final GuiCommandOpenOrImportFactory command = new GuiCommandOpenOrImportFactory(true);
         final Command clear = command.getCommand("OPEN", model);
         assertEquals("Open", clear.getName());
     }
@@ -62,7 +62,7 @@ public class GuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
         final SpreadsheetViewTableModel model = new SpreadsheetViewTableModel(spreadsheet, interpreter);
-        final GuiCommandExportFactory command = new GuiCommandExportFactory();
+        final GuiCommandSaveOrExportFactory command = new GuiCommandSaveOrExportFactory(false);
         final Command clear = command.getCommand("EXPORT", model);
         assertEquals("Export", clear.getName());
     }
@@ -72,7 +72,7 @@ public class GuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final GuiCommandInterpreter interpreter = new GuiCommandInterpreter();
         final SpreadsheetViewTableModel model = new SpreadsheetViewTableModel(spreadsheet, interpreter);
-        final GuiCommandImportFactory command = new GuiCommandImportFactory();
+        final GuiCommandOpenOrImportFactory command = new GuiCommandOpenOrImportFactory(false);
         final Command clear = command.getCommand("IMPORT", model);
         assertEquals("Import", clear.getName());
     }

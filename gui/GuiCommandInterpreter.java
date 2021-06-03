@@ -36,10 +36,10 @@ public class GuiCommandInterpreter {
                 put("CLEAR", new GuiCommandClearFactory());
                 put("UNDO", new GuiCommandUndoFactory());
                 put("REDO", new GuiCommandRedoFactory());
-                put("SAVE", new GuiCommandSaveFactory());
-                put("OPEN", new GuiCommandOpenFactory());
-                put("IMPORT", new GuiCommandImportFactory());
-                put("EXPORT", new GuiCommandExportFactory());
+                put("SAVE", new GuiCommandSaveOrExportFactory(true));
+                put("EXPORT", new GuiCommandSaveOrExportFactory(false));
+                put("OPEN", new GuiCommandOpenOrImportFactory(true));
+                put("IMPORT", new GuiCommandOpenOrImportFactory(false));
             }
         };
     }
@@ -67,8 +67,7 @@ public class GuiCommandInterpreter {
             commandProcessor.doCommand(command);
             printMessage(commandProcessor.wasLastOperationSuccessful(), 
                          commandProcessor.getLastOperationMessage());
-            if (commandFactory instanceof GuiCommandOpenFactory
-                || commandFactory instanceof GuiCommandImportFactory) {
+            if (commandFactory instanceof GuiCommandOpenOrImportFactory) {
                 spreadsheetView.fireTableDataChanged();
             }
         }
