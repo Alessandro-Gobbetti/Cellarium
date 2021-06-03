@@ -7,7 +7,7 @@ import spreadsheet.Spreadsheet;
 /**
  * To create a Save command.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandSaveFactory implements TuiCommandFactory {

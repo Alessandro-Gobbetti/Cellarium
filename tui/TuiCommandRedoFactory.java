@@ -7,7 +7,7 @@ import spreadsheet.Spreadsheet;
 /**
  * This is a factory for tui commands.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandRedoFactory implements TuiCommandFactory {

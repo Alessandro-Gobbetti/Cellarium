@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * To run a TUI version of Cellarium
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class Main {

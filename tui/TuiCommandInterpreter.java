@@ -10,7 +10,7 @@ import java.util.Locale;
 /**
  * Write a description of class SpreadsheetCommandInterpreter here.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandInterpreter {

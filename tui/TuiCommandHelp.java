@@ -5,7 +5,7 @@ import commands.NotUndoableNotStateChangingCommand;
 /**
  * To print a help message for all commands or just for one.
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandHelp extends NotUndoableNotStateChangingCommand {

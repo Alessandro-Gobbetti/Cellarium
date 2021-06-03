@@ -16,7 +16,7 @@ import spreadsheet.Text;
  * SET CELLREFERENCE CELL
  * </p>
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandSet extends UndoableStateChangingCommand {

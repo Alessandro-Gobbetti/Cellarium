@@ -7,7 +7,7 @@ import spreadsheet.Spreadsheet;
 /**
  * To create an Open command.
  *
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandOpenFactory implements TuiCommandFactory {

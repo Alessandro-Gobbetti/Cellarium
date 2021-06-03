@@ -17,7 +17,7 @@ import java.util.HashMap;
  * CLEAR A1      to clear a cell only
  * </p>
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandClear extends UndoableStateChangingCommand {

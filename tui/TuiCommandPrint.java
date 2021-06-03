@@ -16,7 +16,7 @@ import spreadsheet.lexer.TokenType;
  * PRINT A1      to print a cell only
  * </p>
  * 
- * @author Alessandro Gobbetti & Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class TuiCommandPrint extends NotUndoableNotStateChangingCommand {
