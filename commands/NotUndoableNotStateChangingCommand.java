@@ -2,7 +2,7 @@ package commands;
 
 
 /**
- * Write a description of class NotUndoableCommand here.
+ * This class defines a NotUndoableNotStateChangingCommand.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

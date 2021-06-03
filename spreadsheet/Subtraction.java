@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * An integer subtraction.
+ * An subtraction.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

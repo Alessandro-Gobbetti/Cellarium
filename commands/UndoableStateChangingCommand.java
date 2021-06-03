@@ -2,7 +2,7 @@ package commands;
 
 
 /**
- * Write a description of class UndoableCommand here.
+ * This class defines an UndoableStateChangingCommand.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

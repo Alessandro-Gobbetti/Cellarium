@@ -4,7 +4,7 @@ import commands.Command;
 import spreadsheet.Spreadsheet;
 
 /**
- * This is a factory for tui commands.
+ * To create a set command.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

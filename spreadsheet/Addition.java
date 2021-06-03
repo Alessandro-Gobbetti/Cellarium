@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * An integer addition.
+ * An addition.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

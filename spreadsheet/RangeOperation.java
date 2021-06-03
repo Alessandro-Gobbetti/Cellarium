@@ -3,7 +3,7 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * A Binary Operation.
+ * A Range Operation.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

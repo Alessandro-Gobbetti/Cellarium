@@ -3,7 +3,7 @@ package spreadsheet;
 import java.util.HashMap;
 
 /**
- * Write a description of class Spreadsheet here.
+ * This class Spreadsheet defines the entire spreadsheet.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
@@ -242,34 +242,6 @@ public class Spreadsheet {
             result = c.getFormula();
         }
         return result;
-    }
-    
-    /**
-     * Creates a new Cell with the Properties of an old one.
-     * @param srcRow  row of the Copied Cell.
-     * @param srcCol  column of the Copied Cell.
-     * @param dstRow  row of the new Cell.
-     * @param dstCol  column of the new Cell.
-     */
-    public void copyPaste(final int srcRow, final int srcCol, final int dstRow, final int dstCol) {
-        if (!exists(srcRow, srcCol)) {
-            remove(dstRow, dstCol);
-        } else {
-            // FIXME
-        }
-    }
-    
-    /**
-     * Removes a Cell and creates a new Cell with the Properties of an old one.
-     * @param srcRow  row of the Copied Cell.
-     * @param srcCol  column of the Copied Cell.
-     * @param dstRow  row of the new Cell.
-     * @param dstCol  column of the new Cell.
-     */
-    public void cutPaste(final int srcRow, final int srcCol, final int dstRow, final int dstCol) {
-        // FIXME
-        copyPaste(srcRow, srcCol, dstRow, dstCol);
-        remove(srcRow, srcCol);
     }
     
 }

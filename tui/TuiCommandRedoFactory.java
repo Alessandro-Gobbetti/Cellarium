@@ -5,7 +5,7 @@ import commands.CommandUndoRedo;
 import spreadsheet.Spreadsheet;
 
 /**
- * This is a factory for tui commands.
+ * To create a Redo command.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

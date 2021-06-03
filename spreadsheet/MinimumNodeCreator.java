@@ -2,7 +2,7 @@ package spreadsheet;
 
 
 /**
- * This Clas creates a Minimum node.
+ * This class creates a Minimum node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

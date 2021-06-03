@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * A file FileChooser. This class extends JFileChooser that 
  * provides a simple mechanism for the user to choose a file.
  *
- * @author Alessandro Gobbetti - Laurenz Ebi
+ * @author Alessandro Gobbetti 
  * @version 1.0
  */
 public class FileChooser extends JFileChooser {

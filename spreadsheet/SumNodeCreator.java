@@ -2,7 +2,7 @@ package spreadsheet;
 
 
 /**
- * This Clas creates a Sum node.
+ * This class creates a Sum node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

@@ -9,6 +9,8 @@ import spreadsheet.lexer.TokenType;
 
 /**
  * Abstract class InputOutputCommand.
+ * Defines the basics of saving/exporting and 
+ * opening/importing some files in Cellarium.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

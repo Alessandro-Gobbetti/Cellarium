@@ -9,9 +9,10 @@ import java.util.Locale;
 import javax.swing.JTextField;
 
 /**
- * Write a description of class SpreadsheetCommandInterpreter here.
+ * The class GuiCommandInterpreter interprets the written command 
+ * and executes it in the tui.
  *
- * @author Alessandro Gobbetti - Laurenz Ebi
+ * @author Alessandro Gobbetti 
  * @version 1.0
  */
 public class GuiCommandInterpreter {

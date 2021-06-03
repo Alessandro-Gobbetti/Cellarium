@@ -3,7 +3,7 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * Write a description of class UnaryNodeCreator here.
+ * The class UnaryFunctionNodeCreator creates a UnaryNode.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

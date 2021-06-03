@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * An integer multiplication.
+ * An multiplication.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

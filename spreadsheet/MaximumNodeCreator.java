@@ -2,7 +2,7 @@ package spreadsheet;
 
 
 /**
- * This Clas creates a Maximum node.
+ * This class creates a Maximum node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

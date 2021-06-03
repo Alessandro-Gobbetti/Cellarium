@@ -5,6 +5,7 @@ package spreadsheet;
  * A Count is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
+ * It shows number of used cells in a certain Range.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

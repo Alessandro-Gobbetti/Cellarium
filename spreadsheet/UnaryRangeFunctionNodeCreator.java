@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * Write a description of class RangeFunctionNodeCreator here.
+ * The class UnaryRangeFunctionNodeCreator creates a RangeNode.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

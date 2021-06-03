@@ -2,7 +2,7 @@ package spreadsheet;
 
 
 /**
- * This Class creates a Count Node.
+ * This class creates a Count Node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

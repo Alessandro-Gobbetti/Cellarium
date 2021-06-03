@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Write a description of class SpreadsheetCommandInterpreter here.
+ * The class TuiCommandInterpreter interprets the written command 
+ * and executes it in the tui.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

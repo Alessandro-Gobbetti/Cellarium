@@ -4,6 +4,7 @@ package spreadsheet;
  * A Sum is an AST node that 
  * corresponds to a literal value
  * (a number in the source code).
+ * It shows the sum of a certain Range.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

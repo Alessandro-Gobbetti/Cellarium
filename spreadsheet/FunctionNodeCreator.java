@@ -3,7 +3,8 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * Write a description of class FunctionParser here.
+ * The FunctionNodeCreator interface defines the base 
+ * functions of a NodeCreator.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

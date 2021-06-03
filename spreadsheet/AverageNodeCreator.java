@@ -2,7 +2,7 @@ package spreadsheet;
 
 
 /**
- * Write a description of class AverageNodeCreator here.
+ * This class creates a Average Node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

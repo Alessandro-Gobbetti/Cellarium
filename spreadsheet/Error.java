@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 /**
  * A Error is an AST node that 
- * corresponds to a literal value
- * (a number in the source code).
+ * corresponds to a error
+ * (a error in the source code).
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

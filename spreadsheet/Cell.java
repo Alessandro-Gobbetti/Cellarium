@@ -3,7 +3,7 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * Write a description of class Cell here.
+ * This class defines a Cell.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

@@ -3,7 +3,7 @@ package spreadsheet;
 import java.util.ArrayList;
 
 /**
- * Write a description of class NullarayFunctionCreator here.
+ * The class NullarayFunctionCreator creates a NullaryNode.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

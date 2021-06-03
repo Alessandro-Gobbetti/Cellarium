@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * An integer division.
+ * An division.
  * 
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

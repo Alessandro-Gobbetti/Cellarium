@@ -1,7 +1,7 @@
 package spreadsheet;
 
 /**
- * This Clas creates a Literal node.
+ * The class LiteralNodeCreator creates a Literal node.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
