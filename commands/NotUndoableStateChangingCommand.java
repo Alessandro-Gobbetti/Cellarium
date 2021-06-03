@@ -25,13 +25,13 @@ public abstract class NotUndoableStateChangingCommand extends Command {
     public void undo() {
         assert false;
         setLastOperationStatus(false, false, "Cannot undo");
-        //FIXME handle delete history
+        // handle delete history
     }
     
     @Override
     public void redo() {
         assert false;
         setLastOperationStatus(false, false, "Cannot redo");
-        //FIXME handle delete history
+        // handle delete history
     }
 }

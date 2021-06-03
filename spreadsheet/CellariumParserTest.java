@@ -284,23 +284,4 @@ public class CellariumParserTest {
         assertFalse(parser.getCellFromParsedReference() instanceof Cell);
     }
     
-    
-    
-    /**
-    @Test 
-    public void testCellariumParser3() {
-        // setup
-        final Spreadsheet s = new Spreadsheet();
-        final Parser parser = new CellariumParser(s);
-        
-        // test input
-        final String sourceCode = "= $A1 $A2";
-        // code under test
-        final Node actualRoot = parser.parse(sourceCode);
-        // expected tree
-        final Node expectedRoot = new Text(sourceCode);
-        // assertion
-        assertEquals(expectedRoot.toString(), actualRoot.toString());
-    }
-    */
 }
