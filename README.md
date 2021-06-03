@@ -108,9 +108,9 @@ No matter capitalization.
 | `CLEAR` | To clear the spreadsheet |
 | `UNDO` | Undos the last command |
 | `REDO` | Redos the last undone command |
-| `SAVE NameOfTheFile` | Saves the spreadsheet in the current directory with the given name, as a `.cellarium` file |
+| `SAVE NameOfTheFile` | Saves the spreadsheet in the given directory with the given name, as a `.cellarium` file |
 | `OPEN path` | Imports a given `.cellarium` file in Cellarium |
-| `EXPORT NameOfTheFile` | Saves the spreadsheet in the current directory with the given name, as a `.csv` file |
+| `EXPORT NameOfTheFile` | Saves the spreadsheet in the given directory with the given name, as a `.csv` file |
 | `IMPORT path` | Imports a given `.csv` file in Cellarium |
 | `EXIT` | Closes the programm |
 | `HELP` | To open Help terminal with the commands |
@@ -158,11 +158,15 @@ you can change the scale as you prefer.
 ### Controll the GUI
 Select a cell and edit it.
 
-You can edit a cell by selecting the cell with the mouse or you can select a cell and than edit the formula in the execution bar at top of the window.
+You can edit a cell by selecting the cell with the mouse and writing the formula directly in it. 
+
+Another way is to control the spreadsheet directly from the expression bar. Here you can also run the [commands](#controll-tui) similar to the ones of the TUI.
 
 Use scrollbars to move the Spreadsheet.
 
 Use the menu bar to use some additional features.
+
+
 
 &nbsp;
 
@@ -171,11 +175,12 @@ Use the menu bar to use some additional features.
 | `CLEAR ALL` | ALT + X | To clear the entire spreadsheet |
 | `UNDO` | CTRL + Z | Undos the last command |
 | `REDO` | CTRL + Y |Redos the last undone command |
-| `SAVE` | CTRL + S | Saves the spreadsheet in the current directory with the given name, as a `.cellarium` file |
+| `SAVE` | CTRL + S | Saves the spreadsheet in the given directory with the given name, as a `.cellarium` file |
 | `OPEN` | CTRL + O |Imports a given `.cellarium` file in Cellarium |
-| `EXPORT` | CTRL + E |Saves the spreadsheet in the current directory with the given name, as a `.csv` file |
+| `EXPORT` | CTRL + E |Saves the spreadsheet in the given directory with the given name, as a `.csv` file |
 | `IMPORT` | CTRL + I | Imports a given `.csv` file in Cellarium |
 | `QUIT` | CTRL + Q | Closes the programm |
+| `ABOUT` | CTRL + H | Shows iformation about Cellarium |
 
 &nbsp;
 
