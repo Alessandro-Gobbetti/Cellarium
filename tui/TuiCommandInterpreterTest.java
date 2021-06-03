@@ -72,8 +72,8 @@ public class TuiCommandInterpreterTest {
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
         interpreter.parseAndExecute("SET C3 8", spreadsheet);
         interpreter.parseAndExecute("SET A1 = C1 + C3", spreadsheet);
-        //final int colC = CellReference.fromAlpha26("C");
-        //final int colA = CellReference.fromAlpha26("A");
+        interpreter.parseAndExecute("SET A1 = hello", spreadsheet);
+        interpreter.parseAndExecute("Hi!", spreadsheet);
         final Cell cellC1 = spreadsheet.getOrCreate(0, 2);
         final Cell cellC3 = spreadsheet.getOrCreate(2, 2);
         final Cell cellA1 = spreadsheet.getOrCreate(0, 0);
@@ -84,18 +84,26 @@ public class TuiCommandInterpreterTest {
         assertEquals(8.0, valueC3, 0.0);
         assertEquals(13.0, valueA1, 0.0);
         interpreter.parseAndExecute("CLEAR C3", spreadsheet);
+        interpreter.parseAndExecute("undo", spreadsheet);
+        interpreter.parseAndExecute("redo", spreadsheet);
+        interpreter.parseAndExecute("CLEAR", spreadsheet);
+        interpreter.parseAndExecute("undo", spreadsheet);
+        interpreter.parseAndExecute("redo", spreadsheet);
+        interpreter.parseAndExecute("CLEAR C3", spreadsheet);
+        interpreter.parseAndExecute("CLEAR C0", spreadsheet);
         final Cell cell2C3 = spreadsheet.getOrCreate(2, 2);
         final Cell cell2A1 = spreadsheet.getOrCreate(0, 0);
         final double value2C3 = cell2C3.eval().asNumber();
         final double value2A1 = cell2A1.eval().asNumber();
         assertEquals(0.0, value2C3, 0.0);
-        assertEquals(5.0, value2A1, 0.0);
+        assertEquals(0.0, value2A1, 0.0);
     }
     
     @Test
     public void testSetHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandSetFactory command = new TuiCommandSetFactory();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         String errorMessage = command.helpShort();
         String expectedMessage = "Set the value of a cell";
         assertEquals(expectedMessage, errorMessage);
@@ -107,6 +115,9 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command set = command.getCommand("SET A1 9", spreadsheet);
         assertEquals("Set", set.getName());
+        interpreter.parseAndExecute("HELP", spreadsheet);
+        interpreter.parseAndExecute("HELP hello", spreadsheet);
+        interpreter.parseAndExecute("HELP SET", spreadsheet);
     }
     
     @Test
@@ -129,16 +140,24 @@ public class TuiCommandInterpreterTest {
     public void HelpSaveTest() {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandSaveFactory command = new TuiCommandSaveFactory();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         String errorMessage = command.helpShort();
         String expectedMessage = "Save the spreadsheet ";
         assertEquals(expectedMessage, errorMessage);
         String longErrorMessage = command.helpLong("SAVE");
         String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet as csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        interpreter.parseAndExecute("SET B2 hello", spreadsheet);
+        interpreter.parseAndExecute("Save", spreadsheet);
+        interpreter.parseAndExecute("Save test", spreadsheet);
+        interpreter.parseAndExecute("Save test/test", spreadsheet);
     }
     
     public void testOpenHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
+        interpreter.parseAndExecute("OPEN t", spreadsheet);
+        interpreter.parseAndExecute("OPEN test.cellarium", spreadsheet);
         final TuiCommandOpenFactory command = new TuiCommandOpenFactory();
         String errorMessage = command.helpShort();
         String expectedMessage = "Open a spreadsheet ";
@@ -151,6 +170,7 @@ public class TuiCommandInterpreterTest {
     @Test
     public void testExitHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         final TuiCommandExitFactory command = new TuiCommandExitFactory();
         String errorMessage = command.helpShort();
         String expectedMessage = "quit Cellarium";
@@ -161,6 +181,7 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command exit = command.getCommand("EXIT", spreadsheet);
         assertEquals("Exit", exit.getName());
+        interpreter.parseAndExecute("exit", spreadsheet);
     }
     
     @Test
@@ -178,6 +199,11 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command help = command.getCommand("HELP", spreadsheet);
         assertEquals("Help", help.getName());
+        interpreter.parseAndExecute("SET F4 3", spreadsheet);
+        interpreter.parseAndExecute("print", spreadsheet);
+        interpreter.parseAndExecute("print A0", spreadsheet);
+        interpreter.parseAndExecute("print A1", spreadsheet);
+        interpreter.parseAndExecute("print A1)", spreadsheet);
     }
     
     @Test
@@ -210,11 +236,22 @@ public class TuiCommandInterpreterTest {
         //GetName
         final Command history = command.getCommand("HISTORY", spreadsheet);
         assertEquals("History", history.getName());
+        interpreter.parseAndExecute("HISTORY", spreadsheet);
+        interpreter.parseAndExecute("SET A1 1", spreadsheet);
+        interpreter.parseAndExecute("HISTORY", spreadsheet);
+        interpreter.parseAndExecute("undo", spreadsheet);
+        interpreter.parseAndExecute("HISTORY", spreadsheet);
+        interpreter.parseAndExecute("redo", spreadsheet);
+        interpreter.parseAndExecute("SET A1 hello!", spreadsheet);
+        interpreter.parseAndExecute("SET hello!", spreadsheet);
+        interpreter.parseAndExecute("SET A0 = 1", spreadsheet);
+        interpreter.parseAndExecute("undo", spreadsheet);
     }
 
     @Test
     public void testExportHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         final TuiCommandExportFactory command = new TuiCommandExportFactory();
         String errorMessage = command.helpShort();
         String expectedMessage = "Export the spreadsheet ";
@@ -222,11 +259,16 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("EXPORT");
         String expectedLongMessage = "EXPORT FILE-PATH: export the spreadsheet in csv into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        interpreter.parseAndExecute("SET B2 hello", spreadsheet);
+        interpreter.parseAndExecute("Export", spreadsheet);
+        interpreter.parseAndExecute("Export test", spreadsheet);
+        interpreter.parseAndExecute("Export test/test", spreadsheet);
     }
     
     @Test
     public void testImportHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
+        final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         final TuiCommandImportFactory command = new TuiCommandImportFactory();
         String errorMessage = command.helpShort();
         String expectedMessage = "Import a spreadsheet ";
@@ -234,6 +276,9 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("IMPORT");
         String expectedLongMessage = "IMPORT FILE-PATH: import the spreadsheet from a csv file.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        interpreter.parseAndExecute("Import", spreadsheet);
+        interpreter.parseAndExecute("Import test.csv", spreadsheet);
+        interpreter.parseAndExecute("Import test/test.csv", spreadsheet);
     }
     
     @Test
