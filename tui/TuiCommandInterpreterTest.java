@@ -133,20 +133,20 @@ public class TuiCommandInterpreterTest {
     @Test
     public void HelpSaveTest() {
         final Spreadsheet spreadsheet = new Spreadsheet();
-        final TuiCommandSaveFactory command = new TuiCommandSaveFactory();
+        final TuiCommandSaveOrExportFactory command = new TuiCommandSaveOrExportFactory(true);
         final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         String errorMessage = command.helpShort();
         String expectedMessage = "Save the spreadsheet ";
         assertEquals(expectedMessage, errorMessage);
         String longErrorMessage = command.helpLong("SAVE");
-        String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet as csv into the given directory.";
+        String expectedLongMessage = "SAVE FILE-PATH: save the spreadsheet as a cellarium file into the given directory.";
         assertEquals(expectedLongMessage, longErrorMessage);
         interpreter.parseAndExecute("SET B2 hello", spreadsheet);
     }
     
     public void testOpenHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
-        final TuiCommandOpenFactory command = new TuiCommandOpenFactory();
+        final TuiCommandOpenOrImportFactory command = new TuiCommandOpenOrImportFactory(false);
         String errorMessage = command.helpShort();
         String expectedMessage = "Open a spreadsheet ";
         assertEquals(expectedMessage, errorMessage);
@@ -225,7 +225,7 @@ public class TuiCommandInterpreterTest {
     public void testExportHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
-        final TuiCommandExportFactory command = new TuiCommandExportFactory();
+        final TuiCommandSaveOrExportFactory command = new TuiCommandSaveOrExportFactory(false);
         String errorMessage = command.helpShort();
         String expectedMessage = "Export the spreadsheet ";
         assertEquals(expectedMessage, errorMessage);
@@ -238,7 +238,7 @@ public class TuiCommandInterpreterTest {
     public void testImportHelp() {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
-        final TuiCommandImportFactory command = new TuiCommandImportFactory();
+        final TuiCommandOpenOrImportFactory command = new TuiCommandOpenOrImportFactory(false);
         String errorMessage = command.helpShort();
         String expectedMessage = "Import a spreadsheet ";
         assertEquals(expectedMessage, errorMessage);

@@ -32,10 +32,10 @@ public class TuiCommandInterpreter {
                 put("SET", new TuiCommandSetFactory());
                 put("PRINT", new TuiCommandPrintFactory());
                 put("CLEAR", new TuiCommandClearFactory());
-                put("SAVE", new TuiCommandSaveFactory());
-                put("OPEN", new TuiCommandOpenFactory());
-                put("IMPORT", new TuiCommandImportFactory());
-                put("EXPORT", new TuiCommandExportFactory());
+                put("SAVE", new TuiCommandSaveOrExportFactory(true));
+                put("OPEN", new TuiCommandOpenOrImportFactory(true));
+                put("IMPORT", new TuiCommandOpenOrImportFactory(false));
+                put("EXPORT", new TuiCommandSaveOrExportFactory(false));
                 put("UNDO", new TuiCommandUndoFactory());
                 put("REDO", new TuiCommandRedoFactory());
                 put("EXIT", new TuiCommandExitFactory());
@@ -67,10 +67,8 @@ public class TuiCommandInterpreter {
             commandProcessor.doCommand(command);
             if (!commandProcessor.wasLastOperationSuccessful()) {
                 System.out.println(commandProcessor.getLastOperationMessage());
-            } else if (commandFactory instanceof TuiCommandSaveFactory
-                       || commandFactory instanceof TuiCommandOpenFactory
-                       || commandFactory instanceof TuiCommandImportFactory
-                       || commandFactory instanceof TuiCommandExportFactory) {
+            } else if (commandFactory instanceof TuiCommandSaveOrExportFactory
+                       || commandFactory instanceof TuiCommandOpenOrImportFactory) {
                 System.out.println("Done!");
             }
         }

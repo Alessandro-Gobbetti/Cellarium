@@ -55,178 +55,171 @@ public class MenuBar extends JMenuBar {
         //Creation of single files
         final JMenu fileMenu = new JMenu("File");
         add(fileMenu);
-        addNewMenuItem(fileMenu);
-        addOpenMenuItem(fileMenu);
-        addSaveMenuItem(fileMenu);
-        addImportMenuItem(fileMenu);
-        addExportMenuItem(fileMenu);
-        addQuitMenuItem(fileMenu);
+        addMenuItem(fileMenu, "New...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK),
+                    actionNew());
+        addMenuItem(fileMenu, "Open...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK),
+                    actionOpen());
+        addMenuItem(fileMenu, "Save...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK),
+                    actionSave());
+        addMenuItem(fileMenu,
+                    "Import...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK),
+                    actionImport());
+        addMenuItem(fileMenu,
+                    "Export...",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK),
+                    actionExport());
+        addMenuItem(fileMenu, "Quit",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK),
+                    actionQuit());
         
         final JMenu editMenu = new JMenu("Edit");
         add(editMenu);
-        addUndoMenuItem(editMenu);
-        addRedoMenuItem(editMenu);
-        addClearMenuItem(editMenu);
+        addMenuItem(editMenu,
+                    "Undo",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK),
+                    actionUndo());
+        addMenuItem(editMenu,
+                    "Redo",
+                    KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK),
+                    actionRedo());
+        addMenuItem(editMenu,"Clear All", 
+                    KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK),
+                    actionClear());
         
         final JMenu helpMenu = new JMenu("Help");
         add(helpMenu);
-        addAboutMenuItem(helpMenu);
+        addMenuItem(helpMenu,"About..", 
+                    KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK),
+                    actionAbout());
     }
     
+    
     /**
-     * to add NEW item to a menu.
-     * @param menu the menu
+     * Action for creating a new empty spreadsheet.
+     * @return the action for new.
      */
-    private void addNewMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
+    private ActionListener actionNew() {
+        return new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("CLEAR", spreadsheetView);
                 fileChooser.saveFileDialog(interpreter, spreadsheetView);
             }
         };
-        addMenuItem(menu,
-                    "New...",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add OPEN item to a menu.
-     * @param menu the menu
+     * Action to open a file.
+     * @return the action for open.
      */
-    private void addOpenMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
+    private ActionListener actionOpen() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 fileChooser.openFileDialog(interpreter, spreadsheetView);
             }
         };
-        addMenuItem(menu, "Open...",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add SAVE item to a menu.
-     * @param menu the menu
+     * Action to save a file.
+     * @return the action for save.
      */
-    private void addSaveMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
+    private ActionListener actionSave() {
+        return new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 fileChooser.saveFileDialog(interpreter, spreadsheetView);
             }
         };
-        addMenuItem(menu, "Save...",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add IMPORT item to a menu.
-     * @param menu the menu
+     * Action to import a file.
+     * @return the action for import.
      */
-    private void addImportMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
+    private ActionListener actionImport() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 fileChooser.importFileDialog(interpreter, spreadsheetView);
             }
         };
-        addMenuItem(menu,
-                    "Import...",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add EXPORT item to a menu.
-     * @param menu the menu
+     * Action to export a file.
+     * @return the action for export.
      */
-    private void addExportMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
+    private ActionListener actionExport() {
+        return new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 fileChooser.exportFileDialog(interpreter, spreadsheetView);
             }
         };
-        addMenuItem(menu,
-                    "Export...",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add QUIT item to a menu.
-     * @param menu the menu
+     * Action to quit the program.
+     * @return the action for quit.
      */
-    private void addQuitMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent event) { 
+    private ActionListener actionQuit() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 System.exit(0);
             }
         };
-        addMenuItem(menu, "Quit",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add UNDO item to a menu.
-     * @param menu the menu
+     * Action to undo last command.
+     * @return the action for undo.
      */
-    private void addUndoMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
+    private ActionListener actionUndo() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("UNDO", spreadsheetView);
             }
         };
-        addMenuItem(menu,
-                    "Undo",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add REDO item to a menu.
-     * @param menu the menu
+     * Action to redo last command.
+     * @return the action for redo.
      */
-    private void addRedoMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
+    private ActionListener actionRedo() {
+        return new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("REDO", spreadsheetView);
             }
         };
-        addMenuItem(menu,
-                    "Redo",
-                    KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
-     * to add CLEAR item to a menu.
-     * @param menu the menu
+     * Action to clear the spreadsheet.
+     * @return the action for clear.
      */
-    private void addClearMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
+    private ActionListener actionClear() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 interpreter.parseAndExecute("CLEAR", spreadsheetView);
             }
         };
-        addMenuItem(menu,"Clear All", 
-                    KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK),
-                    action);
     }
     
     /**
-     * to add ABOUT item to a menu.
-     * @param menu the menu
+     * Action to open an about window.
+     * @return the action for about.
      */
-    private void addAboutMenuItem(final JMenu menu) {
-        final ActionListener action = new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
+    private ActionListener actionAbout() {
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent event) {
                 final JFrame frame = new JFrame("About Cellarium");
                 final JPanel mainPanel = new JPanel();
                 mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
                 
-                JLabel picLabel = new JLabel();
-                ImageIcon imageIcon = new ImageIcon(
+                final JLabel picLabel = new JLabel();
+                final ImageIcon imageIcon = new ImageIcon(
                     new ImageIcon(
                         "gui/../CellariumIcon.png").getImage().getScaledInstance(
                             200, 200, Image.SCALE_DEFAULT));
@@ -242,9 +235,6 @@ public class MenuBar extends JMenuBar {
                 frame.setVisible(true);
             }
         };
-        addMenuItem(menu,"About..", 
-                    KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK),
-                    action);
     }
     
     /**
