@@ -17,7 +17,7 @@ import javax.swing.SpringLayout;
 /**
  * The Main GUI class.
  *
- * @author Alessandro Gobbetti && Laurenz Ebi
+ * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
  */
 public class Main {

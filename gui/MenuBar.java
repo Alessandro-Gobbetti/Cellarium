@@ -1,13 +1,23 @@
 package gui;
 
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
@@ -60,14 +70,7 @@ public class MenuBar extends JMenuBar {
         
         final JMenu helpMenu = new JMenu("Help");
         add(helpMenu);
-        
-        final JMenuItem helpItem = new JMenuItem("Cellarium Help");
-        helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK));
-        helpItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
-            }
-        });
-        helpMenu.add(helpItem);
+        addAboutMenuItem(helpMenu);
     }
     
     /**
@@ -209,6 +212,79 @@ public class MenuBar extends JMenuBar {
         addMenuItem(menu,"Clear All", 
                     KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK),
                     action);
+    }
+    
+    /**
+     * to add ABOUT item to a menu.
+     * @param menu the menu
+     */
+    private void addAboutMenuItem(final JMenu menu) {
+        final ActionListener action = new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                final JFrame frame = new JFrame("About Cellarium");
+                final JPanel mainPanel = new JPanel();
+                mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
+                
+                JLabel picLabel = new JLabel();
+                ImageIcon imageIcon = new ImageIcon(
+                    new ImageIcon(
+                        "gui/../CellariumIcon.png").getImage().getScaledInstance(
+                            200, 200, Image.SCALE_DEFAULT));
+                picLabel.setIcon(imageIcon);
+                mainPanel.add(picLabel);
+                
+                addAboutInfo(mainPanel);
+                
+                frame.add(mainPanel);
+                frame.setPreferredSize(new Dimension(700, 300));
+                frame.setResizable(false);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        };
+        addMenuItem(menu,"About..", 
+                    KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK),
+                    action);
+    }
+    
+    /**
+     * To add the about information on a panel.
+     * @param panel the panel
+     */
+    private void addAboutInfo(final JPanel panel) {
+        final JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        
+        final JTextField authorsTitle = new JTextField("Autors:");
+        authorsTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        authorsTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        authorsTitle.setEditable(false);
+        textPanel.add(authorsTitle);
+        
+        final JTextField authors = new JTextField("Alessandro Gobbetti - Laurenz Ebi");
+        authors.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        authors.setEditable(false);
+        textPanel.add(authors);
+        
+        textPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        
+        final JTextField aboutTitle = new JTextField("About Cellarium 1.0:");
+        aboutTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        aboutTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        aboutTitle.setEditable(false);
+        textPanel.add(aboutTitle);
+        
+        final JTextField messageField = new JTextField("Visit: https://github.com/usi-pf2-2021/project-cellarium");
+        messageField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        messageField.setEditable(false);
+        textPanel.add(messageField);
+        
+        final JTextField readme = new JTextField("To get some help read the README");
+        readme.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        readme.setEditable(false);
+        textPanel.add(readme);
+        
+        panel.add(textPanel);
     }
     
     // to quickly add an item to a menu.

@@ -11,10 +11,10 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
 /**
- * Write a description of class s here.
+ * To edit cells.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alessandro Gobbetti - Laurenz Ebi
+ * @version 1.0
  */
 public class SpreadsheetCellEditor extends AbstractCellEditor implements TableCellEditor {
     
