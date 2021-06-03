@@ -1,6 +1,8 @@
 package tui;
 
-import spreadsheet.*;
+import commands.Command;
+import spreadsheet.Spreadsheet;
+import spreadsheet.Cell;
 
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -21,8 +23,8 @@ public class TuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
-        final int col = CellReference.fromAlpha26("C");
-        final Cell cell = spreadsheet.getOrCreate(0, col);
+        //final int col = CellReference.fromAlpha26("C");
+        final Cell cell = spreadsheet.getOrCreate(0, 2);
         final double value = cell.eval().asNumber();
         assertEquals(5.0, value, 0.0);
     }
@@ -34,11 +36,11 @@ public class TuiCommandInterpreterTest {
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
         interpreter.parseAndExecute("SET C3 8", spreadsheet);
         interpreter.parseAndExecute("SET A1 = C1 + C3", spreadsheet);
-        final int colC = CellReference.fromAlpha26("C");
-        final int colA = CellReference.fromAlpha26("A");
-        final Cell cellC1 = spreadsheet.getOrCreate(0, colC);
-        final Cell cellC3 = spreadsheet.getOrCreate(2, colC);
-        final Cell cellA1 = spreadsheet.getOrCreate(0, colA);
+        //final int colC = CellReference.fromAlpha26("C");
+        //final int colA = CellReference.fromAlpha26("A");
+        final Cell cellC1 = spreadsheet.getOrCreate(0, 2);
+        final Cell cellC3 = spreadsheet.getOrCreate(2, 2);
+        final Cell cellA1 = spreadsheet.getOrCreate(0, 0);
         final double valueC1 = cellC1.eval().asNumber();
         final double valueC3 = cellC3.eval().asNumber();
         final double valueA1 = cellA1.eval().asNumber();
@@ -52,12 +54,12 @@ public class TuiCommandInterpreterTest {
         final Spreadsheet spreadsheet = new Spreadsheet();
         final TuiCommandInterpreter interpreter = new TuiCommandInterpreter();
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
-        final int col = CellReference.fromAlpha26("C");
-        final Cell cell1 = spreadsheet.getOrCreate(0, col);
+        //final int col = CellReference.fromAlpha26("C");
+        final Cell cell1 = spreadsheet.getOrCreate(0, 2);
         final double value1 = cell1.eval().asNumber();
         assertEquals(5.0, value1, 0.0);
         interpreter.parseAndExecute("CLEAR C1", spreadsheet);
-        final Cell cell2 = spreadsheet.getOrCreate(0, col);
+        final Cell cell2 = spreadsheet.getOrCreate(0, 2);
         final double value2 = cell2.eval().asNumber();
         assertEquals(0.0, value2, 0.0);
     }
@@ -70,11 +72,11 @@ public class TuiCommandInterpreterTest {
         interpreter.parseAndExecute("SET C1 5", spreadsheet);
         interpreter.parseAndExecute("SET C3 8", spreadsheet);
         interpreter.parseAndExecute("SET A1 = C1 + C3", spreadsheet);
-        final int colC = CellReference.fromAlpha26("C");
-        final int colA = CellReference.fromAlpha26("A");
-        final Cell cellC1 = spreadsheet.getOrCreate(0, colC);
-        final Cell cellC3 = spreadsheet.getOrCreate(2, colC);
-        final Cell cellA1 = spreadsheet.getOrCreate(0, colA);
+        //final int colC = CellReference.fromAlpha26("C");
+        //final int colA = CellReference.fromAlpha26("A");
+        final Cell cellC1 = spreadsheet.getOrCreate(0, 2);
+        final Cell cellC3 = spreadsheet.getOrCreate(2, 2);
+        final Cell cellA1 = spreadsheet.getOrCreate(0, 0);
         final double valueC1 = cellC1.eval().asNumber();
         final double valueC3 = cellC3.eval().asNumber();
         final double valueA1 = cellA1.eval().asNumber();
@@ -82,8 +84,8 @@ public class TuiCommandInterpreterTest {
         assertEquals(8.0, valueC3, 0.0);
         assertEquals(13.0, valueA1, 0.0);
         interpreter.parseAndExecute("CLEAR C3", spreadsheet);
-        final Cell cell2C3 = spreadsheet.getOrCreate(2, colC);
-        final Cell cell2A1 = spreadsheet.getOrCreate(0, colA);
+        final Cell cell2C3 = spreadsheet.getOrCreate(2, 2);
+        final Cell cell2A1 = spreadsheet.getOrCreate(0, 0);
         final double value2C3 = cell2C3.eval().asNumber();
         final double value2A1 = cell2A1.eval().asNumber();
         assertEquals(0.0, value2C3, 0.0);
@@ -102,8 +104,9 @@ public class TuiCommandInterpreterTest {
                                      + "Ex: SET A1 hello, to set the string \"hello\" as content of cell A1.\n"
                                      + "Ex: SET A1 = A2 + 3, to set A1 as the sum of the content of A1 plus 3.";
         assertEquals(expectedLongMessage, longErrorMessage);
-        //final TuiCommandSet set = command.getCommand("SET" ,spreadsheet);
-        
+        //GetName
+        final Command set = command.getCommand("SET A1 9", spreadsheet);
+        assertEquals("Set", set.getName());
     }
     
     @Test
@@ -117,6 +120,9 @@ public class TuiCommandInterpreterTest {
         String expectedLongMessage = "CLEAR: clear the entire spreadsheet.\n"
                                      + "CLEAR reference: clear the reference cell content.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        //GetName
+        final Command clear = command.getCommand("CLEAR", spreadsheet);
+        assertEquals("Clear", clear.getName());
     }
     
     @Test
@@ -152,6 +158,9 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("EXIT");
         String expectedLongMessage = "EXIT: to quit the Cellarium spreadheet.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        //GetName
+        final Command exit = command.getCommand("EXIT", spreadsheet);
+        assertEquals("Exit", exit.getName());
     }
     
     @Test
@@ -166,6 +175,9 @@ public class TuiCommandInterpreterTest {
         String expectedLongMessage = "HELP: print all the commands and a little descriction for each of them.\n"
                                       + "HELP command: print a detailed description of the command.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        //GetName
+        final Command help = command.getCommand("HELP", spreadsheet);
+        assertEquals("Help", help.getName());
     }
     
     @Test
@@ -179,6 +191,9 @@ public class TuiCommandInterpreterTest {
         String expectedLongMessage = "PRINT: print the entire spreadsheet.\n"
                                       + "PRINT reference: print the reference cell content.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        //GetName
+        final Command print = command.getCommand("PRINT", spreadsheet);
+        assertEquals("Print", print.getName());
     }
       
     @Test
@@ -192,6 +207,9 @@ public class TuiCommandInterpreterTest {
         String longErrorMessage = command.helpLong("HISTORY");
         String expectedLongMessage = "HISTORY: print all the commands executed in the past and the ones that can be reexecuted.";
         assertEquals(expectedLongMessage, longErrorMessage);
+        //GetName
+        final Command history = command.getCommand("HISTORY", spreadsheet);
+        assertEquals("History", history.getName());
     }
 
     @Test
