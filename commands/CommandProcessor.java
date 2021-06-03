@@ -3,7 +3,8 @@ package commands;
 import java.util.ArrayList;
 
 /**
- * Write a description of class CommandProcessor here.
+ * Command processor to process the commands.
+ * This is class the class that execute commands, undo and redo.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0

@@ -38,7 +38,8 @@ public class InputOutputHelper {
     public static void generateCsvFile(final String pathFileName, final Spreadsheet spreadsheet) {
         try {
             // removing any file extension and adding .csv 
-            final String fileName = (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".csv";
+            final String fileName =
+                (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".csv";
             final FileWriter writer = new FileWriter(fileName);
             for (int row = 0; row <= spreadsheet.getMaxUsedCellRow(); row++) {
                 for (int col = 0; col <= spreadsheet.getMaxUsedCellCol(); col++) {
@@ -71,7 +72,8 @@ public class InputOutputHelper {
     public static void save(final String pathFileName, final Spreadsheet spreadsheet) {
         try {
             // removing any file extension and adding .csv 
-            final String fileName = (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".cellarium";
+            final String fileName =
+                (pathFileName + ".").substring(0, (pathFileName + ".").indexOf('.')) + ".cellarium";
             final FileWriter writer = new FileWriter(fileName);
             final HashMap<Integer,Cell> cellMap = spreadsheet.getCellMap();
             for (final int index : cellMap.keySet()) {

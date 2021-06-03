@@ -1,11 +1,11 @@
 package tui;
 
 import commands.Command;
-import spreadsheet.Spreadsheet;
 import io.CommandOpenOrImport;
+import spreadsheet.Spreadsheet;
 
 /**
- * To create an Open command.
+ * To create an Import command.
  *
  * @author Alessandro Gobbetti - Laurenz Ebi
  * @version 1.0
